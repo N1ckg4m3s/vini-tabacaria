@@ -1,3 +1,5 @@
+import NavBarComponent from "@/components/NavbarComponent/component";
+import '@style/globalStyleCss.css'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -24,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <NavBarComponent />
         {children}
       </body>
     </html>

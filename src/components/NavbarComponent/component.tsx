@@ -48,18 +48,18 @@ const NavBarComponent = () => {
             <s.RedirectContainer>
                 <Logo />
                 <s.LinksContainer>
-                    <s.MenuIcon onClick={() => handleBotoesDrawer(true)} >
+                    <s.MenuIcon type='button' onClick={() => handleBotoesDrawer(true)} >
                         <Menu />
                     </s.MenuIcon>
-                    <s.LinksGroup showdrawer={drawerAberto ? "true" : 'false'}>
+                    <s.LinksGroup $showdrawer={drawerAberto ? "true" : 'false'}>
                         <s.CloseButton onClick={() => handleBotoesDrawer(false)}>X</s.CloseButton>
-                        <s.LinkStyle href='/catalogo?filtro=essencias' nodrawer='true' onClick={() => handleBotoesDrawer(false)}>
+                        <s.LinkStyle href='/catalogo?filtro=essencias' $nodrawer='true' onClick={() => handleBotoesDrawer(false)}>
                             ESSENCIA
                         </s.LinkStyle>
-                        <s.LinkStyle href='/catalogo?filtro=carvaoaluminio' nodrawer='true' onClick={() => handleBotoesDrawer(false)}>
+                        <s.LinkStyle href='/catalogo?filtro=carvaoaluminio' $nodrawer='true' onClick={() => handleBotoesDrawer(false)}>
                             CARVAO e ALUMINIO
                         </s.LinkStyle>
-                        <s.LinkStyle href='/catalogo?filtro=acessorio' nodrawer='true' onClick={() => handleBotoesDrawer(false)}>
+                        <s.LinkStyle href='/catalogo?filtro=acessorio' $nodrawer='true' onClick={() => handleBotoesDrawer(false)}>
                             ACESSORIO
                         </s.LinkStyle>
                     </s.LinksGroup>

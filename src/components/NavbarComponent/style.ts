@@ -25,7 +25,7 @@ export const LinksContainer = styled.div`
     gap: 20px;
 `
 
-export const LinkStyle = styled(Link) <{ nodrawer?: string }>`
+export const LinkStyle = styled(Link) <{ $nodrawer?: string }>`
   color: ${Theme.colors.Texto.cinzaClaro};
   text-decoration: none;
   display: flex;
@@ -33,8 +33,8 @@ export const LinkStyle = styled(Link) <{ nodrawer?: string }>`
   justify-content: center;
   cursor: pointer;
 
-  ${({ nodrawer }) =>
-        nodrawer == "true" &&
+  ${({ $nodrawer }) =>
+        $nodrawer == "true" &&
         css`
             @media screen and (max-width: 750px) {
                 width: 100%;
@@ -49,12 +49,12 @@ export const LinkStyle = styled(Link) <{ nodrawer?: string }>`
 `;
 
 /* RESPONSIVIDADE */
-export const LinksGroup = styled.div<{ showdrawer: string }>`
+export const LinksGroup = styled.div<{ $showdrawer: string }>`
     ${flexCenter};
     gap: 20px;
 
     @media screen and (max-width: 750px) {
-        display: ${({ showdrawer }) => (showdrawer === "true" ? "flex" : "none")};
+        display: ${({ $showdrawer }) => ($showdrawer === "true" ? "flex" : "none")};
         position: absolute;
         min-width: 380px;
         width: 25vw;
@@ -64,7 +64,7 @@ export const LinksGroup = styled.div<{ showdrawer: string }>`
         flex-direction: column;
         justify-content: start;
         background-color: ${Theme.colors.Fundo.cinzaEscuro_c9};
-        z-index: 1;
+        z-index: 10;
         padding: clamp(20px, 5vw, 50px) clamp(20px, 5vw, 50px);
     }
 `

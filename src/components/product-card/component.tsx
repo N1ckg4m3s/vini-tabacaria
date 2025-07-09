@@ -45,7 +45,7 @@ const ProductCard: React.FC<props> = ({ small }) => {
         </s.CardContainerIndicadorNoCarrinho>
         <s.CardImageContainer>
             <s.CardImage src={'/assets/NoImageAvaliable.png'} alt='Imagem do produto' />
-            <s.CardValue>#,##$</s.CardValue>
+            <s.CardValue>##,##$</s.CardValue>
         </s.CardImageContainer>
         <s.CardTitle>ZIGGY MIX</s.CardTitle>
         <s.CardEspecificacao>Morango e laranja</s.CardEspecificacao>

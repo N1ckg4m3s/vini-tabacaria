@@ -8,9 +8,7 @@ Padrão para organizar e categorizar commits de forma clara e rastreável.
 
 [TAG] módulo: descrição resumida da alteração
 
-
 **Exemplo:**
-
 
 ---
 

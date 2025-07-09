@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
     background-color: ${Theme.colors.Fundo.cinzaEscuro};
+    width: 100%;
     max-width: 200px;
     max-height: 246px;
     border-radius: 20px;
@@ -26,10 +27,10 @@ export const CardImage = styled.img`
 `;
 
 export const CardValue = styled.p`
-    padding: 2px 15px;
+    padding: 2px 5px;
     top: 5px;
     border-radius: 20px;
-    font-weight: bold;
+    font-weight: 500;
     right: 5px;
     background-color: ${Theme.colors.Fundo.cinzaEscuro};
     color: ${Theme.colors.Texto.white};
@@ -37,14 +38,14 @@ export const CardValue = styled.p`
 `;
 
 export const CardTitle = styled.p`
-    font-size: 20px;
+    font-size: clamp(10px, 100%, 20px);
     font-weight: bold;
     text-align: center;
     color: ${Theme.colors.Texto.white};
 `;
 
 export const CardEspecificacao = styled.p`
-    font-size: 12px;
+    font-size: clamp(8px, 100%, 12px);
     text-align: center;
     color: ${Theme.colors.Texto.white};
 `;

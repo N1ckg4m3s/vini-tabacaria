@@ -3,7 +3,11 @@ import '@style/globalStyleCss.css'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'], // adicione os pesos usados
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",

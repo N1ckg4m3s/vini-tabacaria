@@ -18,7 +18,6 @@ import { useEffect, useRef, useState } from "react";
  *      - tamanho
  *      - * alguma espeficicação * 
 */
-
 const CatalogoComponent = () => {
     /* Referencia o container para ajusta a quantidade com base na tela */
     const containerRef = useRef<HTMLDivElement>(null)

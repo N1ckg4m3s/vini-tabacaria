@@ -19,15 +19,33 @@ const ContainerPagina = styled.article`
  * - Organização dos componentes
 */
 const Catalogo = () => {
-    const { filtro, _search } = useParams();
+    /**
+     * Parametros passados pela URL
+     * 
+     * filtro: identificador de esoecificação do produto:
+     *  - Essencia
+     *  - Carvão e Aluminio
+     *  - Acessorio
+     * 
+     * search: Pesquisa atual do usuario.
+    */
+    const { filtro, search } = useParams();
 
     return (
-        <ContainerPagina>
-            <FiltroCatalogoComponent
-                filter={(filtro ?? '').toString()}
-            />
-            <CatalogoComponent />
-        </ContainerPagina>
+        <>
+            {/* <Head>
+                <title>Catalogo</title>
+                <meta name="description" content={`Catalogo de produtos Sem filtragem`} />
+                <meta property="og:title" content={`Catalogo de produtos sem filtragem`} />
+                <meta property="og:description" content={`Veja todos os produtos com base em pesquisa ou filtragem.`} />
+            </Head> */}
+            <ContainerPagina>
+                <FiltroCatalogoComponent
+                    filter={(filtro ?? '').toString()}
+                />
+                <CatalogoComponent />
+            </ContainerPagina>
+        </>
     );
 };
 

@@ -27,6 +27,13 @@ const CatalogoComponent = () => {
     const numeroDeLinhas: number = 5;
 
     useEffect(() => {
+
+        /**
+         * Atualiza a quantidade de itens na tela com base no espaço que tem
+         * mantendo sempre a quantidade certa para cada tela
+         * 
+         * A quantidade de linhas esta sendo definido para 5  
+        */
         const handleResize = () => {
             if (containerRef.current) {
                 const actualWidth: number = containerRef.current.clientWidth;
@@ -38,6 +45,15 @@ const CatalogoComponent = () => {
                 setNumeroDeColunas(numeroDeColunas)
             }
         };
+
+        /**
+         * Cria um evento para que toda vez que a tela sofrer alguma atualização de largura
+         * 
+         * o sistema deve atualizar a quantidade com base no novo tamanho de tela
+         * 
+         * Os dados só serao pedidos caso tenha aumentado a quantidade
+         *  fora isso vai estar em cache até atualização da tela ou mudança de pagina.
+        */
         window.addEventListener('resize', handleResize);
         handleResize();
         return () => {
@@ -45,6 +61,9 @@ const CatalogoComponent = () => {
         };
     }, []);
 
+    /**
+     * Atualmente o retorno esta sendo um dado de MOCK com a quantidade de itens que vai estar a mostra na tela
+    */
     return (
         <s.CatalogoContainer ref={containerRef}>
             {

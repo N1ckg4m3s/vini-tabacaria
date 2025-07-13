@@ -7,6 +7,15 @@ interface props {
     onChange: () => void;
 }
 
+/**
+ * Componente de checkbox para indicação do que o filtro deve mostrar.
+ * @param {string} titulo - Titolo do item
+ * @param {boolean} ativo - Estado atual do Check
+ * @param {Function} onChange - CallBack para quando alterado o estado 
+ *
+ * @component
+ * @returns {JSX.Element}
+*/
 const FiltroCheckBoxItem: React.FC<props> = ({ titulo, ativo, onChange }) => (
     <s.CheckboxWrapper>
         <s.Checkbox type="checkbox" checked={ativo} onChange={onChange} />

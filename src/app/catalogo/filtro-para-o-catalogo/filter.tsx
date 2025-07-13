@@ -35,8 +35,10 @@ interface props {
 }
 
 const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
+    /* Dados para manter o filtro atualizado e atualiar o conteudo com base nele */
     const [filtros, setFiltros] = useState<Filtro[]>([])
 
+    /* UseEffect para obter da API os valores do filtro */
     useEffect(() => {
         if (filter) {
             // Chama a api para obter os dados possiveis para o filtro
@@ -44,6 +46,12 @@ const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
         }
     }, [filter])
 
+    /**
+     * Atualiza o Estado do filtro alterado.
+     * 
+     * @param {number} secaoIndex - id da sessão que esta o valor 
+     * @param {string} key - filtro que vai ser invertido o estado
+    */
     const handleCheckboxChange = (secaoIndex: number, key: string) => {
         setFiltros((prev) => {
             const updated = [...prev];
@@ -58,6 +66,12 @@ const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
         });
     };
 
+    /**
+     * Manipula o envio do formulário filtragem.
+     * Evita recarregamento da página, gera um texto com todos os valores positivos do filtro.
+     * 
+     * @param {FormEvent<HTMLFormElement>} event - Evento. 
+     */
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const selecionados = filtros.map((filtro) => ({

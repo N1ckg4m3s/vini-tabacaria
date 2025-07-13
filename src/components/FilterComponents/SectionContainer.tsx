@@ -11,6 +11,16 @@ interface props {
     onChange: (sectionIndex: number, key: string) => void;
 }
 
+/**
+ * Componente para agrupar todo as opções do filtro especifico
+ * @param {string} titulo - Titolo do item
+ * @param {FiltroOpcoes} opcoes - Opcoes de dentro do filtro
+ * @param {number} sectionIndex - index da sessão do filtro
+ * @param {Function} onChange - CallBack para quando alterado o estado 
+ *
+ * @component
+ * @returns {JSX.Element}
+*/
 const FiltroSectionComponent: React.FC<props> = ({ titulo, opcoes, sectionIndex, onChange }) => (
     <s.FilterSection>
         <s.FilterTitle>{titulo}</s.FilterTitle>

@@ -32,9 +32,9 @@
       "@style/*": [
         "./src/styles/*"
       ],
-      // "@assets/*": [
-      //   "./src/assets/*"
-      // ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
       // "@controller/*": [
       //   "./src/controllers/*"
       // ]

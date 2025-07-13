@@ -19,7 +19,7 @@ const ContainerPagina = styled.article`
  * - Organização dos componentes
 */
 const Catalogo = () => {
-    const { filtro, search } = useParams();
+    const { filtro, _search } = useParams();
 
     return (
         <ContainerPagina>

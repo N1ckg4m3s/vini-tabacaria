@@ -15,7 +15,7 @@ import Link from 'next/link';
     }
 */
 
-export default () => {
+const ErrorPage = () => {
     return (
         <div>
             <h1>404 - Página Não Encontrada</h1>
@@ -27,4 +27,7 @@ export default () => {
             </Link>
         </div>
     );
-};
+
+}
+
+export default ErrorPage;

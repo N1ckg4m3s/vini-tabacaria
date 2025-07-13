@@ -2,6 +2,7 @@
 import { FormEvent, useEffect, useState } from 'react'
 import * as s from './style'
 import FiltroSectionComponent from '@/components/FilterComponents/SectionContainer';
+// import { apiCaller } from '@/controller/apiCaller';
 /**
  * Essa pagina exibe o filtro para o catalogo, incluindo:
  * o filtro é customizavel para cada tipo de procura, sendo:
@@ -34,36 +35,14 @@ interface props {
 }
 
 const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
-    const [filtros, setFiltros] = useState<Filtro[]>([
-        {
-            titulo: 'Opções 1',
-            opcoes: { op1: true, op2: true, op3: true },
-        },
-        {
-            titulo: 'Opções 2',
-            opcoes: { op1: true, op2: true, op3: true },
-        },
-        {
-            titulo: 'Opções 3',
-            opcoes: { op1: true, op2: true, op3: true },
-        }
-    ])
+    const [filtros, setFiltros] = useState<Filtro[]>([])
 
     useEffect(() => {
-        const callApi = async () => {
-            const req = await fetch('', {
-                method: 'GET'
-            })
-            const returnData = await req.json();
-
-            console.log(returnData)
+        if (filter) {
+            // Chama a api para obter os dados possiveis para o filtro
+            // apiCaller()
         }
-
-        console.log(filter)
-
-        // Chama a api para obter os dados possiveis para o filtro
-        // callApi()
-    }, [])
+    }, [filter])
 
     const handleCheckboxChange = (secaoIndex: number, key: string) => {
         setFiltros((prev) => {
@@ -87,7 +66,7 @@ const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
                 .filter(([_, checked]) => checked)
                 .map(([key]) => key),
         }));
-        console.log('Filtros aplicados:', selecionados);
+        console.log(selecionados)
     };
 
     return (

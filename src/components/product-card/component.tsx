@@ -3,9 +3,6 @@ import { useRouter } from 'next/navigation';
 import * as s from './style';
 import Cart from '@/assets/SmallCart.svg'
 
-interface props {
-    small?: boolean
-}
 
 /**
  * Componente de card de produto.
@@ -19,12 +16,11 @@ interface props {
  * - Future:
  *  Adicionar os dados do produto real, atualmente teste
  * 
- * @param {boolean} small -- indica se o card deve ser no tamanho reduzido
  * 
  * @component
  * @returns {JSX.Element}
 */
-const ProductCard: React.FC<props> = ({ small }) => {
+const ProductCard = () => {
     /* Roteador para mudar de tela */
     const router = useRouter();
 

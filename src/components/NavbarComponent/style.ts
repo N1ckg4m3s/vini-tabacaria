@@ -34,7 +34,7 @@ export const LinkStyle = styled(Link) <{ $nodrawer?: string }>`
   cursor: pointer;
 
   ${({ $nodrawer }) =>
-        $nodrawer == "true" &&
+        $nodrawer === "true" &&
         css`
             @media screen and (max-width: 750px) {
                 width: 100%;

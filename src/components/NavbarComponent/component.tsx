@@ -9,11 +9,6 @@ import { useSearchParams, useRouter, ReadonlyURLSearchParams } from 'next/naviga
 import GenerateLink from './linkComponent'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
-interface linkProps {
-    filtro: string,
-    titulo: string
-}
-
 /**
  * Componente de navegação principal do site.
  * Contém links para categorias, logo e barra de pesquisa.

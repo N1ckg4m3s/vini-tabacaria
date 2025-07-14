@@ -3,6 +3,10 @@ import { useRouter } from 'next/navigation';
 import * as s from './style';
 import Cart from '@/assets/SmallCart.svg'
 
+interface props {
+    small?: boolean
+    noCarrinho?: boolean
+}
 
 /**
  * Componente de card de produto.
@@ -20,7 +24,7 @@ import Cart from '@/assets/SmallCart.svg'
  * @component
  * @returns {JSX.Element}
 */
-const ProductCard = () => {
+const ProductCard: React.FC<props> = ({ small, noCarrinho }) => {
     /* Roteador para mudar de tela */
     const router = useRouter();
 
@@ -32,8 +36,8 @@ const ProductCard = () => {
         router.push('/informacao-produto/[id]')
     }
 
-    return <s.CardContainer onClick={handleRedirectToProductInfo}>
-        <s.CardContainerIndicadorNoCarrinho>
+    return <s.CardContainer onClick={handleRedirectToProductInfo} $small={small ? 'sim' : ''}>
+        <s.CardContainerIndicadorNoCarrinho $noCarrinho={noCarrinho ? 'sim' : ''}>
             <Cart />
             <s.CardCarrinhoTextoIndicador>
                 no Carrinho

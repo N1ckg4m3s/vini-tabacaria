@@ -1,10 +1,10 @@
 import { Theme } from "@/styles/theme";
 import styled from "styled-components";
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<{ $small: string }>`
     background-color: ${Theme.colors.Fundo.cinzaEscuro};
     width: 100%;
-    max-width: 200px;
+    max-width: ${({ $small }) => ($small == 'sim' ? '150px' : '200px')};
     max-height: 246px;
     border-radius: 20px;
     padding: 5px;
@@ -50,9 +50,9 @@ export const CardEspecificacao = styled.p`
     color: ${Theme.colors.Texto.white};
 `;
 
-export const CardContainerIndicadorNoCarrinho = styled.div`
+export const CardContainerIndicadorNoCarrinho = styled.div<{ $noCarrinho: string }>`
     position: absolute;
-    display: flex;
+    display: ${({ $noCarrinho }) => $noCarrinho == 'sim' ? 'flex' : 'none'};
     gap: 5px;
     background-color: red;
     border-radius: 0 0 15px 0;

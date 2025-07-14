@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Theme } from './theme';
 
 export const flexCenter = css`
@@ -39,3 +39,14 @@ export const buttonReset = css`
   background-color: transparent;
   cursor: pointer;
 `;
+
+
+export const ContainerPagina = styled.article<{ $Column: boolean }>`
+    display: flex;
+    flex-direction: ${({ $Column }) => ($Column ? 'column' : 'row')};
+    max-width: 1280px;
+    margin: 0 clamp(0px, 50%, calc((100% - 1280px)/2));
+    padding: 0 16px;
+    width: 100%;
+    gap: 10px;
+`

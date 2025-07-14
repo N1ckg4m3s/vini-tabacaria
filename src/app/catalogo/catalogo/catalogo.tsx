@@ -1,4 +1,5 @@
 'use client'
+import PaginacaoComponente from '@/components/paginacao-component/component';
 import * as s from './style'
 import ProductCard from "@/components/product-card/component";
 import { useEffect, useRef, useState } from "react";
@@ -19,15 +20,22 @@ import { useEffect, useRef, useState } from "react";
  *      - * alguma espeficicação * 
 */
 const CatalogoComponent = () => {
+    /* os dados dos cards vão estar disponiveis por Redux para melhor acesso */
+
     /* Referencia o container para ajusta a quantidade com base na tela */
     const containerRef = useRef<HTMLDivElement>(null)
 
     /* Referencia a quantidade de colunas sem atualizar todo o conteudo */
     const [numeroDeColunas, setNumeroDeColunas] = useState(0);
+
+    /* Paginação */
+    const [paginaAtual, setPaginaAtual] = useState<number>(0);
+    const [paginaQuantidade, setPaginaQuantidade] = useState<number>(0);
+
     const numeroDeLinhas: number = 5;
 
+    /* useEffect para o rezise */
     useEffect(() => {
-
         /**
          * Atualiza a quantidade de itens na tela com base no espaço que tem
          * mantendo sempre a quantidade certa para cada tela
@@ -36,13 +44,19 @@ const CatalogoComponent = () => {
         */
         const handleResize = () => {
             if (containerRef.current) {
+                /* tamanho do container */
                 const actualWidth: number = containerRef.current.clientWidth;
+                /* Tamanho minimo do card */
                 const minSize: number = 150;
+                /* Espaçamento entre os cards */
                 const gapSize: number = 16;
 
-                const numeroDeColunas: number = Math.floor((actualWidth + gapSize) / (minSize + gapSize))
+                const novoNumeroDeColunas: number = Math.floor((actualWidth + gapSize) / (minSize + gapSize))
 
-                setNumeroDeColunas(numeroDeColunas)
+                /* Atualizar apenas se os valores forem diferentes evitando atualizações desnecessarias */
+                if (numeroDeColunas != novoNumeroDeColunas) {
+                    setNumeroDeColunas(novoNumeroDeColunas)
+                }
             }
         };
 
@@ -61,17 +75,29 @@ const CatalogoComponent = () => {
         };
     }, []);
 
+    /* useEffect para obter os dados visiveis na tela */
+    useEffect(() => {
+        console.log('obter a data com base na quantidade')
+    }, [paginaAtual, numeroDeColunas])
+
     /**
      * Atualmente o retorno esta sendo um dado de MOCK com a quantidade de itens que vai estar a mostra na tela
     */
     return (
-        <s.CatalogoContainer ref={containerRef}>
-            {
-                Array.from({ length: (numeroDeLinhas * numeroDeColunas) }).map((_, index) => {
-                    return <ProductCard key={`catalogItem-${index}`} />
-                })
-            }
-        </s.CatalogoContainer>
+        <>
+            <s.CatalogoContainer ref={containerRef}>
+                {
+                    Array.from({ length: (numeroDeLinhas * numeroDeColunas) }).map((_, index) => {
+                        return <ProductCard key={`catalogItem-${index}`} />
+                    })
+                }
+            </s.CatalogoContainer>
+            <PaginacaoComponente
+                changeTo={() => { }}
+                numeroDePaginas={paginaQuantidade}
+                paginaAtual={paginaAtual}
+            />
+        </>
     )
 };
 

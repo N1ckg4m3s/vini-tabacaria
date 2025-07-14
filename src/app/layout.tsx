@@ -1,3 +1,4 @@
+import FooterBarComponent from '@/components/FooterbarComponent/component';
 import NavBarComponent from '@/components/NavbarComponent/component';
 import '@style/globalStyleCss.css'
 import type { Metadata } from "next";
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${inter.variable}`}>
         <NavBarComponent />
         {children}
+        <FooterBarComponent />
       </body>
     </html>
   );

@@ -126,7 +126,7 @@ const NavBarComponent = () => {
     return (
         <s.NavBarContainer>
             <s.RedirectContainer>
-                <Logo role='img' aria-label='Logo da loja' />
+                <Logo aria-label='Logo da loja' />
                 <s.LinksContainer>
                     <s.MenuIcon
                         type='button'

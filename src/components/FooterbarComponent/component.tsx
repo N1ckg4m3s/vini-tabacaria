@@ -24,12 +24,10 @@ const FooterBarComponent = () => {
             </s.FooterLogo>
 
             <s.IconsContainer>
-                <s.IconsContainer>
-                    <Fone />
-                    <Whatsapp />
-                    <Facebook />
-                    <Insta />
-                </s.IconsContainer>
+                <Fone />
+                <Whatsapp />
+                <Facebook />
+                <Insta />
             </s.IconsContainer>
         </s.FooterContainer>
     );

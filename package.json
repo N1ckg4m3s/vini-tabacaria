@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docs": "npx jsdoc src --destination docs"
+    "docs": "npx jsdoc src --destination docs",
+    "docker:build": "docker build -t vini-tabacaria .",
+    "docker:dev": "docker run -p 3000:3000 vini-tabacaria"
   },
   "dependencies": {
     "next": "15.3.5",

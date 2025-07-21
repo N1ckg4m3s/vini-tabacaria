@@ -2,9 +2,9 @@
 import * as s from './style'
 import { useParams } from 'next/navigation';
 import Carrinho from '@assets/cart.svg'
-import { ContainerPagina } from '@/styles/mixins';
+import { ContainerPagina, HorizontalLine } from '@/styles/mixins';
 import { useRef, useState } from 'react';
-import ProductGrid2xN from '@/components/product-grid-2xN/component';
+import ProductGrid2xN from '@/components/Cards/product-grid-2xN/component';
 
 /**
  * Esta página exibe informações detalhadas do produto passado na URL, incluindo:
@@ -49,7 +49,7 @@ const InformacaoProduto = () => {
                         <span>Valor Unitario</span>
                         <span>{testValue.toFixed(2)}$</span>
                     </s.ContainerJustfyArround>
-                    <s.line />
+                    <HorizontalLine />
                     <s.ContainerJustfyArround>
                         <s.QuantidadeInput
                             type='number'

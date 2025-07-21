@@ -1,5 +1,5 @@
-import FooterBarComponent from '@/components/FooterbarComponent/component';
-import NavBarComponent from '@/components/NavbarComponent/component';
+import FooterBarComponent from '@/components/GeralPagesComponents/FooterbarComponent/component';
+import NavBarComponent from '@/components/GeralPagesComponents/NavbarComponent/component';
 import '@style/globalStyleCss.css'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";

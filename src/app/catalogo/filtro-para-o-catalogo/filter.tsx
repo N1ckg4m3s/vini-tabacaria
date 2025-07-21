@@ -1,7 +1,7 @@
 'use client'
 import { FormEvent, useEffect, useState } from 'react'
 import * as s from './style'
-import FiltroSectionComponent from '@/components/FilterComponents/SectionContainer';
+import FiltroSectionComponent from '@/components/CatalogComponents/FilterComponents/SectionContainer';
 // import { apiCaller } from '@/controller/apiCaller';
 /**
  * Essa pagina exibe o filtro para o catalogo, incluindo:

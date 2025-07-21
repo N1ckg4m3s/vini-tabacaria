@@ -1,7 +1,7 @@
 'use client'
-import PaginacaoComponente from '@/components/paginacao-component/component';
+import PaginacaoComponente from '@/components/CatalogComponents/paginacao-component/component';
 import * as s from './style'
-import ProductCard from "@/components/product-card/component";
+import ProductCard from "@/components/Cards/product-card/component";
 import { useEffect, useRef, useState } from "react";
 
 /**

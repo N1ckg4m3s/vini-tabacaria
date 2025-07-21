@@ -40,13 +40,26 @@ export const buttonReset = css`
   cursor: pointer;
 `;
 
-
-export const ContainerPagina = styled.article<{ $Column: boolean }>`
+export const ContainerPagina = styled.article<{ $Column?: boolean, $Center?: boolean }>`
     display: flex;
     flex-direction: ${({ $Column }) => ($Column ? 'column' : 'row')};
     max-width: 1280px;
-    margin: 0 clamp(0px, 50%, calc((100% - 1280px)/2));
+    margin: 0 clamp(0px, 50%, calc((100% - 1280px) / 2));
     padding: 0 16px;
     width: 100%;
     gap: 10px;
+    ${({ $Center }) =>
+    $Center && flexCenter
+  };
+`
+
+export const HorizontalLine = styled.div`
+  height: 3px;
+  width: 100%;
+  background-color: ${Theme.colors.Fundo.cinzaEscuro};
+`
+export const VerticalLine = styled.div`
+  height:auto;
+  width: 3px;
+  background-color: ${Theme.colors.Fundo.cinzaEscuro};
 `

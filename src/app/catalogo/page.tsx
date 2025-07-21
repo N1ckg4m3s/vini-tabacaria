@@ -23,14 +23,12 @@ const Catalogo = () => {
     const { filtro, search } = useParams();
 
     return (
-        <>
-            <ContainerPagina>
-                <FiltroCatalogoComponent
-                    filter={(filtro ?? '').toString()}
-                />
-                <CatalogoComponent />
-            </ContainerPagina>
-        </>
+        <ContainerPagina>
+            <FiltroCatalogoComponent
+                filter={(filtro ?? '').toString()}
+            />
+            <CatalogoComponent />
+        </ContainerPagina>
     );
 };
 

@@ -30,12 +30,6 @@ export const DescricaoContainer = styled.div`
 
 export const DescricaoProduto = styled.span` align-self: flex-start; `
 
-export const line = styled.div`
-    height: 3px;
-    width: 100%;
-    background-color: ${Theme.colors.Fundo.cinzaEscuro};
-`
-
 export const ContainerJustfyArround = styled.section`
     width: 100%;
     ${flexSpaceBetween}
@@ -54,7 +48,7 @@ export const QuantidadeInput = styled.input`
     border-radius: 20px;
     padding: 0 10px;
     color: ${Theme.colors.Texto.white};
-    `
+`
 
 export const BotaoAdicionar = styled.button`
     ${buttonReset}

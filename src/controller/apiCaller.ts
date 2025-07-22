@@ -3,6 +3,31 @@ type ApiCallerProps = {
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     body?: any;
     headers?: Record<string, string>;
+    params?: Record<string, string | number | boolean>;
+};
+
+/**
+ * Função focada em gerar a Url para a chamada.
+ * 
+ * @param {string} Url - caminho da api
+ * @param {Record<string, string | number | boolean>?} params - parametros 
+ * 
+ * @returns {string} Url final
+*/
+const buildUrl = (
+    url: string,
+    params?: Record<string, string | number | boolean>
+): string => {
+    if (!params) return url;
+
+    const queryString = new URLSearchParams(
+        Object.entries(params).reduce((acc, [key, value]) => {
+            acc[key] = String(value);
+            return acc;
+        }, {} as Record<string, string>)
+    ).toString();
+
+    return url.includes('?') ? `${url}&${queryString}` : `${url}?${queryString}`;
 };
 
 /**
@@ -16,8 +41,12 @@ type ApiCallerProps = {
  * } 
  * @returns 
 */
-export async function apiCaller({ url, method = 'GET', body, headers = {} }: ApiCallerProps) {
+export async function apiCaller({ url, method = 'GET', body, headers = {}, params }: ApiCallerProps) {
     try {
+        /* Gerar a url com os paramstros */
+        const finalUrl: string = buildUrl(url, params);
+
+        /* configurações da Requisição */
         const options: RequestInit = {
             method,
             headers: {
@@ -27,22 +56,21 @@ export async function apiCaller({ url, method = 'GET', body, headers = {} }: Api
             credentials: 'include', // envia cookies como o HttpOnly
         };
 
-        if (body) {
-            options.body = JSON.stringify(body);
+        /* Adicionando o corpo na requisição, exceto para GET e DELETE */
+        if (method != 'GET' && method != 'DELETE') {
+            options.body = JSON.stringify(body ?? {})
         }
 
-        const response = await fetch(url, options);
+        /* Chamar a API com parametros e configurações */
+        const response = await fetch(finalUrl, options);
 
+        /* Retornar erro */
         if (!response.ok) {
-            if (response.status === 401 && typeof window !== 'undefined') {
-                window.location.href = '/login';
-                return;
-            }
-
             const errorText = await response.text();
             throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
         }
 
+        /* Retornar data */
         const data = await response.json().catch(() => null);
 
         return data;

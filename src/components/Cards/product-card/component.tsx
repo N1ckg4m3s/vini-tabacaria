@@ -2,10 +2,12 @@
 import { useRouter } from 'next/navigation';
 import * as s from './style';
 import Cart from '@/assets/SmallCart.svg'
+import { Produto } from '@/controller/types';
 
 interface props {
     small?: boolean
     noCarrinho?: boolean
+    itemData: Produto
 }
 
 /**
@@ -24,7 +26,7 @@ interface props {
  * @component
  * @returns {JSX.Element}
 */
-const ProductCard: React.FC<props> = ({ small, noCarrinho }) => {
+const ProductCard: React.FC<props> = ({ small, noCarrinho, itemData }) => {
     /* Roteador para mudar de tela */
     const router = useRouter();
 

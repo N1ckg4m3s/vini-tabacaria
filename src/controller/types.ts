@@ -13,7 +13,7 @@ interface ProdutoBase {
 
 // --------- ESSÊNCIA ---------
 
-type TipoEssencia = 'doce' | 'citrica' | 'gelada' | 'quente' | 'mentolada';
+type TipoEssencia = 'Doce' | 'Citrica' | 'Gelada' | 'Quente' | 'Mentolada';
 
 interface ProdutoEssencia extends ProdutoBase {
     tipo: 'essencia';
@@ -39,7 +39,7 @@ interface ProdutoAcessorio extends ProdutoBase {
 
 // --------- CARVÃO / ALUMÍNIO ---------
 
-type TipoKit = 'unidade' | '250g' | 'MeioKilo' | 'Kilo' | 'Box' | 'Pacote';
+type TipoKit = 'Unidade' | '250g' | 'MeioKilo' | 'Kilo' | 'Box' | 'Pacote';
 
 interface ProdutoCarvaoAluminio extends ProdutoBase {
     tipo: 'carvaoAluminio';

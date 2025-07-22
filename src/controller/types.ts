@@ -1,56 +1,45 @@
-// Tipo discriminador
-type TipoProduto = 'essencia' | 'acessorio' | 'carvaoAluminio' | 'outros';
-
 // Campos base
-interface ProdutoBase {
+export interface ProdutoBase {
     id: string;
     nome: string;
     marca: string;
     valor: number;
-    tipo: TipoProduto;
+    tipo: string;
     imagem?: string
 }
 
 // --------- ESSÊNCIA ---------
 
-type TipoEssencia = 'Doce' | 'Citrica' | 'Gelada' | 'Quente' | 'Mentolada';
-
-interface ProdutoEssencia extends ProdutoBase {
+export interface ProdutoEssencia extends ProdutoBase {
     tipo: 'essencia';
     especificacao: {
-        tipo: TipoEssencia[];
+        tipo: string;
         sabor: string;
     };
 }
 
 // --------- ACESSÓRIO ---------
 
-type TipoAcessorio = 'Rosh' | 'Vaso' | 'Borracha' | 'Corpo' | 'Prato' | 'Mangueira' | 'Contra' | 'Piteira' | 'Mangueira' | 'Bolinha' | 'Outros';
-type TamanhoAcessorio = 'Grade' | 'Pequeno' | 'Medio' | 'Padrão';
-
-interface ProdutoAcessorio extends ProdutoBase {
+export interface ProdutoAcessorio extends ProdutoBase {
     tipo: 'acessorio';
     especificacao: {
-        tipo: TipoAcessorio;
+        tipo: string;
         cor: string;
-        tamanho: TamanhoAcessorio;
+        tamanho: string;
     };
 }
 
 // --------- CARVÃO / ALUMÍNIO ---------
-
-type TipoKit = 'Unidade' | '250g' | 'MeioKilo' | 'Kilo' | 'Box' | 'Pacote';
-
-interface ProdutoCarvaoAluminio extends ProdutoBase {
+export interface ProdutoCarvaoAluminio extends ProdutoBase {
     tipo: 'carvaoAluminio';
     especificacao: {
-        kit: TipoKit;
+        kit: string;
     };
 }
 
 // --------- OUTROS / FUTURO ---------
 
-interface ProdutoOutros extends ProdutoBase {
+export interface ProdutoOutros extends ProdutoBase {
     tipo: 'outros';
     especificacao: Record<string, unknown>; // ou algo mais genérico/flexível
 }

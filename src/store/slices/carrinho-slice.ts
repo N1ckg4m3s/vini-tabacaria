@@ -1,15 +1,16 @@
+import { Produto } from '@/controller/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-/* exemple interface */
-interface Produto {
-    id: string
-    nome: string
-    preco: number
+/* Cart Item */
+interface CartItem {
+    id: number
+    produto: Produto,
     quantidade: number
 }
 
+
 interface CartState {
-    itens: Produto[]
+    itens: CartItem[]
 }
 
 const initialState: CartState = {
@@ -20,11 +21,11 @@ const cartSlice = createSlice({
     name: 'carrinho',
     initialState,
     reducers: {
-        adicionarProduto: (state, action: PayloadAction<Produto>) => {
+        adicionarProduto: (state, action: PayloadAction<CartItem>) => {
             state.itens.push(action.payload)
         },
         removerProduto: (state, action: PayloadAction<string>) => {
-            state.itens = state.itens.filter(item => item.id !== action.payload)
+            state.itens = state.itens.filter(item => item.id !== parseInt(action.payload))
         },
         limparCarrinho: (state) => {
             state.itens = []

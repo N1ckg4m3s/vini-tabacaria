@@ -1,16 +1,14 @@
 import FooterBarComponent from '@/components/GeralPagesComponents/FooterbarComponent/component';
 import NavBarComponent from '@/components/GeralPagesComponents/NavbarComponent/component';
-import { persistor, store } from '@/store';
-import '@style/globalStyleCss.css'
+import { ReduxProvider } from '@/store/redux-provider';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import '@style/globalStyleCss.css'
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  weight: ['400', '500', '600', '700'], // adicione os pesos usados
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -26,13 +24,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <NavBarComponent />
-            {children}
-            <FooterBarComponent />
-          </PersistGate>
-        </Provider>
+        <ReduxProvider>
+          <NavBarComponent />
+          {children}
+          <FooterBarComponent />
+        </ReduxProvider>
       </body>
     </html>
   );

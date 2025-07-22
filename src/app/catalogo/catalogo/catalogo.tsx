@@ -20,8 +20,6 @@ import { useEffect, useRef, useState } from "react";
  *      - * alguma espeficicação * 
 */
 const CatalogoComponent = () => {
-    /* os dados dos cards vão estar disponiveis por Redux para melhor acesso */
-
     /* Referencia o container para ajusta a quantidade com base na tela */
     const containerRef = useRef<HTMLDivElement>(null)
 

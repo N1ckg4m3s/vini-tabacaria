@@ -15,6 +15,7 @@ export const Theme = {
             cinzaEscuro_c9: '#474747c9',
             background: '#222222',
             CinzaClaro: '#909090',
+            VerdeEscuro: '#1d8239',
             VerdeClaro: '#25A249',
             cinzaFooter: '#272C30',
             notificationColor: {

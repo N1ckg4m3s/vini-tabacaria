@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken'
 import validateEmail from '@/controller/utilits'
+import { generateToken } from '@/controller/auth'
 
 const JWT_SECRET = process.env.JWT_SECRET!
 
@@ -15,7 +15,8 @@ const senhaCorreta = 'admim123'
 export async function POST(request: Request) {
     try {
         const { acesso, senha }: LoginRequest = await request.json()
-        const acessoNormalizado = acesso.toLowerCase()
+
+        const acessoNormalizado = (acesso ?? '').toLowerCase()
 
         if (!validateEmail(acessoNormalizado)) throw new Error('Formato de email inválido')
         if (acessoNormalizado !== acessoCorreto) throw new Error('Email incorreto')
@@ -24,11 +25,9 @@ export async function POST(request: Request) {
         const tempoDeSessao: number = 60 * 60 * 24 // 1 dia
         const dataFinalDaSessao: Date = new Date(Date.now() + tempoDeSessao * 1000)
 
-        // Gerando token de sessão
-        const token = jwt.sign(
-            { acessoNormalizado, role: 'admin' },
-            JWT_SECRET,
-            { expiresIn: tempoDeSessao }
+        const token: string = generateToken(
+            acessoNormalizado,
+            'admin',
         )
 
         // Gera a resposta para poder efetuar o login
@@ -50,7 +49,6 @@ export async function POST(request: Request) {
 
     } catch (error: unknown) {
         console.error('Erro no login:', error)
-
 
         const message = error instanceof Error ? error.message : 'Erro desconhecido'
         return NextResponse.json({ error: message }, { status: 401 })

@@ -1,22 +1,22 @@
 import { Produto, ProdutoAcessorio, ProdutoBase, ProdutoCarvaoAluminio, ProdutoEssencia, ProdutoOutros } from "./types"
 
-function mapProdutoBase(raw: any): ProdutoBase {
-    return {
+export function mapProdutoBase(raw: any, returnWithoutBase?: boolean): ProdutoBase | {} {
+    return returnWithoutBase ? {
         id: raw.id,
         nome: raw.nome,
         marca: raw.marca,
+        imagem: raw.imagem,
         valor: Number(raw.valor),
         tipo: ''
-    }
+    } : {};
 }
 
-function mapProdutoEssencia(raw: any): ProdutoEssencia {
-    const base: ProdutoBase = mapProdutoBase(raw);
+export function mapProdutoEssencia(raw: any, returnWithoutBase?: boolean): ProdutoEssencia {
+    const base: ProdutoBase | {} = mapProdutoBase(raw, returnWithoutBase);
 
     return {
         ...base,
         tipo: 'essencia',
-        imagem: raw.imagem,
         especificacao: {
             sabor: raw.especificacao?.sabor ?? '',
             tipo: Array.isArray(raw.especificacao?.tipo)
@@ -26,13 +26,12 @@ function mapProdutoEssencia(raw: any): ProdutoEssencia {
     }
 }
 
-function mapProdutoAcessorio(raw: any): ProdutoAcessorio {
-    const base: ProdutoBase = mapProdutoBase(raw);
+export function mapProdutoAcessorio(raw: any, returnWithoutBase?: boolean): ProdutoAcessorio {
+    const base: ProdutoBase | {} = mapProdutoBase(raw, returnWithoutBase);
 
     return {
         ...base,
         tipo: 'acessorio',
-        imagem: raw.imagem,
         especificacao: {
             tipo: String(raw.especificacao?.tipo),
             cor: String(raw.especificacao?.cor),
@@ -41,40 +40,39 @@ function mapProdutoAcessorio(raw: any): ProdutoAcessorio {
     }
 }
 
-function mapProdutoCarvaoAluminio(raw: any): ProdutoCarvaoAluminio {
-    const base: ProdutoBase = mapProdutoBase(raw);
+export function mapProdutoCarvaoAluminio(raw: any, returnWithoutBase?: boolean): ProdutoCarvaoAluminio {
+    const base: ProdutoBase | {} = mapProdutoBase(raw, returnWithoutBase);
+
 
     return {
         ...base,
         tipo: 'carvaoAluminio',
-        imagem: raw.imagem,
         especificacao: {
             kit: String(raw.especificacao?.kit),
         },
     }
 }
 
-function mapProdutoOutros(raw: any): ProdutoOutros {
-    const base: ProdutoBase = mapProdutoBase(raw);
+export function mapProdutoOutros(raw: any, returnWithoutBase?: boolean): ProdutoOutros {
+    const base: ProdutoBase | {} = mapProdutoBase(raw, returnWithoutBase);
 
     return {
         ...base,
         tipo: 'outros',
-        imagem: raw.imagem,
         especificacao: raw.especificacao ?? {},
     }
 }
 
-export function mapProduto(raw: any): Produto {
+export function mapProduto(raw: any, returnWithoutBase?: boolean): Produto {
     switch (raw.tipo) {
         case 'essencia':
-            return mapProdutoEssencia(raw)
+            return mapProdutoEssencia(raw, returnWithoutBase)
         case 'acessorio':
-            return mapProdutoAcessorio(raw)
+            return mapProdutoAcessorio(raw, returnWithoutBase)
         case 'carvaoAluminio':
-            return mapProdutoCarvaoAluminio(raw)
+            return mapProdutoCarvaoAluminio(raw, returnWithoutBase)
         case 'outros':
-            return mapProdutoOutros(raw)
+            return mapProdutoOutros(raw, returnWithoutBase)
         default:
             throw new Error(`Tipo de produto desconhecido: ${raw.tipo}`)
     }

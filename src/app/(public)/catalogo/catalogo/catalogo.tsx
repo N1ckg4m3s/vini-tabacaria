@@ -131,13 +131,13 @@ const CatalogoComponent = () => {
         <s.CatalogoContainer>
             <s.ItensContainer ref={containerRef}>
                 {
-                    catalogProducts.map((catalogItem) => {
-                        return <ProductCard
-                            key={`catalogItem-${catalogItem.id}`}
+                    catalogProducts.map((catalogItem, index) => (
+                        <ProductCard
+                            key={`catalogItem-${index}`}
                             noCarrinho={false}
-                            itemData={catalogItem}
+                            itemData={catalogItem as Produto}
                         />
-                    })
+                    ))
                 }
             </s.ItensContainer>
             <PaginacaoComponente

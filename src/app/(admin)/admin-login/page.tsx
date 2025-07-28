@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import * as s from './style';
 import { FormEvent, useRef, useState } from 'react';
+import { apiCaller } from '@/controller/apiCaller';
 
 /**
  * Esta página exibe um formulario de loginpara adms, :
@@ -45,31 +46,20 @@ const LoginPage = () => {
         const password = passwordRef.current.value.trim();
 
         try {
-            const response = await fetch('/api/login', {
+            const data = await apiCaller({
+                url: '/api/login',
                 method: 'POST',
+                body: JSON.stringify({ acesso: email, senha: password }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    acesso: email,
-                    senha: password,
-                }),
             })
-
-            const data = await response.json()
-
-            if (!response.ok) {
-                setErrorVisible(data.error || 'Erro ao fazer login')
-                setLoadingVisible(false);
-                return
-            }
 
             // salva token no localStorage
             localStorage.setItem('expiraEm', data.expiraEm)
 
             // redireciona para dashboard
             router.push('/admin-product-list')
-
         } catch (error) {
             setLoadingVisible(false);
             setErrorVisible('Invalid credentials. Please try again.');

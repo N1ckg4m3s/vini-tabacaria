@@ -10,7 +10,7 @@ export interface ProdutoBase {
 
 // --------- ESSÊNCIA ---------
 
-export interface ProdutoEssencia extends ProdutoBase {
+export interface ExpecificacaoEssencia {
     tipo: 'essencia';
     especificacao: {
         tipo: string;
@@ -18,9 +18,11 @@ export interface ProdutoEssencia extends ProdutoBase {
     };
 }
 
+export type ProdutoEssencia = ExpecificacaoEssencia & ProdutoBase;
+
 // --------- ACESSÓRIO ---------
 
-export interface ProdutoAcessorio extends ProdutoBase {
+export interface ExpecificacaoAcessorio {
     tipo: 'acessorio';
     especificacao: {
         tipo: string;
@@ -29,25 +31,30 @@ export interface ProdutoAcessorio extends ProdutoBase {
     };
 }
 
+export type ProdutoAcessorio = ExpecificacaoAcessorio & ProdutoBase;
+
 // --------- CARVÃO / ALUMÍNIO ---------
-export interface ProdutoCarvaoAluminio extends ProdutoBase {
+export interface ExpecificacaoCarvaoAluminio {
     tipo: 'carvaoAluminio';
     especificacao: {
         kit: string;
     };
 }
 
+export type ProdutoCarvaoAluminio = ExpecificacaoCarvaoAluminio & ProdutoBase;
+
 // --------- OUTROS / FUTURO ---------
 
-export interface ProdutoOutros extends ProdutoBase {
+export interface ExpecificacaoOutros {
     tipo: 'outros';
     especificacao: Record<string, unknown>; // ou algo mais genérico/flexível
 }
+export type ProdutoOutros = ExpecificacaoOutros & ProdutoBase;
 
 // --------- PRODUTO FINAL UNIFICADO ---------
 
 export type Produto =
-    | ProdutoEssencia
+    ProdutoEssencia
     | ProdutoAcessorio
     | ProdutoCarvaoAluminio
     | ProdutoOutros;

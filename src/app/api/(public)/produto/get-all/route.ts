@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limitPerPage = parseInt(searchParams.get("limit_per_page") || "10", 10);
 
-    const from = (page - 1) * limitPerPage;
+    const from = Math.max(page - 1, 0) * limitPerPage;
     const to = from + limitPerPage - 1;
 
     /* obter todos os produtos com base na pagina */

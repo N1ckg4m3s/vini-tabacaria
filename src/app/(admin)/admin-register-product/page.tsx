@@ -1,4 +1,5 @@
 'use client';
+import { apiCaller } from '@/controller/apiCaller';
 import { renderCamposAcessorios, renderCamposCarvaoAluminio, renderCamposEssencia } from './render-campos-especificos';
 import * as s from './style';
 import { FormEvent, useState } from 'react';
@@ -26,7 +27,7 @@ const _AdmRegisterProductPage = () => {
      * 
      * @param event Evento de submissão do formulário
      */
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         // Aqui você pode processar os dados do formulário
@@ -34,11 +35,29 @@ const _AdmRegisterProductPage = () => {
 
         // Converte FormData para um objeto simples
         const data: Record<string, any> = {};
+
         formData.forEach((value, key) => {
             data[key] = value;
         });
 
-        console.log(data);
+        try {
+            console.log('Dados do formulário:', data);
+
+            const response = await apiCaller({
+                url: '/api/product/admin_product_register',
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log('Resposta do servidor:', response);
+
+        } catch (e: any) {
+            console.error('Erro ao processar o formulário:', e);
+            alert('Erro ao processar o formulário. Verifique os dados e tente novamente.');
+        }
     };
 
     return (

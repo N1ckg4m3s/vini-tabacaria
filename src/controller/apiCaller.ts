@@ -53,12 +53,13 @@ export async function apiCaller({ url, method = 'GET', body, headers = {}, param
                 'Content-Type': 'application/json',
                 ...headers,
             },
+            /* Adicionando o corpo na requisição */
+            // body: body ?? {},
             credentials: 'include', // envia cookies como o HttpOnly
         };
 
-        /* Adicionando o corpo na requisição, exceto para GET e DELETE */
-        if (method != 'GET' && method != 'DELETE') {
-            options.body = JSON.stringify(body ?? {})
+        if (body) {
+            options.body = body;
         }
 
         /* Chamar a API com parametros e configurações */
@@ -67,8 +68,19 @@ export async function apiCaller({ url, method = 'GET', body, headers = {}, param
         /* Retornar erro */
         if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
+
+            // Redireciona para login se for 401
+            if (response.status === 401) {
+                if (typeof window !== 'undefined') {
+                    // window.location.href = '/admin-login';
+                }
+            }
+
+            const error = new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
+            (error as any).status = response.status;
+            throw error;
         }
+
 
         /* Retornar data */
         const data = await response.json().catch(() => null);

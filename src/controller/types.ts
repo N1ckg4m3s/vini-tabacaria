@@ -58,3 +58,10 @@ export type Produto =
     | ProdutoAcessorio
     | ProdutoCarvaoAluminio
     | ProdutoOutros;
+
+// --------- AUX ---------
+
+export type Filtro = {
+    titulo: string;
+    opcoes: Record<string, boolean>;
+};

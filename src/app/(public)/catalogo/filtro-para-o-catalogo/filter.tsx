@@ -2,6 +2,8 @@
 import { FormEvent, useEffect, useState } from 'react'
 import * as s from './style'
 import FiltroSectionComponent from '@/components/CatalogComponents/FilterComponents/SectionContainer';
+import { Filtro } from '@/controller/types';
+import { apiCaller } from '@/controller/apiCaller';
 // import { apiCaller } from '@/controller/apiCaller';
 /**
  * Essa pagina exibe o filtro para o catalogo, incluindo:
@@ -25,25 +27,31 @@ import FiltroSectionComponent from '@/components/CatalogComponents/FilterCompone
 
 type FiltroOpcoes = Record<string, boolean>;
 
-type Filtro = {
-    titulo: string;
-    opcoes: FiltroOpcoes;
-};
-
 interface props {
     filter: string
 }
 
 const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
     /* Dados para manter o filtro atualizado e atualiar o conteudo com base nele */
-    const [filtros, setFiltros] = useState<Filtro[]>([])
+    const [filtros, setFiltros] = useState<Filtro[]>([
+        { titulo: 'Marca', opcoes: { Ziggy: false, Zomo: false } },
+        { titulo: 'Tipo', opcoes: { '': false } },
+        { titulo: 'Sabor', opcoes: { '': false } },
+        { titulo: 'Mix', opcoes: { 'Não': false } }
+    ])
+
+    const obterDadosDoFiltro = async () => {
+        const data = await apiCaller({
+            url: '/api/get-filter-data',
+        })
+
+        setFiltros(data)
+    }
 
     /* UseEffect para obter da API os valores do filtro */
     useEffect(() => {
-        if (filter) {
-            // Chama a api para obter os dados possiveis para o filtro
-            // apiCaller()
-        }
+        // obterDadosDoFiltro();
+
     }, [filter])
 
     /**

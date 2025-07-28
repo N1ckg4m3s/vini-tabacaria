@@ -1,7 +1,7 @@
 import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { supabase } from "./dataBase/supraConnection";
 import { mapProduto, mapProdutoAcessorio, mapProdutoBase, mapProdutoCarvaoAluminio, mapProdutoEssencia, mapProdutoOutros } from "./mapProducts";
-import { Produto, ProdutoBase } from "./types";
+import { Filtro, Produto, ProdutoAcessorio, ProdutoBase, ProdutoCarvaoAluminio } from "./types";
 
 /* ========== [ types com nomes legiveisa ] ========== */
 
@@ -59,11 +59,11 @@ export class ProductController {
                 console.warn('[executeProdutoQuery] Nenhum dado retornado.');
                 return null;
             }
-            
+
 
             // Se for um array, mapeia todos
             if (Array.isArray(data)) {
-                return data.map((e) => mapProduto(e,true));
+                return data.map((e) => mapProduto(e, true));
             }
 
             // Se for objeto único, mapeia direto
@@ -73,7 +73,6 @@ export class ProductController {
             throw new Error('Erro inesperado ao buscar produtos.');
         }
     }
-
 
     /* Gera uma query com os dados do filtro retornando a query */
     private generateQueryWithFiltro(table: string, filtro?: FilterType): ProdutoQueryBuilder {
@@ -185,6 +184,70 @@ export class ProductController {
         }
     }
 
+
+    public async getFilterData(tipo?: string): Promise<Record<string, Set<string>> | [] | Filtro[]> {
+        try {
+            const produtos = await this.getAllProducts(tipo);
+
+            const filtros: Record<string, Set<string>> = {};
+
+            if (Array.isArray(produtos) && produtos.length > 0) {
+                for (const produto of produtos) {
+                    // [BASE] Marca
+                    filtros['Marca'] ??= new Set();
+                    filtros['Marca'].add(produto.marca);
+
+                    switch (produto.tipo) {
+                        case 'essencia':
+                            if (tipo == 'essencias') {
+                                filtros['Tipo'] ??= new Set();
+                                filtros['Sabor'] ??= new Set();
+                                filtros['Mix'] ??= new Set();
+
+                                filtros['Tipo'].add(produto.especificacao.tipo);
+                                filtros['Sabor'].add(produto.especificacao.sabor);
+
+                                const isMix = produto.especificacao.sabor.includes(',');
+                                filtros['Mix'].add(isMix ? 'Sim' : 'Não');
+                                break;
+                            }
+
+                        case 'acessorio':
+                            if (tipo == 'acessorio') {
+                                filtros['Tipo'] ??= new Set();
+                                filtros['Cor'] ??= new Set();
+                                filtros['Tamanho'] ??= new Set();
+
+                                filtros['Tipo'].add(produto.especificacao.tipo);
+                                filtros['Cor'].add((produto as ProdutoAcessorio).especificacao.cor);
+                                filtros['Tamanho'].add((produto as ProdutoAcessorio).especificacao.tamanho);
+                                break;
+                            }
+
+                        case 'carvaoAluminio':
+                            if (tipo == 'carvaoAluminio') {
+                                filtros['Kit'] ??= new Set();
+                                filtros['Kit'].add((produto as ProdutoCarvaoAluminio).especificacao.kit);
+                                break;
+                            }
+                    }
+                }
+
+                // Converte o objeto de sets para array de Filtros
+                const resultado: Filtro[] = Object.entries(filtros).map(([titulo, set]) => ({
+                    titulo,
+                    opcoes: Object.fromEntries([...set].map(opcao => [opcao, false])),
+                }));
+
+                return resultado;
+            }
+            return [];
+        } catch (error) {
+            console.error(`[ProductController] obterDadosDoFiltro | Erro: ${error}`);
+        }
+        return []
+    }
+
     /* ==================== [ PUT ] ==================== */
 
     /* ==================== [ POST ] ==================== */
@@ -253,7 +316,7 @@ export class ProductController {
                 .insert({ ...mappedData, produto_id: baseId })
                 .select('id')
                 .single();
-            
+
             // Verifica se houve erro na inserção
             if (error) {
                 console.error(`[ProductController] registerProductEspecifications | Erro ao inserir especificações`);
@@ -301,6 +364,7 @@ export class ProductController {
         // Salvar os dados de especificação do produto
         this.registerProductEspecifications(id, DadosEspecificacao as Produto);
     }
+
 
     /* ==================== [ DELETE ] ==================== */
 }

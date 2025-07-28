@@ -30,8 +30,9 @@ const LoginPage = () => {
         *
         * @param event - Evento de envio do formulário (submit).
     */
-    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoadingVisible(true);
 
         // Verifica se os campos de email e senha estão preenchidos
         if (!emailRef.current || !passwordRef.current) {
@@ -43,19 +44,36 @@ const LoginPage = () => {
         const email = emailRef.current.value.trim();
         const password = passwordRef.current.value.trim();
 
-        // teste mock
-        if (email === 'admin' && password === 'admin') {
-            setLoadingVisible(true);
-            router.push('/admin-product-list');
-            setTimeout(() => {
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    acesso: email,
+                    senha: password,
+                }),
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                setErrorVisible(data.error || 'Erro ao fazer login')
                 setLoadingVisible(false);
-            }, 2000);
-        } else {
+                return
+            }
+
+            // salva token no localStorage
+            localStorage.setItem('expiraEm', data.expiraEm)
+
+            // redireciona para dashboard
+            router.push('/admin-product-list')
+
+        } catch (error) {
+            setLoadingVisible(false);
             setErrorVisible('Invalid credentials. Please try again.');
         }
-        console.log('Email:', email);
-        console.log('Password:', password);
-        return;
     };
 
     return (

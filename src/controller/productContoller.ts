@@ -1,13 +1,13 @@
 import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { supabase } from "./dataBase/supraConnection";
 import { mapProduto, mapProdutoAcessorio, mapProdutoBase, mapProdutoCarvaoAluminio, mapProdutoEssencia, mapProdutoOutros } from "./mapProducts";
-import { Filtro, Produto, ProdutoAcessorio, ProdutoBase, ProdutoCarvaoAluminio } from "./types";
+import { ExpecificacaoAcessorio, ExpecificacaoCarvaoAluminio, ExpecificacaoEssencia, Filtro, Produto, ProdutoAcessorio, ProdutoBase, ProdutoCarvaoAluminio } from "./types";
 
 /* ========== [ types com nomes legiveisa ] ========== */
 
 type ProdutoQueryBuilder = PostgrestFilterBuilder<any, any, ProdutoBase[], string, unknown>;
 
-type QueryPromise = Promise<Produto[] | Produto | null>
+type QueryPromise = Promise<Produto[] | null>
 
 type FilterType = Partial<{
     tipo: string;
@@ -66,8 +66,10 @@ export class ProductController {
                 return data.map((e) => mapProduto(e, true));
             }
 
-            // Se for objeto único, mapeia direto
-            return mapProduto(data);
+            // Se for objeto único, mapeia 
+            const mapData = mapProduto(data, true);
+
+            return Array.isArray(mapData) ? mapData : [mapData];;
         } catch (err: any) {
             console.error('[executeProdutoQuery] Falha inesperada:', err.message || err);
             throw new Error('Erro inesperado ao buscar produtos.');
@@ -184,7 +186,12 @@ export class ProductController {
         }
     }
 
-
+    /**
+     * Gera os dados do Filtro com base no tipo de produto.
+     * 
+     * @param {string?} tipo - o tipo do produto 
+     * @returns 
+     */
     public async getFilterData(tipo?: string): Promise<Record<string, Set<string>> | [] | Filtro[]> {
         try {
             const produtos = await this.getAllProducts(tipo);
@@ -246,6 +253,156 @@ export class ProductController {
             console.error(`[ProductController] obterDadosDoFiltro | Erro: ${error}`);
         }
         return []
+    }
+
+    /**
+     * Obtem os produtos relativos a Marca
+     * 
+     * @param {string} marca - nome da marca
+     * @returns {Promise<Produto[]>} - lista de produtos relativos a marca
+    */
+    public async getProductsByMarca(marca: string): Promise<Produto[]> {
+        try {
+            /** gera uma query para obter apenas essencias */
+            let query = this.generateQueryWithFiltro(tables.produtos, { tipo: 'essencia' })
+
+            // Adiciona filtro de marca
+            query = query.eq('marca', marca);
+
+            // Executa a query
+            const data = await this.executeProdutoQuery(query);
+
+            console.log(`[ProductController] getProductsByMarca | Marca: ${marca}, Produtos encontrados: ${data?.length || 0}`);
+
+            // Verifica se retornou algum dado
+            if (!data) {
+                console.warn(`[ProductController] getProductsByMarca | Nenhum produto encontrado para a marca: ${marca}`);
+                return [];
+            }
+
+            return Array.isArray(data) ? data : [data];
+        } catch (error) {
+            console.error(`[ProductController] getProductsByMarca | Erro: ${error}`);
+            return [];
+        }
+    }
+
+    /**
+     * Obtem os produtos relativos a Acessorio
+     * 
+     * @param {ExpecificacaoAcessorio} especificacoes - especificações do acessório
+     * @returns {Promise<Produto[]>} - lista de produtos relativos ao acessório
+    */
+    public async getRelaciveProductsByAcessorio(especificacoes: ExpecificacaoAcessorio): Promise<Produto[]> {
+        try {
+            // Gera uma query para obter apenas acessórios
+            let query = this.generateQueryWithFiltro(tables.acessorios, { tipo: 'acessorio' });
+
+            // Adiciona filtros de especificação
+            if (especificacoes.tipo) {
+                query = query.eq('tipo', especificacoes.tipo);
+            }
+            if (especificacoes.especificacao.cor) {
+                query = query.eq('cor', especificacoes.especificacao.cor);
+            }
+            if (especificacoes.especificacao.tamanho) {
+                query = query.eq('tamanho', especificacoes.especificacao.tamanho);
+            }
+
+            // Executa a query
+            const data = await this.executeProdutoQuery(query);
+
+            // Verifica se retornou algum dado
+            if (!data) {
+                console.warn(`[ProductController] getRelaciveProductsByAcessorio | Nenhum produto encontrado com as especificações fornecidas.`);
+                return [];
+            }
+
+            return Array.isArray(data) ? data : [data];
+        } catch (error) {
+            console.error(`[ProductController] getRelaciveProductsByAcessorio | Erro: ${error}`);
+            return [];
+        }
+
+    }
+
+    /**
+     * Obtem os produtos relativos a Essencia
+     * 
+     * @param {ExpecificacaoEssencia} especificacoes - especificações da essência
+     * @returns {Promise<Produto[]>} - lista de produtos relativos a essência
+    */
+    public async getRelaciveProductsByEssencia(especificacoes: ExpecificacaoEssencia): Promise<Produto[]> {
+        try {
+            // Gera uma query para obter apenas essências
+            let query = this.generateQueryWithFiltro(tables.essencias, { tipo: 'essencia' });
+
+            // Adiciona filtros de especificação
+            if (especificacoes.especificacao.tipo) {
+                // Verifica se o tipo é um mix
+                if (especificacoes.especificacao.tipo.includes(',')) {
+                    query = query.like('tipo', `%${especificacoes.especificacao.tipo}%`);
+                } else {
+                    query = query.eq('tipo', especificacoes.especificacao.tipo);
+                }
+            }
+
+            // Verifica se o sabor está definido
+            if (especificacoes.especificacao.sabor) {
+                // Verifica se o sabor é um mix
+                if (especificacoes.especificacao.sabor.includes(',')) {
+                    query = query.like('sabor', `%${especificacoes.especificacao.sabor}%`);
+                } else {
+                    query = query.eq('sabor', especificacoes.especificacao.sabor);
+                }
+            }
+
+            // Executa a query
+            const data = await this.executeProdutoQuery(query);
+
+            // Verifica se retornou algum dado
+            if (!data) {
+                console.warn(`[ProductController] getRelaciveProductsByEssencia | Nenhum produto encontrado com as especificações fornecidas.`);
+                return [];
+            }
+
+            return Array.isArray(data) ? data : [data];
+        } catch (error) {
+            console.error(`[ProductController] getRelaciveProductsByEssencia | Erro: ${error}`);
+            return [];
+        }
+    }
+
+    /**
+     * Obtem os produtos relativos a Carvão Alumínio
+     * 
+     * @param {ExpecificacaoCarvaoAluminio} especificacoes - especificações do carvão alumínio
+     * @returns {Promise<Produto[]>} - lista de produtos relativos ao carvão alumínio
+    */
+    public async getRelaciveProductsByCarvaoAluminio(especificacoes: ExpecificacaoCarvaoAluminio): Promise<Produto[]> {
+        try {
+            // Gera uma query para obter apenas carvão alumínio
+            let query = this.generateQueryWithFiltro(tables.carvao_aluminio, { tipo: 'carvaoAluminio' });
+
+            // Adiciona filtro de especificação
+            if (especificacoes.especificacao.kit) {
+                query = query.eq('kit', especificacoes.especificacao.kit);
+            }
+
+            // Executa a query
+            const data = await this.executeProdutoQuery(query);
+
+            // Verifica se retornou algum dado
+            if (!data) {
+                console.warn(`[ProductController] getRelaciveProductsByCarvaoAluminio | Nenhum produto encontrado com as especificações fornecidas.`);
+                return [];
+            }
+
+            return Array.isArray(data) ? data : [data];
+        } catch (error) {
+            console.error(`[ProductController] getRelaciveProductsByCarvaoAluminio | Erro: ${error}`);
+            return [];
+        }
     }
 
     /* ==================== [ PUT ] ==================== */

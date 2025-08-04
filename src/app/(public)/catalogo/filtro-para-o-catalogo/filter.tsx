@@ -25,8 +25,6 @@ import { apiCaller } from '@/controller/apiCaller';
  *      - KIT: [unidade, caixa]
 */
 
-type FiltroOpcoes = Record<string, boolean>;
-
 interface props {
     filter: string
 }
@@ -34,10 +32,13 @@ interface props {
 const FiltroCatalogoComponent: React.FC<props> = ({ filter }) => {
     /* Dados para manter o filtro atualizado e atualiar o conteudo com base nele */
     const [filtros, setFiltros] = useState<Filtro[]>([
-        { titulo: 'Marca', opcoes: { Ziggy: false, Zomo: false } },
-        { titulo: 'Tipo', opcoes: { '': false } },
-        { titulo: 'Sabor', opcoes: { '': false } },
-        { titulo: 'Mix', opcoes: { 'Não': false } }
+        {
+            titulo: 'MARCA',
+            opcoes: {
+                'ZIGGY': true,
+                'ONIX': true
+            }
+        }
     ])
 
     const obterDadosDoFiltro = async () => {

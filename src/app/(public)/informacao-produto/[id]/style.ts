@@ -6,7 +6,7 @@ export const InformacaoContainer = styled.div`
     ${flexCenter};
     flex-wrap: wrap;
     min-height: 220px;
-    height: fit-content;
+    height: max-content;
     width: 100%;
     font-size: 14px;
     gap: 20px;
@@ -15,14 +15,14 @@ export const InformacaoContainer = styled.div`
 
 export const ImagemProduto = styled.img`
     max-width: 220px;
-    height: 100%;
+    height: auto;
     aspect-ratio: 1/1;
     border-radius: 10px;
 `
 
 export const DescricaoContainer = styled.div`
     width: 350px;
-    height: 100%;
+    height: -webkit-fill-available;
     ${flexColumn}
     align-items: center;
     gap: 5px;

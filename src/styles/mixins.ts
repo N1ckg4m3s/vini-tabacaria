@@ -48,6 +48,7 @@ export const ContainerPagina = styled.article<{ $Column?: boolean, $Center?: boo
     padding: 0 16px;
     width: 100%;
     gap: 10px;
+    height: 100%;
     ${({ $Center }) =>
     $Center && flexCenter
   };

@@ -2,6 +2,7 @@ import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { supabase } from "./dataBase/supraConnection";
 import { mapProduto, mapProdutoAcessorio, mapProdutoBase, mapProdutoCarvaoAluminio, mapProdutoEssencia, mapProdutoOutros } from "./mapProducts";
 import { ExpecificacaoAcessorio, ExpecificacaoCarvaoAluminio, ExpecificacaoEssencia, Filtro, Produto, ProdutoAcessorio, ProdutoBase, ProdutoCarvaoAluminio } from "./types";
+import regisController from "./dataBase/regisController";
 
 /* ========== [ types com nomes legiveisa ] ========== */
 
@@ -108,7 +109,16 @@ export class ProductController {
         }
     }
 
-    /* ==================== [ GET ] ==================== */
+    /**
+     * Tenta obter todos os produtos do cache
+     * @param productId 
+     */
+    private async getCachedProducts(productId: string): Promise<Produto[]> {
+        const Produtos = await regisController.getCache({ key: `produtos:all` })
+
+        return Produtos ? (Array.isArray(Produtos) ? Produtos : [Produtos]) : [];
+    }
+
     /**
      * padroniza a obtenção de todos os itens do Banco
      * 
@@ -124,15 +134,34 @@ export class ProductController {
         return await this.executeProdutoQuery(query);
     }
 
+    /* ==================== [ GET ] ==================== */
     /**
      * Obtem todos os produtos do Banco
+     * 
+     * @cache {1 hora}
      * 
      * @param {string} productType? - tipo do produto a se obter 
      * @returns 
     */
     public async getAllProducts(productType?: string) {
+        const cacheKey = productType ? `produtos:all:${productType}` : `produtos:all`;
+
         try {
+            const cached = await this.getCachedProducts(cacheKey)
+            if (cached) {
+                return Array.isArray(cached) ? cached : [cached];
+            }
             const produtos = await this.fetchProdutos(productType ? { tipo: productType } : undefined);
+
+            // Salva no cache (se achar relevante)
+            if (produtos) {
+                await regisController.setCache({
+                    key: cacheKey,
+                    value: produtos,
+                    ttlSeconds: 3600 // 1 hora
+                });
+            }
+
             return Array.isArray(produtos) ? produtos : [];
         } catch (e) {
             console.error(`[ProductController] getAllProducts | Erro: ${e}`);
@@ -141,9 +170,9 @@ export class ProductController {
     }
 
     /**
-     * Obtem os itens no banco com base em uma paginação
+     * Obtem os itens do cache e retorna os produtos paginados
      * 
-     * Paginação direta no banco, fora do fetchProdutos padrão
+     * @cache {1 hora}
      * 
      * @param {number} from? - index inicio 
      * @param {number} to? - index fim
@@ -157,13 +186,17 @@ export class ProductController {
                 throw new Error("Intervalo de paginação inválido.");
             }
 
-            let query = this.generateQueryWithFiltro(tables.produtos, productType ? { tipo: productType } : undefined);
+            const Produtos = await this.getAllProducts(productType);
+            if (Produtos.length === 0) {
+                return [];
+            }
 
-            query = query.range(from, to);
+            const paginado = Produtos.slice(from, to + 1);
+            if (paginado.length === 0) {
+                return []
+            }
 
-            const produtos: Produto | Produto[] | null = await this.executeProdutoQuery(query);
-
-            return Array.isArray(produtos) ? produtos : [];
+            return Array.isArray(paginado) ? paginado : [];
         } catch (e) {
             console.error(`[ProductController] getAllProductsByPage | Erro: ${e}`);
             return [];
@@ -173,12 +206,26 @@ export class ProductController {
     /**
      * Obtem  um produto especifico com base no id
      * 
+     * @cache {1 hora}
+     * 
      * @param {number} productId -- id do produto a se obter
      * @returns {Produto[] | null}
     */
     public async getProductById(productId: string) {
+        const cacheKey = `produto:${productId}`;
         try {
+            // Tenta obter do cache
+            const cached = await regisController.getCache({ key: cacheKey });
+            if (cached) {
+                return Array.isArray(cached) ? cached : [cached];
+            }
+
             const produto = await this.fetchProdutos({ id: productId });
+
+            if (produto) {
+                await regisController.setCache({ key: cacheKey, value: produto });
+            }
+
             return produto;
         } catch (e) {
             console.error(`[ProductController] getProductById | Erro: ${e}`);
@@ -189,66 +236,75 @@ export class ProductController {
     /**
      * Gera os dados do Filtro com base no tipo de produto.
      * 
+     * @cache {10 minutos}
+     * 
      * @param {string?} tipo - o tipo do produto 
      * @returns 
      */
     public async getFilterData(tipo?: string): Promise<Record<string, Set<string>> | [] | Filtro[]> {
-        try {
-            const produtos = await this.getAllProducts(tipo);
+        const cacheKey = `filtros:tipo:${tipo ?? 'todos'}`;
 
+        try {
+            const cached = await regisController.getCache({ key: cacheKey });
+            if (cached) return cached;
+
+            const produtos = await this.getAllProducts(tipo);
             const filtros: Record<string, Set<string>> = {};
 
-            if (Array.isArray(produtos) && produtos.length > 0) {
-                for (const produto of produtos) {
-                    // [BASE] Marca
-                    filtros['Marca'] ??= new Set();
-                    filtros['Marca'].add(produto.marca);
+            if (!produtos || produtos.length === 0) return [];
 
-                    switch (produto.tipo) {
-                        case 'essencia':
-                            if (tipo == 'essencias') {
-                                filtros['Tipo'] ??= new Set();
-                                filtros['Sabor'] ??= new Set();
-                                filtros['Mix'] ??= new Set();
+            for (const produto of produtos) {
+                // [BASE] Marca
+                filtros['Marca'] ??= new Set();
+                filtros['Marca'].add(produto.marca);
 
-                                filtros['Tipo'].add(produto.especificacao.tipo);
-                                filtros['Sabor'].add(produto.especificacao.sabor);
+                switch (produto.tipo) {
+                    case 'essencia':
+                        if (tipo == 'essencias') {
+                            filtros['Tipo'] ??= new Set();
+                            filtros['Sabor'] ??= new Set();
+                            filtros['Mix'] ??= new Set();
 
-                                const isMix = produto.especificacao.sabor.includes(',');
-                                filtros['Mix'].add(isMix ? 'Sim' : 'Não');
-                                break;
-                            }
+                            filtros['Tipo'].add(produto.especificacao.tipo);
+                            filtros['Sabor'].add(produto.especificacao.sabor);
 
-                        case 'acessorio':
-                            if (tipo == 'acessorio') {
-                                filtros['Tipo'] ??= new Set();
-                                filtros['Cor'] ??= new Set();
-                                filtros['Tamanho'] ??= new Set();
+                            const isMix = produto.especificacao.sabor.includes(',');
+                            filtros['Mix'].add(isMix ? 'Sim' : 'Não');
+                            break;
+                        }
 
-                                filtros['Tipo'].add(produto.especificacao.tipo);
-                                filtros['Cor'].add((produto as ProdutoAcessorio).especificacao.cor);
-                                filtros['Tamanho'].add((produto as ProdutoAcessorio).especificacao.tamanho);
-                                break;
-                            }
+                    case 'acessorio':
+                        if (tipo == 'acessorio') {
+                            filtros['Tipo'] ??= new Set();
+                            filtros['Cor'] ??= new Set();
+                            filtros['Tamanho'] ??= new Set();
 
-                        case 'carvaoAluminio':
-                            if (tipo == 'carvaoAluminio') {
-                                filtros['Kit'] ??= new Set();
-                                filtros['Kit'].add((produto as ProdutoCarvaoAluminio).especificacao.kit);
-                                break;
-                            }
-                    }
+                            filtros['Tipo'].add(produto.especificacao.tipo);
+                            filtros['Cor'].add((produto as ProdutoAcessorio).especificacao.cor);
+                            filtros['Tamanho'].add((produto as ProdutoAcessorio).especificacao.tamanho);
+                            break;
+                        }
+
+                    case 'carvaoAluminio':
+                        if (tipo == 'carvaoAluminio') {
+                            filtros['Kit'] ??= new Set();
+                            filtros['Kit'].add((produto as ProdutoCarvaoAluminio).especificacao.kit);
+                            break;
+                        }
                 }
-
-                // Converte o objeto de sets para array de Filtros
-                const resultado: Filtro[] = Object.entries(filtros).map(([titulo, set]) => ({
-                    titulo,
-                    opcoes: Object.fromEntries([...set].map(opcao => [opcao, false])),
-                }));
-
-                return resultado;
             }
-            return [];
+
+            // Converte o objeto de sets para array de Filtros
+            const resultado: Filtro[] = Object.entries(filtros).map(([titulo, set]) => ({
+                titulo,
+                opcoes: Object.fromEntries([...set].map(opcao => [opcao, false])),
+            }));
+
+            // 3. Armazena no cache
+            await regisController.setCache({ key: cacheKey, value: resultado, ttlSeconds: 600 }); // 10 min, ajustável
+
+            return resultado;
+
         } catch (error) {
             console.error(`[ProductController] obterDadosDoFiltro | Erro: ${error}`);
         }
@@ -258,29 +314,35 @@ export class ProductController {
     /**
      * Obtem os produtos relativos a Marca
      * 
+     * @cache {10 minutos}
+     * 
      * @param {string} marca - nome da marca
      * @returns {Promise<Produto[]>} - lista de produtos relativos a marca
     */
     public async getProductsByMarca(marca: string): Promise<Produto[]> {
-        try {
-            /** gera uma query para obter apenas essencias */
-            let query = this.generateQueryWithFiltro(tables.produtos, { tipo: 'essencia' })
+        const cacheKey = `produtos:marca:${marca}`;
 
-            // Adiciona filtro de marca
+        try {
+            // 1. Verifica se já está no cache
+            const cached = await regisController.getCache({ key: cacheKey });
+            if (cached) return Array.isArray(cached) ? cached : [cached];
+
+            // 2. Gera query para produtos da marca (sem limitar a 'essencia')
+            let query = this.generateQueryWithFiltro(tables.produtos);
             query = query.eq('marca', marca);
 
-            // Executa a query
             const data = await this.executeProdutoQuery(query);
 
             console.log(`[ProductController] getProductsByMarca | Marca: ${marca}, Produtos encontrados: ${data?.length || 0}`);
 
-            // Verifica se retornou algum dado
-            if (!data) {
-                console.warn(`[ProductController] getProductsByMarca | Nenhum produto encontrado para a marca: ${marca}`);
-                return [];
-            }
+            if (!data) return [];
 
-            return Array.isArray(data) ? data : [data];
+            const produtos = Array.isArray(data) ? data : [data];
+
+            // 3. Salva no cache
+            await regisController.setCache({ key: cacheKey, value: produtos, ttlSeconds: 600 }); // 10 min
+
+            return produtos;
         } catch (error) {
             console.error(`[ProductController] getProductsByMarca | Erro: ${error}`);
             return [];
@@ -295,35 +357,27 @@ export class ProductController {
     */
     public async getRelaciveProductsByAcessorio(especificacoes: ExpecificacaoAcessorio): Promise<Produto[]> {
         try {
-            // Gera uma query para obter apenas acessórios
-            let query = this.generateQueryWithFiltro(tables.acessorios, { tipo: 'acessorio' });
+            // Obtém acessórios do cache
+            const produtos = await this.getAllProducts('acessorio');
 
-            // Adiciona filtros de especificação
-            if (especificacoes.tipo) {
-                query = query.eq('tipo', especificacoes.tipo);
-            }
-            if (especificacoes.especificacao.cor) {
-                query = query.eq('cor', especificacoes.especificacao.cor);
-            }
-            if (especificacoes.especificacao.tamanho) {
-                query = query.eq('tamanho', especificacoes.especificacao.tamanho);
-            }
+            const filtrados = produtos.filter((produto: Produto) => {
+                if (produto.tipo !== 'acessorio') return false;
 
-            // Executa a query
-            const data = await this.executeProdutoQuery(query);
+                const matchTipo = !especificacoes.tipo || produto.especificacao.tipo === especificacoes.tipo;
+                const matchCor = !especificacoes.especificacao.cor || produto.especificacao.cor === especificacoes.especificacao.cor;
+                const matchTamanho = !especificacoes.especificacao.tamanho || produto.especificacao.tamanho === especificacoes.especificacao.tamanho;
+                return matchTipo && matchCor && matchTamanho;
+            });
 
-            // Verifica se retornou algum dado
-            if (!data) {
+            if (filtrados.length === 0) {
                 console.warn(`[ProductController] getRelaciveProductsByAcessorio | Nenhum produto encontrado com as especificações fornecidas.`);
-                return [];
             }
 
-            return Array.isArray(data) ? data : [data];
+            return filtrados;
         } catch (error) {
             console.error(`[ProductController] getRelaciveProductsByAcessorio | Erro: ${error}`);
             return [];
         }
-
     }
 
     /**
@@ -334,39 +388,32 @@ export class ProductController {
     */
     public async getRelaciveProductsByEssencia(especificacoes: ExpecificacaoEssencia): Promise<Produto[]> {
         try {
-            // Gera uma query para obter apenas essências
-            let query = this.generateQueryWithFiltro(tables.essencias, { tipo: 'essencia' });
+            const produtos = await this.getAllProducts('essencia');
 
-            // Adiciona filtros de especificação
-            if (especificacoes.especificacao.tipo) {
-                // Verifica se o tipo é um mix
-                if (especificacoes.especificacao.tipo.includes(',')) {
-                    query = query.like('tipo', `%${especificacoes.especificacao.tipo}%`);
-                } else {
-                    query = query.eq('tipo', especificacoes.especificacao.tipo);
-                }
-            }
+            const filtrados = produtos.filter((produto: Produto) => {
+                if (produto.tipo !== 'essencia') return false;
 
-            // Verifica se o sabor está definido
-            if (especificacoes.especificacao.sabor) {
-                // Verifica se o sabor é um mix
-                if (especificacoes.especificacao.sabor.includes(',')) {
-                    query = query.like('sabor', `%${especificacoes.especificacao.sabor}%`);
-                } else {
-                    query = query.eq('sabor', especificacoes.especificacao.sabor);
-                }
-            }
+                const tipo = produto.especificacao.tipo;
+                const sabor = produto.especificacao.sabor;
 
-            // Executa a query
-            const data = await this.executeProdutoQuery(query);
+                const matchTipo = !especificacoes.especificacao.tipo
+                    || (especificacoes.especificacao.tipo.includes(',')
+                        ? tipo.includes(especificacoes.especificacao.tipo)
+                        : tipo === especificacoes.especificacao.tipo);
 
-            // Verifica se retornou algum dado
-            if (!data) {
+                const matchSabor = !especificacoes.especificacao.sabor
+                    || (especificacoes.especificacao.sabor.includes(',')
+                        ? sabor.includes(especificacoes.especificacao.sabor)
+                        : sabor === especificacoes.especificacao.sabor);
+
+                return matchTipo && matchSabor;
+            });
+
+            if (filtrados.length === 0) {
                 console.warn(`[ProductController] getRelaciveProductsByEssencia | Nenhum produto encontrado com as especificações fornecidas.`);
-                return [];
             }
 
-            return Array.isArray(data) ? data : [data];
+            return filtrados;
         } catch (error) {
             console.error(`[ProductController] getRelaciveProductsByEssencia | Erro: ${error}`);
             return [];
@@ -381,24 +428,20 @@ export class ProductController {
     */
     public async getRelaciveProductsByCarvaoAluminio(especificacoes: ExpecificacaoCarvaoAluminio): Promise<Produto[]> {
         try {
-            // Gera uma query para obter apenas carvão alumínio
-            let query = this.generateQueryWithFiltro(tables.carvao_aluminio, { tipo: 'carvaoAluminio' });
+            const produtos = await this.getAllProducts('carvaoAluminio');
 
-            // Adiciona filtro de especificação
-            if (especificacoes.especificacao.kit) {
-                query = query.eq('kit', especificacoes.especificacao.kit);
-            }
+            const filtrados = produtos.filter((produto: Produto) => {
+                if (produto.tipo !== 'carvaoAluminio') return false;
 
-            // Executa a query
-            const data = await this.executeProdutoQuery(query);
+                const matchKit = !especificacoes.especificacao.kit || produto.especificacao.kit === especificacoes.especificacao.kit;
+                return matchKit;
+            });
 
-            // Verifica se retornou algum dado
-            if (!data) {
+            if (filtrados.length === 0) {
                 console.warn(`[ProductController] getRelaciveProductsByCarvaoAluminio | Nenhum produto encontrado com as especificações fornecidas.`);
-                return [];
             }
 
-            return Array.isArray(data) ? data : [data];
+            return filtrados;
         } catch (error) {
             console.error(`[ProductController] getRelaciveProductsByCarvaoAluminio | Erro: ${error}`);
             return [];
@@ -521,7 +564,6 @@ export class ProductController {
         // Salvar os dados de especificação do produto
         this.registerProductEspecifications(id, DadosEspecificacao as Produto);
     }
-
 
     /* ==================== [ DELETE ] ==================== */
 }

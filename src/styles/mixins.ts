@@ -12,6 +12,11 @@ export const flexColumn = css`
   flex-direction: column;
 `;
 
+export const flexRow = css`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const flexSpaceBetween = css`
   display: flex;
   justify-content: space-between;

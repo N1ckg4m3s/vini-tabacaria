@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ProductController } from "@/controller/productContoller";
+import { catalogService } from "@/server/catalog/catalog.service";
 
 /**
  * Obtém os itens do catálogo com base na paginação.
@@ -26,37 +27,8 @@ import { ProductController } from "@/controller/productContoller";
  *   "items": [ /* array de produtos *\/ ]
  * }
 */
-
-
 export async function GET(request: NextRequest) {
-    /* obtem os parametros passados */
-    const { searchParams } = request.nextUrl;
+    const service = new catalogService()
 
-    // inicializa localmente o contrutos
-    const controller = new ProductController()
-
-    /* obtendo os parametros da quantidade de itene e pagina */
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limitPerPage = parseInt(searchParams.get("limit_per_page") || "10", 10);
-
-    const from = Math.max(page - 1, 0) * limitPerPage;
-    const to = from + limitPerPage - 1;
-
-    /* obter todos os produtos com base na pagina */
-    const allProducts = await controller.getAllProductsByPage(from, to);
-
-    /* calcular a quantidade de itens e paginas */
-    const totalItems = allProducts.length;
-    const totalPages = Math.ceil(totalItems / limitPerPage);
-
-    return NextResponse.json(
-        {
-            page,
-            totalPages,
-            totalItems,
-            limitPerPage,
-            items: allProducts
-        },
-        { status: 200 }
-    );
+    return await service.obterItensPorPagina(request)
 }

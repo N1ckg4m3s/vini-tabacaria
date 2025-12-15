@@ -9,13 +9,14 @@ import { useCatalogProducts } from "../hooks/useCatalogProducts"
 import ProductCard from '../components/ProductCard/component';
 import PaginacaoComponente from '../components/PaginacaoComponent/component';
 import { FiltroCatalogoComponent } from '../components/filter/component';
+import { LoadingOverlay } from '@/features/_shered/components/loading/component';
 
 export const CatalogoComponent = () => {
-    const { source, loading } = useCatalogFilters()
     const { filters, actions } = useAppliedFilters()
+    const { source, loading } = useCatalogFilters(filters)
     const [paginaAtual, setPaginaAtual] = useState(1)
 
-    const { containerRef, totalItensNaTela } = useResponsiveColumns({ numeroDeLinhas: 5 })
+    const { containerRef, totalItensNaTela } = useResponsiveColumns({})
 
     const { catalogProducts, totalPages } = useCatalogProducts({
         filtros: filters,
@@ -26,8 +27,6 @@ export const CatalogoComponent = () => {
     useEffect(() => {
         setPaginaAtual(1)
     }, [totalItensNaTela, filters])
-
-    if (loading) return <span>Loading...</span>
 
     return (
         <s.CatalogoContainer>
@@ -50,10 +49,11 @@ export const CatalogoComponent = () => {
 
                 <PaginacaoComponente
                     changeTo={setPaginaAtual}
-                    numeroDePaginas={5}
+                    numeroDePaginas={totalPages}
                     paginaAtual={paginaAtual}
                 />
             </s.CatalogoPaginationContainer>
+            {loading && (<LoadingOverlay />)}
         </s.CatalogoContainer>
     )
 }

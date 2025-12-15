@@ -1,8 +1,12 @@
+import { createRoute } from "@/http/http.handler";
 import { catalogService } from "@/server/catalog/catalog.service";
-import { NextRequest } from "next/server";
 
-export async function GET(request: NextRequest) {
-    const service = new catalogService()
+export const GET = createRoute(async (request) => {
+    const { searchParams } = request.nextUrl;
 
-    return await service.obterDadosParaFiltragem(request)
-}
+    const filters = JSON.parse(searchParams.get("filters") || "{}");
+
+    const service = new catalogService();
+
+    return await service.obterDadosParaFiltragem({ filters })
+})

@@ -1,34 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ProductController } from "@/controller/productContoller";
+import { createRoute } from "@/http/http.handler";
 import { catalogService } from "@/server/catalog/catalog.service";
 
-/**
- * Obtém os itens do catálogo com base na paginação.
- *
- * Parâmetros passados via URL:
- * - page {number} Página atual do cliente (default: 1)
- * - limit_per_page {number} Quantidade de itens por página (default: 10)
- *
- * Caso parâmetros não sejam passados ou estejam inválidos, valores padrão serão usados.
- *
- * @returns {Object} Dados paginados contendo:
- *  - currentPage {number} Página atual
- *  - totalPages {number} Número total de páginas
- *  - totalItems {number} Quantidade total de itens
- *  - limitPerPage {number} Quantidade de itens por página
- *  - items {Produto[]} Lista de produtos da página
- *
- * Exemplo de resposta:
- * {
- *   "currentPage": 1,
- *   "totalPages": 5,
- *   "totalItems": 50,
- *   "limitPerPage": 10,
- *   "items": [ /* array de produtos *\/ ]
- * }
-*/
-export async function GET(request: NextRequest) {
-    const service = new catalogService()
+export const GET = createRoute(async (request) => {
+    const { searchParams } = request.nextUrl;
 
-    return await service.obterItensPorPagina(request)
-}
+    const page = Math.max(Number(searchParams.get("page") || 1), 1);
+    const perPage = Math.max(Number(searchParams.get("limit_per_page") || 10), 1);
+    const filters = JSON.parse(searchParams.get("filters") || "{}");
+
+    const service = new catalogService();
+
+    return service.obterItensPorPagina({
+        page,
+        perPage,
+        filters
+    });
+});

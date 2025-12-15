@@ -43,10 +43,12 @@ const InformacaoProduto = () => {
             try {
                 const data = await apiCaller({
                     url: '/api/produto/get-by-id',
-                    params: { id_produto: `${id}` }
+                    params: { productId: String(id) }
                 });
-                
-                setProduto(data.responseData[0] || null);
+
+                console.log(data)
+
+                setProduto(data || null);
             } catch (e) {
                 console.error(`Erro ao buscar produto ${id} - ${e}`);
             }
@@ -116,8 +118,7 @@ const InformacaoProduto = () => {
                 titulo="Outras da mesma marca"
                 urlData="/api/produto/get-by-relation/relation-marca"
                 urlParams={{
-                    product_marca: obterMarcaDoProduto(produto),
-                    exclude_id: produto.id // Excluir o produto atual da lista
+                    productId: produto.id,
                 }}
             />
             {/*Produtos relacionados */}
@@ -126,9 +127,7 @@ const InformacaoProduto = () => {
                 titulo="Semelhantes"
                 urlData="/api/produto/get-by-relation/relation-relactive"
                 urlParams={{
-                    product_tipo: obterTipo(),
-                    exclude_id: produto.id, // Excluir o produto atual da lista
-                    product_especifications: gerarEspecificacao()
+                    productId: produto.id,
                 }}
             />
         </ContainerPagina>

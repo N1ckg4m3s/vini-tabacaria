@@ -1,3 +1,4 @@
+import { BadRequestError } from "@/http/erros.handle";
 import { NextRequest } from "next/server";
 
 export const resolveProductId = async (request: NextRequest): Promise<string> => {
@@ -13,5 +14,5 @@ export const resolveProductId = async (request: NextRequest): Promise<string> =>
         if (body?.id) return body.id;
     } catch { }
 
-    throw new Error("id do produto não informado");
+    throw new BadRequestError("id do produto não informado");
 };

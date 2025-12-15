@@ -16,20 +16,22 @@ export class catalogService {
             const filters = JSON.parse(searchParams.get("filters") || "{}");
 
             const start = (page - 1) * perPage;
-            const end = start + perPage - 1;
+            const end = start + perPage;
 
             let query = this.repo.baseQuery();
 
-            query = this.repo.applyFilters(query, filters);
+            query = this.repo.applyHardFilters(query, filters);
 
-            query = query.range(start, end);
+            query = query.limit(100);
 
             const { data, count } = await this.repo.execute(query);
 
             const ranked = rankProducts(data, filters);
 
+            const pageItems = ranked.slice(start, end);
+
             return NextResponse.json({
-                itens: ranked,
+                itens: pageItems,
                 total: count,
                 page,
                 perPage
@@ -43,13 +45,29 @@ export class catalogService {
 
     obterDadosParaFiltragem = async (request: NextRequest) => {
         try {
-            const query = this.repo.baseQuery()
-            const { data: produtos, count } = await this.repo.execute(query);
+            const { searchParams } = request.nextUrl;
 
-            // Filtros bases [independende de meta]
-            const marcas = extractUniqueStrings(produtos, p => p.marca)
+            const filters = JSON.parse(searchParams.get("filters") || "{}");
+
+            let query = this.repo.baseQuery()
+
+            const { data } = await this.repo.execute(query);
+
+            let produtos = [...data];
+            /* ==================== [filtros hierarquicos] ==================== */
+            // ========== 1️⃣ obtem todos os tipos de produto
             const tipos = extractUniqueStrings(produtos, p => p.tipo)
 
+            // Aplica filtragem nos items para ter apenas os 'tipos selecionados'
+            if (filters.tipo?.length > 0) produtos = produtos.filter((p: Produto) => filters.tipo.includes(p.tipo))
+
+            // ========== 2️⃣ obtem todos as marcas
+            const marcas = extractUniqueStrings(produtos, p => p.marca)
+
+            // Aplica filtragem nos items para ter apenas as 'marcas selecionados'
+            if (filters.marca?.length > 0) produtos = produtos.filter((p: Produto) => filters.marca.includes(p.marca))
+
+            // Compatibilidade com as metas.
             const precoMin = Math.min(...produtos.map((p: Produto) => p.valor || Infinity));
             const precoMax = Math.max(...produtos.map((p: Produto) => p.valor || -Infinity));
 

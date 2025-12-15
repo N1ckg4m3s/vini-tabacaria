@@ -19,37 +19,27 @@ export class CatalogRepository {
     }
 
     applyFilters(query: any, filters: CatalogFilters) {
-        // Search
-        if (filters.search) {
-            const terms = filters.search
-                .toLowerCase()
-                .split(" ")
-                .filter(Boolean);
+        // // Search
+        // if (filters.search) {
+        //     const terms = filters.search
+        //         .toLowerCase()
+        //         .split(" ")
+        //         .filter(Boolean);
 
-            for (const t of terms) {
-                query = query.or(`
-                        nome.ilike.%${t}%,
-                        marca.ilike.%${t}%,
-                        metaData->>sabor.ilike.%${t}%,
-                        metaData->>intensidade.ilike.%${t}%,
-                        metaData->>cor.ilike.%${t}%,
-                        metaData->>tamanho.ilike.%${t}%,
-                        metaData->>tipo.ilike.%${t}%,
-                        metaData->>kit.ilike.%${t}%,
-                        metaData->>mix.ilike.%${t}%`
-                );
-            }
-        }
-
-        // Marca
-        if (filters.marca?.length) {
-            query = query.in("marca", filters.marca);
-        }
-
-        // Tipo
-        if (filters.tipo?.length) {
-            query = query.in("tipo", filters.tipo);
-        }
+        //     for (const t of terms) {
+        //         query = query.or(`
+        //                 nome.ilike.%${t}%,
+        //                 marca.ilike.%${t}%,
+        //                 metadata->>sabor.ilike.%${t}%,
+        //                 metadata->>intensidade.ilike.%${t}%,
+        //                 metadata->>cor.ilike.%${t}%,
+        //                 metadata->>tamanho.ilike.%${t}%,
+        //                 metadata->>tipo.ilike.%${t}%,
+        //                 metadata->>kit.ilike.%${t}%,
+        //                 metadata->>mix.ilike.%${t}%`
+        //         );
+        //     }
+        // }
 
         // MetaData dinâmica
         if (filters.meta) {
@@ -76,6 +66,19 @@ export class CatalogRepository {
                     query = query.eq(`metaData->>${key}`, value);
                 }
             }
+        }
+        return query;
+    }
+
+    applyHardFilters(query: any, filters: CatalogFilters) {
+        // Marca
+        if (filters.marca?.length) {
+            query = query.in("marca", filters.marca);
+        }
+
+        // Tipo
+        if (filters.tipo?.length) {
+            query = query.in("tipo", filters.tipo);
         }
 
         // Preço

@@ -37,22 +37,6 @@ export const rankProducts = (products: Produto[], filters: CatalogFilters) => {
                 score += matchedInt.length * 3;
             }
 
-            // Search
-            if (filters.search) {
-                const terms = filters.search.toLowerCase().split(" ").filter(Boolean);
-                for (const t of terms) {
-                    // normalizando campos
-                    const nome = p.nome ? String(p.nome).toLowerCase() : '';
-                    const marca = p.marca ? String(p.marca).toLowerCase() : '';
-                    const sabores = toStringArray(p.metadata?.sabor).map(s => s.toLowerCase());
-                    const intensidades = toStringArray(p.metadata?.intensidade).map(i => i.toLowerCase());
-
-                    if (nome.includes(t) || marca.includes(t)) score += 2;
-                    if (sabores.some(s => s.includes(t))) score += 2;
-                    if (intensidades.some(i => i.includes(t))) score += 1;
-                }
-            }
-
             return { ...p, score };
         })
         .sort((a, b) => b.score - a.score);

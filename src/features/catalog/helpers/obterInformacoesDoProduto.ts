@@ -15,7 +15,8 @@ export const obterInformacoesDoProduto = (produto: Produto) => {
             titulo = `${produto.metadata.tipo}`;
             especificacao = `${produto.metadata.cor} ${produto.metadata.tamanho}`;
             break;
-        case "carvaoAluminio":
+        case "carvao":
+        case "aluminio":
             titulo = marca;
             especificacao = nome;
             break;

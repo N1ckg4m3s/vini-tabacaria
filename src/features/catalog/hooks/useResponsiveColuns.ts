@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { UseResponsiveColumnsProps } from "../types/HooksProps";
 
-export const useResponsiveColumns: UseResponsiveColumnsProps = ({ numeroDeLinhas = 5, minSize = 150, gapSize = 16 }) => {
+export const useResponsiveColumns: UseResponsiveColumnsProps = ({ numeroDeLinhas = 5, minSize = 200, gapSize = 16 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [numeroDeColunas, setNumeroDeColunas] = useState(0);
 
@@ -11,7 +11,8 @@ export const useResponsiveColumns: UseResponsiveColumnsProps = ({ numeroDeLinhas
         if (containerRef.current) {
             const actualWidth = containerRef.current.clientWidth;
             const novoNumeroDeColunas = Math.floor((actualWidth + gapSize) / (minSize + gapSize));
-            if (novoNumeroDeColunas !== numeroDeColunas) setNumeroDeColunas(novoNumeroDeColunas);
+
+            if (novoNumeroDeColunas !== numeroDeColunas) setNumeroDeColunas(novoNumeroDeColunas)
         }
     };
 

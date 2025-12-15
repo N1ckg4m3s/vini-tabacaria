@@ -30,7 +30,7 @@ export const useCatalogProducts: UseCatalogProductsProps = ({ filtros, paginaAtu
         setLoading(true)
         fetchProducts();
 
-    }, [paginaAtual, numeroPorPagina]);
+    }, [paginaAtual, numeroPorPagina, filtros]);
 
     return {
         catalogProducts,

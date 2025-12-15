@@ -2,6 +2,7 @@
 
 import { CatalogFilters } from '@/shered/shered.types'
 import { useState } from 'react'
+import { MetaKeys } from '../types/types'
 
 export const useAppliedFilters = () => {
     const [filters, setFilters] = useState<CatalogFilters>({})
@@ -25,9 +26,7 @@ export const useAppliedFilters = () => {
         })
     }
 
-    const toggleMetaFilter = <
-        K extends keyof NonNullable<CatalogFilters['meta']>
-    >(
+    const toggleMetaFilter = <K extends MetaKeys>(
         field: K,
         value: string
     ) => {

@@ -18,7 +18,7 @@ export const getAllCatalogItens: getAllCatalogItensProps = async ({ filtros, pag
 
         return {
             itens: request.itens || [],
-            totalPages: request.totalPages || 0
+            totalPages: Math.ceil(request.total / limit)
         }
     } catch (e) {
         console.error(`[Feature/Catalog/Api/getAllItens] Error: ${e}`)

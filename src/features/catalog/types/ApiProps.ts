@@ -1,13 +1,23 @@
 import { Produto } from "@/controller/types"
+import { CatalogFilters } from "@/shered/shered.types"
 
 // ------------------------
 // Obter todos os itens do catalogo Api
 // ------------------------
-type getAllCatalogItensParams = { filtros: any, paginaAtual: number, limit: number }
+type getAllCatalogItensParams = { filtros: CatalogFilters, paginaAtual: number, limit: number }
 
 type getAllCatalogItensRespose = { itens: Produto[], totalPages: number }
 
 export type getAllCatalogItensProps = (params: getAllCatalogItensParams) => Promise<getAllCatalogItensRespose>
+
+// ------------------------
+// NO NAME
+// ------------------------
+type getFiltersInformationsParams = { filtros?: CatalogFilters }
+
+type getFiltersInformationsRespose = { filtros: CatalogFilters }
+
+export type getFiltersInformationsProps = (params: getFiltersInformationsParams) => Promise<getFiltersInformationsRespose>
 
 // ------------------------
 // NO NAME

@@ -41,6 +41,8 @@ export interface CatalogFilters {
   meta?: {
     sabor?: string[]
     intensidade?: string[]
+    pacote?: string[]
+    tipo?: string[]
     cor?: string[]
     tamanho?: string[]
     kit?: string[]

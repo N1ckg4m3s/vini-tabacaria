@@ -3,9 +3,8 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div<{ $small: string }>`
     background-color: ${Theme.colors.Fundo.cinzaEscuro};
-    width: 100%;
     max-width: ${({ $small }) => ($small == 'sim' ? '150px' : '200px')};
-    max-height: 246px;
+    min-width: 150px;
     border-radius: 20px;
     padding: 5px;
     position: relative;
@@ -66,4 +65,3 @@ export const CardCarrinhoTextoIndicador = styled.p`
     font-size:10px;
     color: ${Theme.colors.Texto.white};
 `;
-

@@ -2,6 +2,7 @@ export const Theme = {
     colors: {
         Borda: {
             white: '#ffffff',
+            cinzaEscuro: '#27272a',
             notificationColor: {
                 Warning: '#F1C21B',
                 Sucess: '#25A249',
@@ -29,6 +30,8 @@ export const Theme = {
             cinzaClaro: '#C1C8C0',
             white: '#ffffff',
             black: '#000000',
+            VerdeEscuro: '#1d8239',
+            VerdeClaro: '#25A249',
         },
     }
 }

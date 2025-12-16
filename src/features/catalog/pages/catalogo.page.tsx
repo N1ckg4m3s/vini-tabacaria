@@ -6,7 +6,7 @@ import { useAppliedFilters } from "../hooks/useAppliedFilters"
 import { useCatalogFilters } from "../hooks/useCatalogFilter"
 import { useResponsiveColumns } from "../hooks/useResponsiveColuns"
 import { useCatalogProducts } from "../hooks/useCatalogProducts"
-import ProductCard from '../components/ProductCard/component';
+import ProductCard from '../../_shered/components/productCard/component';
 import PaginacaoComponente from '../components/PaginacaoComponent/component';
 import { FiltroCatalogoComponent } from '../components/filter/component';
 import { LoadingOverlay } from '@/features/_shered/components/loading/component';

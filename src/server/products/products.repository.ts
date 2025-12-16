@@ -25,18 +25,18 @@ export class ProductRepository {
 
                 if (Array.isArray(value)) {
                     const conditions = value
-                        .map(v => `${`metaData->>${key}`}.ilike.%${v}%`)
+                        .map(v => `${`metadata->>${key}`}.ilike.%${v}%`)
                         .join(",");
 
                     query = query.or(conditions);
                 }
 
                 else if (typeof value === "string") {
-                    query = query.ilike(`metaData->>${key}`, `%${value}%`);
+                    query = query.ilike(`metadata->>${key}`, `%${value}%`);
                 }
 
                 else {
-                    query = query.eq(`metaData->>${key}`, value);
+                    query = query.eq(`metadata->>${key}`, value);
                 }
             }
         }

@@ -32,8 +32,10 @@ export class ProductInfoService {
 
         let query = this.repo.baseQuery()
             .neq("id", produtoBase.id)
-            .eq("tipo", produtoBase.tipo)
-            .limit(100)
+
+        query = this.repo.applyHardFilters(query, { tipo: [produtoBase.tipo] })
+
+        query = query.limit(50)
 
         if (produtoBase.tipo === "essencia") {
             query = this.repo.applyFilters(query, {
@@ -53,12 +55,10 @@ export class ProductInfoService {
                 }
             })
         }
-        try {
-            return NextResponse.json({}, { status: 200 });
-        } catch (e) {
-            console.error(e);
-            return NextResponse.json({ error: `Erro interno no servidor mensagem: ${e}` }, { status: 500 });
-        }
+
+        const { data } = await this.repo.execute(query)
+
+        return data;
     }
 
     obterItensPorMarca = async (params: { productId: string }) => {
@@ -67,16 +67,15 @@ export class ProductInfoService {
         const produtoBase: Produto = await this.obterProdutoPorId(productId)
 
         let query = this.repo.baseQuery()
+            .neq("id", produtoBase.id)
 
         query = this.repo.applyHardFilters(query, {
             marca: toArray(produtoBase.marca),
             tipo: toArray(produtoBase.tipo)
         })
-        try {
-            return NextResponse.json({}, { status: 200 });
-        } catch (e) {
-            console.error(e);
-            return NextResponse.json({ error: `Erro interno no servidor mensagem: ${e}` }, { status: 500 });
-        }
+
+        const { data } = await this.repo.execute(query)
+
+        return data;
     }
 }

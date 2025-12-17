@@ -1,8 +1,8 @@
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme"; // to update
 import styled from "styled-components";
 
 export const CardContainer = styled.div<{ $small: string }>`
-    background-color: ${Theme.colors.Fundo.cinzaEscuro};
+    background-color: ${GlobalColors.Neutral[600]};
     max-width: ${({ $small }) => ($small == 'sim' ? '150px' : '200px')};
     min-width: 150px;
     border-radius: 20px;
@@ -31,8 +31,8 @@ export const CardValue = styled.p`
     border-radius: 20px;
     font-weight: 500;
     right: 5px;
-    background-color: ${Theme.colors.Fundo.cinzaEscuro};
-    color: ${Theme.colors.Texto.white};
+    background-color: ${GlobalColors.Neutral[600]};
+    color: ${GlobalColors.Text.primary};
     position: absolute;
 `;
 
@@ -40,13 +40,13 @@ export const CardTitle = styled.p`
     font-size: clamp(10px, 100%, 20px);
     font-weight: bold;
     text-align: center;
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
 `;
 
 export const CardEspecificacao = styled.p`
     font-size: clamp(8px, 100%, 12px);
     text-align: center;
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
 `;
 
 export const CardContainerIndicadorNoCarrinho = styled.div<{ $noCarrinho: string }>`
@@ -63,5 +63,5 @@ export const CardContainerIndicadorNoCarrinho = styled.div<{ $noCarrinho: string
 
 export const CardCarrinhoTextoIndicador = styled.p`
     font-size:10px;
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
 `;

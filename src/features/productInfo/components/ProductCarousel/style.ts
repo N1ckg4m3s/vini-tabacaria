@@ -1,11 +1,11 @@
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme"; // to update
 import styled, { css } from 'styled-components';
 
 export const RelactionTitle = styled.h2`
     margin: 0 0 24px 0;
     font-size: 1.4rem;
     font-weight: 600;
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
 `
 
 export const Carousel = styled.h2`
@@ -19,9 +19,9 @@ const BaseCourselArrow = css`
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    border: 1px solid ${Theme.colors.Borda.cinzaEscuro};
+    border: 1px solid ${GlobalColors.Border.subtle};
     background: rgba(24, 24, 27, 0.85);
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
     font-size: 22px;
     font-weight: 600;
     cursor: pointer;

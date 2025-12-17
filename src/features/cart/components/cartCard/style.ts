@@ -1,12 +1,12 @@
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme"; // to update
 import styled from "styled-components";
 
 export const CartCotaniner = styled.article`
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
     display: flex;
     gap: 16px;
-    background: ${Theme.colors.Fundo.cinzaEscuro};
-    border: 1px solid ${Theme.colors.Borda.cinzaEscuro};
+    background: ${GlobalColors.Neutral[600]};
+    border: 1px solid ${GlobalColors.Border.subtle};
     border-radius: 16px;
     padding: 16px;
 `
@@ -31,7 +31,7 @@ export const CartTitle = styled.h3`
 
 export const CartMarca = styled.span`
     font-size: 0.85rem;
-    color: ${Theme.colors.Texto.cinzaClaro};
+    color: ${GlobalColors.Text.secondary};
     margin-bottom: 12px;
 `
 
@@ -52,7 +52,7 @@ export const QuantityButton = styled.button`
     width: 28px;
     height: 28px;
     border-radius: 8px;
-    border: 1px solid ${Theme.colors.Borda.cinzaEscuro27};
+    border: 1px solid ${GlobalColors.Border.subtle};
     background: transparent;
     cursor: pointer;
 `

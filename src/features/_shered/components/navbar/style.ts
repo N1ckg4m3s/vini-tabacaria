@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import Link from "next/link";
 import { buttonReset, flexCenter, flexSpaceBetween, WhiteRoundedBorder } from "@/styles/mixins";
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme"; // to update
 
 /* CONTAINER DA NAVBAR */
 export const NavBarContainer = styled.nav`
@@ -26,7 +26,7 @@ export const LinksContainer = styled.div`
 `
 
 export const LinkStyle = styled(Link) <{ $nodrawer?: string }>`
-  color: ${Theme.colors.Texto.cinzaClaro};
+  color: ${GlobalColors.Text.secondary};
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -38,10 +38,10 @@ export const LinkStyle = styled(Link) <{ $nodrawer?: string }>`
         css`
             @media screen and (max-width: 750px) {
                 width: 100%;
-                background-color: ${Theme.colors.Fundo.cinzaEscuro};
+                background-color: ${GlobalColors.Neutral[600]};
                 padding: 10px 0;
                 border-radius: 10px;
-                color: ${Theme.colors.Texto.black};
+                color: ${GlobalColors.Text.primary};
                 border: 1px solid black;
                 font-weight: bold;
             }
@@ -63,14 +63,14 @@ export const LinksGroup = styled.div<{ $showdrawer: string }>`
         right: 0;
         flex-direction: column;
         justify-content: start;
-        background-color: ${Theme.colors.Fundo.cinzaEscuro_c9};
+        background-color: ${GlobalColors.Neutral[600]};
         z-index: 10;
         padding: clamp(20px, 5vw, 50px) clamp(20px, 5vw, 50px);
     }
 `
 
 export const CloseButton = styled.button`
-    color: ${Theme.colors.Texto.cinzaClaro};
+    color: ${GlobalColors.Text.secondary};
     ${buttonReset}
     display: none;
     width: 100%;
@@ -101,7 +101,7 @@ export const SearchformContainer = styled.form`
 
 export const SearchInput = styled.input`
     ${WhiteRoundedBorder};
-    color:${Theme.colors.Texto.white};
+    color:${GlobalColors.Text.primary};
     width: 100%;
     height: 30px;
     background-color: transparent;

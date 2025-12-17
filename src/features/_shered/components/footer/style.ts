@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { flexSpaceBetween } from '@/styles/mixins';
-import { Theme } from '@/styles/theme';
+import { GlobalColors } from "@/styles/theme"; // to update
 
 export const FooterContainer = styled.footer`
     margin-top: 10px;
     display: grid;
     padding: 20px clamp(10px, 5vw, 80px);
     min-height: 80px;
-    background-color: #272C30;
+    background-color: ${GlobalColors.Neutral[600]};
     grid-template-columns: 1fr auto 1fr;
     grid-template-areas: "copyright logo icons";
     align-items: center;
@@ -36,7 +36,7 @@ export const FooterLogo = styled.div`
 
 export const FooterCopyrightText = styled.p`
     font-size: 0.85rem;
-    color: ${Theme.colors.Texto.cinzaClaro};
+    color: ${GlobalColors.Text.secondary};
     grid-area: copyright;
     justify-self: start;
     @media screen and (max-width: 480px){

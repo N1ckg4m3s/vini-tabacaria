@@ -1,10 +1,10 @@
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme"; // to update
 import styled, { css } from "styled-components";
 
 export const SummaryContainer = styled.aside`
-    background: ${Theme.colors.Fundo.cinzaEscuro};
-    border: 1px solid ${Theme.colors.Borda.cinzaEscuro27};
-    color: ${Theme.colors.Texto.white};
+    background: ${GlobalColors.Neutral[600]};
+    border: 1px solid ${GlobalColors.Border.subtle};
+    color: ${GlobalColors.Text.primary};
     border-radius: 16px;
     padding: 24px;
     height: fit-content;
@@ -25,7 +25,7 @@ export const SummaryLine = styled.div` ${summaryLineBase} `
 
 export const SummaryLine_Muted = styled.div`
     ${summaryLineBase};
-    color: ${Theme.colors.Texto.cinzaClaro};
+    color: ${GlobalColors.Text.secondary};
 `
 
 export const SummaryTotal = styled.div`
@@ -40,7 +40,7 @@ export const FinishButton = styled.button`
     padding: 16px;
     border-radius: 14px;
     border: none;
-    background: ${Theme.colors.Fundo.VerdeClaro};
+    background: ${GlobalColors.Primary.base};
     color: #052e16;
     font-size: 1rem;
     font-weight: 600;

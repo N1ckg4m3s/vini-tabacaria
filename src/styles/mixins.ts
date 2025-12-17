@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Theme } from './theme';
+import { GlobalColors } from "@/styles/theme"; // to update
 
 export const flexCenter = css`
   display: flex;
@@ -29,7 +29,7 @@ export const flexSpaceAround = css`
 
 export const WhiteRoundedBorder = css`
   border-radius: 20px;
-  border: 1px solid ${Theme.colors.Borda.white};
+  border: 1px solid ${GlobalColors.Neutral[0]};
 `;
 
 export const ellipsis = css`
@@ -62,10 +62,10 @@ export const ContainerPagina = styled.article<{ $Column?: boolean, $Center?: boo
 export const HorizontalLine = styled.div`
   height: 3px;
   width: 100%;
-  background-color: ${Theme.colors.Fundo.cinzaEscuro};
+  background-color: ${GlobalColors.Border.strong};
 `
 export const VerticalLine = styled.div`
   height:auto;
   width: 3px;
-  background-color: ${Theme.colors.Fundo.cinzaEscuro};
+  background-color: ${GlobalColors.Border.strong};
 `

@@ -1,3 +1,5 @@
+import { GlobalColors } from "@/styles/theme";
+
 interface Props {
   direction?: 'left' | 'right';
   size?: number;
@@ -12,7 +14,7 @@ interface Props {
 const SetaIcon: React.FC<Props> = ({
   direction = 'right',
   size = 20,
-  color = 'white',
+  color = GlobalColors.Neutral[0],
 }) => {
   const rotation = direction === 'right' ? 'rotate(180deg)' : 'none';
 

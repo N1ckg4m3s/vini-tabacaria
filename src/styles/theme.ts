@@ -1,37 +1,94 @@
 export const Theme = {
     colors: {
         Borda: {
-            white: '#ffffff',
-            cinzaEscuro: '#27272a',
+            white: '#FF0000',
+            cinzaEscuro: '#FF0000',
+            cinzaEscuro27: '#FF0000',
             notificationColor: {
-                Warning: '#F1C21B',
-                Sucess: '#25A249',
-                Error: '#DA1E28',
-                Observation: '#0F62FE'
+                Warning: '#FF0000',
+                Sucess: '#FF0000',
+                Error: '#FF0000',
+                Observation: '#FF0000'
             }
         },
         Fundo: {
-            cinzaEscuro_36: '#363636',
-            cinzaEscuro: '#474747',
-            cinzaEscuro_c9: '#474747c9',
-            background: '#222222',
-            CinzaClaro: '#909090',
-            VerdeEscuro: '#1d8239',
-            VerdeClaro: '#25A249',
-            cinzaFooter: '#272C30',
+            background: '#FF0000',       // base geral
+            cinzaEscuro_36: '#FF0000',    // cards / blocos
+            cinzaEscuro: '#FF0000',       // divisões / containers
+            cinzaEscuro_c9: '#FF0000',  // overlays
+            CinzaClaro: '#FF0000',        // texto muted
+            VerdeEscuro: '#FF0000',       // CTA forte
+            VerdeClaro: '#FF0000',        // hover / feedback
+            cinzaFooter: '#FF0000',       // fundo secundário
             notificationColor: {
-                Warning: '#FAE9AD',
-                Sucess: '#B0DDBE',
-                Error: '#F2AEB2',
-                Observation: '#A9C7FF'
+                Warning: '#FF0000',
+                Sucess: '#FF0000',
+                Error: '#FF0000',
+                Observation: '#FF0000'
             }
         },
         Texto: {
-            cinzaClaro: '#C1C8C0',
-            white: '#ffffff',
-            black: '#000000',
-            VerdeEscuro: '#1d8239',
-            VerdeClaro: '#25A249',
+            cinzaClaro: '#FF0000',        // texto secundário
+            white: '#FF0000',
+            black: '#FF0000',
+            VerdeEscuro: '#FF0000',
+            VerdeClaro: '#FF0000'
+        }
+    }
+}
+
+export const GlobalColors = {
+    Neutral: {
+        950: '#121212', // fundo absoluto
+        900: '#181818', // app background
+        800: '#1F1F1F', // seções grandes
+        700: '#2A2A2A', // cards
+        600: '#363636', // divisões / containers
+        500: '#474747', // bordas leves
+        400: '#6B6B6B', // texto secundário
+        300: '#909090', // texto muted
+        200: '#C1C8C0', // texto claro
+        0: '#FFFFFF'
+    },
+
+    Primary: {
+        strong: '#1D8239', // CTA principal
+        base: '#25A249',   // hover / foco
+        soft: '#B0DDBE',   // fundo leve
+        text: '#0F3D1F'
+    },
+
+    Feedback: {
+        success: {
+            strong: '#25A249',
+            soft: '#B0DDBE'
         },
+        warning: {
+            strong: '#F1C21B',
+            soft: '#FAE9AD'
+        },
+        error: {
+            strong: '#DA1E28',
+            soft: '#F2AEB2'
+        },
+        info: {
+            strong: '#0F62FE',
+            soft: '#A9C7FF'
+        }
+    },
+
+    Text: {
+        primary: '#FFFFFF',
+        secondary: '#C1C8C0',
+        muted: '#909090',
+        inverse: '#000000',
+        onPrimary: '#052E16',
+        onDark: '#FFFFFF'
+    },
+    
+    Border: {
+        subtle: '#474747',
+        strong: '#363636',
+        focus: '#25A249',
     }
 }

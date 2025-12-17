@@ -1,4 +1,4 @@
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme"; // to update
 import styled from "styled-components";
 
 export const CartPage = styled.div`
@@ -8,7 +8,7 @@ export const CartPage = styled.div`
 `
 
 export const CartHeader = styled.header`
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
     display: flex;
     align-items: baseline;
     gap: 12px;
@@ -21,7 +21,7 @@ export const CartTitle = styled.h1`
 `
 
 export const CartItensCount = styled.span`
-    color: ${Theme.colors.Texto.cinzaClaro};
+    color: ${GlobalColors.Text.secondary};
 `
 
 export const ContentLayout = styled.div`

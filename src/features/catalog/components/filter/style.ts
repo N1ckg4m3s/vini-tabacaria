@@ -1,5 +1,5 @@
 import { buttonReset, flexColumn } from "@/styles/mixins";
-import { Theme } from "@/styles/theme";
+import { GlobalColors } from "@/styles/theme";
 import { styled, css } from "styled-components";
 
 const ContainerBase = css`
@@ -13,7 +13,7 @@ export const FilterContainer = styled.form`
     ${ContainerBase};
     ${flexColumn};
     max-width: 250px;
-    background-color: ${Theme.colors.Fundo.cinzaEscuro};
+    background-color: ${GlobalColors.Neutral[600]};
     gap: 10px;
 `
 
@@ -23,7 +23,7 @@ export const FilterTitle = styled.button`
     font-size: 20px;
     text-align: center;
     text-transform:uppercase;
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
 `
 
 export const FilterButtonSubmit = styled.button`
@@ -33,16 +33,16 @@ export const FilterButtonSubmit = styled.button`
     font-size: 20px;
     text-align: center;
     text-transform: uppercase;
-    color: ${Theme.colors.Texto.white};
-    border: 1px solid ${Theme.colors.Borda.white};
+    color: ${GlobalColors.Text.primary};
+    border: 1px solid ${GlobalColors.Neutral[0]};
 `
 
 /* Filters sections */
 
 export const FilterSection = styled.div`
     ${ContainerBase};
-    color: ${Theme.colors.Texto.white};
-    border: 1px solid ${Theme.colors.Borda.white};
+    color: ${GlobalColors.Text.primary};
+    border: 1px solid ${GlobalColors.Neutral[0]};
     padding: 5px 20px 10px 20px;
     gap: 5px;
 `
@@ -62,5 +62,5 @@ export const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
 export const LabelText = styled.span`
     font-size: 14px;
-    color: ${Theme.colors.Texto.white};
+    color: ${GlobalColors.Text.primary};
 `;

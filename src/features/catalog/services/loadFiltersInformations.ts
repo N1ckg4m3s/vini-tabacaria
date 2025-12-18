@@ -4,7 +4,6 @@ import { sanitizeFilters } from "./sanitizeFilters";
 
 export const loadFiltersInformaitons: loadFiltersInformaitonsProps = async ({ filtros }) => {
     try {
-        // Obter todos os filtros por filtro
         const { filtros: retorno } = await getFiltersInformations({
             filtros: sanitizeFilters(filtros),
         })

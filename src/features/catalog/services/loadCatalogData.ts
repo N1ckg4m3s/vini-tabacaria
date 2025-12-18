@@ -4,16 +4,14 @@ import { sanitizeFilters } from "./sanitizeFilters";
 
 export const loadCatalog: loadCatalogProps = async ({ filtros, paginaAtual, limit }) => {
     try {
-        // Obter todos os itens por filtro
         const { itens, totalPages } = await getAllCatalogItens({
             filtros: sanitizeFilters(filtros),
             paginaAtual,
             limit
         })
 
-        // Mapear dados
         return {
-            itens: itens.map((e) => e),
+            itens,
             totalPages
         };
     } catch (e) {

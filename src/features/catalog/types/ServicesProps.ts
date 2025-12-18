@@ -1,10 +1,10 @@
-import { CatalogFilters } from "@/shered/shered.types"
+import { CatalogFilters, Produto } from "@/shered/shered.types"
 
 // ------------------------
 // Load catalog data service
 // ------------------------
 type loadCatalogParams = { filtros: CatalogFilters, paginaAtual: number, limit: number }
-type loadCatalogRespose = { itens: any[], totalPages: number }
+type loadCatalogRespose = { itens: Produto[], totalPages: number }
 
 export type loadCatalogProps = (params: loadCatalogParams) => Promise<loadCatalogRespose>
 

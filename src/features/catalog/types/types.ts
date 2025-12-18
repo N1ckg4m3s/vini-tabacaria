@@ -1,8 +1,6 @@
+import { CatalogFilters } from "@/shered/shered.types";
 // ------------------------
 // Filtros
-
-import { CatalogFilters } from "@/shered/shered.types";
-
 // ------------------------
 export type Filtro = {
     titulo: string;

@@ -1,11 +1,11 @@
 import { CatalogFilters, Produto } from "@/shered/shered.types";
-import React, { RefObject } from "react";
+import { RefObject } from "react";
 
 // ------------------------
 // Catalog Products Hook
 // ------------------------
 export type CatalogProductsParams = {
-    filtros: any;
+    filtros: CatalogFilters;
     paginaAtual: number;
     numeroPorPagina: number;
 };

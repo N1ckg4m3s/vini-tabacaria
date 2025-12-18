@@ -1,5 +1,4 @@
-import { Produto } from "@/controller/types"
-import { CatalogFilters } from "@/shered/shered.types"
+import { CatalogFilters, Produto } from "@/shered/shered.types"
 
 // ------------------------
 // Obter todos os itens do catalogo Api

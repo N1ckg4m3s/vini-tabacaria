@@ -1,4 +1,4 @@
-import { BadRequestError } from "@/http/erros.handle";
+import { BadRequestError } from "@/http/error/erros.handle";
 import { createRoute } from "@/http/http.handler"
 import { ProductInfoService } from "@/server/productInformations/product.service"
 import { resolveProductId } from "@/server/products/product-id.resolver"

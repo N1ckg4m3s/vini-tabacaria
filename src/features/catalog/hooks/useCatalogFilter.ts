@@ -3,6 +3,8 @@
 import { CatalogFilterSource } from '@/shered/shered.types'
 import { useEffect, useState } from 'react'
 import { getFiltersInformations } from '../api/getFiltersInformations'
+import { useNotification } from '@/providers/notification.provider';
+import { errorToNotification } from '@/features/notification/service/errorToNotification';
 
 const sanitizeSource = (source: CatalogFilterSource) => {
   const result: CatalogFilterSource = {};
@@ -31,6 +33,7 @@ const sanitizeSource = (source: CatalogFilterSource) => {
 };
 
 export const useCatalogFilters = (filters: CatalogFilterSource) => {
+  const { adicionarNotificacao } = useNotification()
   const [source, setSource] = useState<CatalogFilterSource | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -39,14 +42,17 @@ export const useCatalogFilters = (filters: CatalogFilterSource) => {
     setLoading(true)
 
     const obterDados = async () => {
-      const response = await getFiltersInformations({ filtros: filters })
-
-      setSource(sanitizeSource(response.filtros))
-      setLoading(false)
+      try {
+        const response = await getFiltersInformations({ filtros: filters })
+        setSource(sanitizeSource(response.filtros))
+      } catch (e) {
+        adicionarNotificacao(errorToNotification(e))
+      } finally {
+        setLoading(false)
+      }
     }
 
     obterDados()
-
     return () => {
       mounted = false
     }

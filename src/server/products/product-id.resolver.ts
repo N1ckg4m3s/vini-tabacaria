@@ -1,4 +1,4 @@
-import { BadRequestError } from "@/http/erros.handle";
+import { BadRequestError } from "@/http/error/erros.handle";
 import { NextRequest } from "next/server";
 
 export const resolveProductId = async (request: NextRequest): Promise<string> => {

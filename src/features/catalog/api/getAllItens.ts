@@ -1,27 +1,23 @@
 import { apiCaller } from "@/features/_shered/services/apiCaller"
 import { getAllCatalogItensProps } from "../types/ApiProps"
+import { NoResponseError } from "@/http/error/erros.handle"
 
 export const getAllCatalogItens: getAllCatalogItensProps = async ({ filtros, paginaAtual, limit }) => {
-    try {
-        const request = await apiCaller({
-            url: '/api/produto/get-all',
-            params: {
-                filters: JSON.stringify(filtros),
-                page: paginaAtual,
-                limit_per_page: limit
-            }
-        })
-
-        if (!request) {
-            throw new Error("Não tem resposta no request")
+    const request = await apiCaller({
+        url: '/api/produto/get-all',
+        params: {
+            filters: JSON.stringify(filtros),
+            page: paginaAtual,
+            limit_per_page: limit
         }
+    })
 
-        return {
-            itens: request.itens || [],
-            totalPages: Math.ceil(request.total / limit)
-        }
-    } catch (e) {
-        console.error(`[Feature/Catalog/Api/getAllItens] Error: ${e}`)
-        return { itens: [], totalPages: 0 }
+    if (!request) {
+        throw new NoResponseError()
+    }
+
+    return {
+        itens: request.itens,
+        totalPages: Math.ceil(request.total / limit)
     }
 }

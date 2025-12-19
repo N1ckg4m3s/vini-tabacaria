@@ -4,8 +4,12 @@ import { useEffect, useState } from "react";
 import { Produto } from "@/shered/shered.types";
 import { loadProductInfo } from "../api/loadProduct";
 import { useProduct_Props } from "../types/HooksProps";
+import { useNotification } from "@/providers/notification.provider";
+import { errorToNotification } from "@/features/notification/service/errorToNotification";
 
 export const useProduct: useProduct_Props = ({ id }) => {
+    const { adicionarNotificacao } = useNotification()
+
     const [Product, setProducts] = useState<Produto | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -13,13 +17,16 @@ export const useProduct: useProduct_Props = ({ id }) => {
         if (!id) return;
 
         async function fetchProducts() {
-            const { product } = await loadProductInfo({ id });
+            try {
+                const { product } = await loadProductInfo({ id });
+                if (!product) return
+                setProducts(product);
+            } catch (e) {
+                adicionarNotificacao(errorToNotification(e))
+            } finally {
+                setLoading(false)
+            }
 
-            if (!product) return
-
-            setProducts(product);
-
-            setLoading(false)
         }
         setLoading(true)
         fetchProducts();

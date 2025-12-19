@@ -1,23 +1,19 @@
 import { apiCaller } from "@/features/_shered/services/apiCaller"
 import { getRelactive_Props } from "../types/ApiProps"
+import { NoResponseError } from "@/http/error/erros.handle"
 
 export const loadRelactiveProducts: getRelactive_Props = async ({ id, relacao }) => {
-    try {
-        const request = await apiCaller({
-            url: '/api/produto/get-by-relation',
-            params: {
-                productId: id,
-                relacao
-            }
-        })
-
-        if (!request) {
-            throw new Error("Não tem resposta no request")
+    const request = await apiCaller({
+        url: '/api/produto/get-by-relation',
+        params: {
+            productId: id,
+            relacao
         }
+    })
 
-        return { products: request }
-    } catch (e) {
-        console.error(`[Feature/ProductInfo/Api/loadRelactive] Error: ${e}`)
-        return { products: [] }
+    if (!request) {
+        throw new NoResponseError()
     }
+
+    return { products: request }
 }

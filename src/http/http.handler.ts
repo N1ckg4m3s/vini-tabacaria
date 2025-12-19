@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { BadRequestError, NotFoundError } from "./erros.handle";
-
-type HttpHandler = (req: NextRequest, ctx?: any) => Promise<NextResponse>;
+import { BadRequestError, NotFoundError } from "./error/erros.handle";
 
 export function createRoute(handler: (req: NextRequest) => Promise<any>) {
     return async (req: NextRequest) => {

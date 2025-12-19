@@ -12,9 +12,17 @@ export interface Produto {
 }
 
 // --------------------
+// Produto no carrinho
+// --------------------
+export interface CartProduto {
+  produto: Produto
+  quantidade: number
+  subTotal: number
+}
+
+// --------------------
 // Formato dos filtros
 // --------------------
-
 export interface CatalogFilterSource {
   marca?: string[]
   tipo?: string[]

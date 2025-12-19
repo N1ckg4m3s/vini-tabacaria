@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import '@style/globalStyleCss.css'
+import { ProvidersGroup } from "@/providers/providers";
+import { NotificationOverlay } from "@/features/notification/components/notificationOverlay";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,7 +19,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        {children}
+        <ProvidersGroup>
+          <NotificationOverlay />
+          {children}
+        </ProvidersGroup>
       </body>
     </html>
   );

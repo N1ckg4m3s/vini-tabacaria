@@ -30,15 +30,16 @@ type useCartResume_Respose = {
     subTotal: number,
     entrega: number,
     total: number
+    limparCarrinho: () => void
 }
 
 export type useCartResume_Props = () => useCartResume_Respose
 
 // ------------------------
-// NO NAME
+// use finalize
 // ------------------------
-type NO_NAME_Params = {}
+type useFinalize_Respose = {
+    onFinalize: () => void
+}
 
-type NO_NAME_Respose = {}
-
-export type NO_NAME_Props = (params: NO_NAME_Params) => NO_NAME_Respose
+export type useFinalize_Props = () => useFinalize_Respose

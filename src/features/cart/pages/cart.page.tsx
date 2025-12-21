@@ -4,11 +4,13 @@ import { CartContent } from '../components/cartContent/component'
 import { CartResume } from '../components/cartResume/component'
 import { useCartProduct } from '../hooks/useCartProduct'
 import { useCartResume } from '../hooks/useCartResume'
+import { useFinalizeCart } from '../hooks/useFinalizeCart'
 import * as s from './style'
 
 export const CartComponent = () => {
     const { cartProducts, count } = useCartProduct()
-    const { total, subTotal, entrega } = useCartResume()
+    const { total, subTotal, entrega, limparCarrinho } = useCartResume()
+    const { onFinalize } = useFinalizeCart()
 
     return (<>
         <s.CartPage>
@@ -23,6 +25,8 @@ export const CartComponent = () => {
                     entrega={entrega}
                     subTotal={subTotal}
                     total={total}
+                    finalizeTrigger={onFinalize}
+                    limparCarrinho={limparCarrinho}
                 />
             </s.ContentLayout>
         </s.CartPage>

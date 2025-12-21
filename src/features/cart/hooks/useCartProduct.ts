@@ -7,7 +7,7 @@ export const useCartProduct: useCartProduct_Props = () => {
         AumentarQuantidade,
         DiminuirQuantidade,
         DefinirQuantidade,
-        removerProduto
+        removerProduto,
     } = useCart()
 
     const cartProductsFormated: CartProductUiFormat[] = produtos.map(p => ({

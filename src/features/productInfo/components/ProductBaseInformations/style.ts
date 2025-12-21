@@ -117,20 +117,3 @@ export const EspecItemValue = styled.span`
     font-weight: 500;
     color: ${GlobalColors.Text.primary};
 `
-
-export const BotaoCompra = styled.button`
-    margin-top: auto;
-    margin-top: 40px;
-    background-color: ${GlobalColors.Primary.base};
-    color: ${GlobalColors.Text.primary};
-    border: none;
-    border-radius: 14px;
-    padding: 16px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-
-    &:hover {
-        filter: brightness(1.05);
-    }
-`

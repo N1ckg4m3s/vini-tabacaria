@@ -3,6 +3,7 @@ import * as s from './style'
 import { formateText } from '@/features/_shered/hooks/text.formater'
 import { formatePrice } from '@/features/_shered/hooks/price.formater'
 import { formatMetadataValue } from '@/features/_shered/hooks/meta.formater'
+import { ProductClientActions } from '../ProductClientActions/component'
 
 interface Props {
     produto?: Produto
@@ -40,7 +41,8 @@ export const ProductBaseInformations: React.FC<Props> = ({ produto }) => {
                     </s.EspecGrid>
                 </s.ProductEspecification>
 
-                <s.BotaoCompra>Adicionar ao carrinho</s.BotaoCompra>
+                <ProductClientActions produto={produto} />
+
             </s.ProductInfoContainer>
         </s.ProdutoContainer>
     </>)

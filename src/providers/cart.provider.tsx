@@ -18,6 +18,8 @@ interface cartContextProps {
     obterQuantidade: (id: string) => number;
     verificarProduto: (id: string) => boolean
     calcularTotal(): void
+
+    limparCarrinho: () => void
 }
 const cartContext = createContext<cartContextProps>({} as any);
 
@@ -116,6 +118,11 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
     };
 
     // ===== Calcular total
+    const limparCarrinho = () => {
+        setProdutos([])
+    }
+
+    // ===== Calcular total
     const calcularTotal = () => {
         const valorTotal = produtos.reduce((acc, prod) => acc + prod.subTotal, 0)
         setTotal(valorTotal)
@@ -145,6 +152,7 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             removerProduto,
             verificarProduto,
             obterQuantidade,
+            limparCarrinho,
             produtos,
             total
         }}>

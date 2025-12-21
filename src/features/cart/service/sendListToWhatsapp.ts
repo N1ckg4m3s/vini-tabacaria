@@ -17,8 +17,12 @@ export const sendListToWatsapp: sendListToWatsapp_Props = (produtos, total) => {
 
     const encoded = encodeURIComponent(message)
 
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+
+    if (!number) throw new Error('WhatsApp number not configured')
+
     window.open(
-        `https://wa.me/5511983317216?text=${encoded}`,
+        `https://wa.me/${number}?text=${encoded}`,
         '_blank'
     )
 }

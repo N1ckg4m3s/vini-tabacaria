@@ -1,7 +1,7 @@
 'use client'
 
 import { CartProduto, Produto } from '@/shered/shered.types';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // --------------------
 // Context
@@ -12,7 +12,10 @@ interface cartContextProps {
 
     adicionarProduto: (prod: Produto) => void
     removerProduto: (id: string) => void
-    modificarProduto: (id: string, quantidade: number) => void
+    DiminuirQuantidade: (id: string) => void
+    AumentarQuantidade: (id: string) => void
+    DefinirQuantidade: (id: string, quantidade: number) => void
+    obterQuantidade: (id: string) => number;
     verificarProduto: (id: string) => boolean
     calcularTotal(): void
 }
@@ -29,15 +32,19 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
     const [produtos, setProdutos] = useState<CartProduto[]>([])
     const [total, setTotal] = useState<number>(0)
 
+    // SRP para verificar a existencia de um produto
+    const existeProduto = (lista: CartProduto[], id: string): boolean => lista.some(p => p.produto.id === id)
+
     // ===== Adicionar produto
     const adicionarProduto = (prod: Produto) => {
-        const produtoAdd: CartProduto = {
-            produto: prod,
-            quantidade: 1,
-            subTotal: prod.valor
-        }
-
-        setProdutos((prev) => [...prev, produtoAdd])
+        setProdutos(prev => {
+            if (existeProduto(prev, prod.id)) return prev;
+            return [...prev, {
+                produto: prod,
+                quantidade: 1,
+                subTotal: prod.valor
+            }]
+        })
     }
 
     // ===== Remover produto
@@ -45,21 +52,68 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
         setProdutos(prev => prev.filter(p => p.produto.id !== id));
     }
 
-    // ===== Alterar produto
-    const modificarProduto = (id: string, quantidade: number) => {
+    // ===== Alterar produto ===== //
+    // Diminui a quantidade até 1 e depois remove
+    const DiminuirQuantidade = (id: string) => {
+        setProdutos(prev =>
+            prev.flatMap(p => {
+                if (p.produto.id !== id) return [p]
+
+                if (p.quantidade <= 1) {
+                    return [] // remove
+                }
+
+                const novaQuantidade = p.quantidade - 1
+
+                return [{
+                    ...p,
+                    quantidade: novaQuantidade,
+                    subTotal: p.produto.valor * novaQuantidade
+                }]
+            })
+        )
+    }
+
+    // Aumenta a quantidade
+    const AumentarQuantidade = (id: string) => {
         setProdutos(prev =>
             prev.map(p =>
-                p.produto.id === id ? {
-                    ...p,
-                    quantidade,
-                    subTotal: p.produto.valor * quantidade
-                } : p
+                p.produto.id === id
+                    ? {
+                        ...p,
+                        quantidade: p.quantidade + 1,
+                        subTotal: p.produto.valor * (p.quantidade + 1)
+                    }
+                    : p
+            )
+        )
+    }
+
+    // Define a quantidade
+    const DefinirQuantidade = (id: string, value: number) => {
+        if (value <= 0) return
+
+        setProdutos(prev =>
+            prev.map(p =>
+                p.produto.id === id
+                    ? {
+                        ...p,
+                        quantidade: value,
+                        subTotal: p.produto.valor * value
+                    }
+                    : p
             )
         )
     }
 
     // ===== Verificar produto
-    const verificarProduto = (id: string): boolean => produtos.some(prod => prod.produto.id === id);
+    const verificarProduto = (id: string): boolean => existeProduto(produtos, id);
+
+    // ===== Verificar produto
+    const obterQuantidade = (id: string): number => {
+        const prod = produtos.find(prod => prod.produto.id === id)
+        return prod ? prod.quantidade : 0
+    };
 
     // ===== Calcular total
     const calcularTotal = () => {
@@ -67,13 +121,30 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
         setTotal(valorTotal)
     }
 
+    // Obter do 'local' ao iniciar
+    useEffect(() => {
+        const produtosSalvos = localStorage.getItem('carrinho')
+        if (!produtosSalvos) return;
+
+        setProdutos(JSON.parse(produtosSalvos))
+    }, [])
+
+    // Salvar no 'local' ao alterar
+    useEffect(() => {
+        localStorage.setItem('carrinho', JSON.stringify(produtos))
+        calcularTotal()
+    }, [produtos])
+
     return (
         <cartContext.Provider value={{
             adicionarProduto,
             calcularTotal,
-            modificarProduto,
+            DiminuirQuantidade,
+            AumentarQuantidade,
+            DefinirQuantidade,
             removerProduto,
             verificarProduto,
+            obterQuantidade,
             produtos,
             total
         }}>

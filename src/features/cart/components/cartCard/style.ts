@@ -40,21 +40,8 @@ export const Actions = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: auto;
-`
 
-export const QuantityContainer = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-`
-
-export const QuantityButton = styled.button`
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    border: 1px solid ${GlobalColors.Border.subtle};
-    background: transparent;
-    cursor: pointer;
+    max-height: 28px;
 `
 
 export const Price = styled.span`

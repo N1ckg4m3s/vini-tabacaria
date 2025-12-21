@@ -3,24 +3,24 @@
 import { CartContent } from '../components/cartContent/component'
 import { CartResume } from '../components/cartResume/component'
 import { useCartProduct } from '../hooks/useCartProduct'
+import { useCartResume } from '../hooks/useCartResume'
 import * as s from './style'
-import { LoadingOverlay } from '@/features/_shered/components/loading/component'
 
 export const CartComponent = () => {
-    const { loading } = useCartProduct()
+    const { cartProducts, count } = useCartProduct()
+    const { resume } = useCartResume()
 
     return (<>
         <s.CartPage>
             <s.CartHeader>
                 <s.CartTitle>Carrinho</s.CartTitle>
-                <s.CartItensCount>3 Itens</s.CartItensCount>
+                <s.CartItensCount>{count} Itens</s.CartItensCount>
             </s.CartHeader>
 
             <s.ContentLayout>
-                <CartContent/>
-                <CartResume/>
+                <CartContent products={cartProducts} />
+                <CartResume />
             </s.ContentLayout>
         </s.CartPage>
-        {loading && <LoadingOverlay />}
     </>)
 }

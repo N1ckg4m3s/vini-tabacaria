@@ -1,3 +1,4 @@
+import { flexColumn } from "@/styles/mixins";
 import { GlobalColors } from "@/styles/theme"; // to update
 import styled, { css } from "styled-components";
 
@@ -35,6 +36,11 @@ export const SummaryTotal = styled.div`
     margin: 24px 0;
 `
 
+export const ActionsButton=styled.div`
+    ${flexColumn}
+    justify-content: center;
+`
+
 export const FinishButton = styled.button`
     width: 100%;
     padding: 16px;
@@ -49,4 +55,13 @@ export const FinishButton = styled.button`
     &:hover {
         filter: brightness(1.05);
     }
+`
+
+export const ClearButtton = styled.button`
+    margin-top: 8px;
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 0.8rem;
+    cursor: pointer;
 `

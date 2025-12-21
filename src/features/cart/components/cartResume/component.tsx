@@ -4,11 +4,12 @@ import * as s from './style'
 interface props {
     subTotal: number,
     entrega: number,
-    total: number
+    total: number,
+    finalizeTrigger: () => void
+    limparCarrinho: () => void
 }
 
-export const CartResume: React.FC<props> = ({ entrega, subTotal, total }) => {
-
+export const CartResume: React.FC<props> = ({ entrega, subTotal, total, finalizeTrigger, limparCarrinho }) => {
     return (<>
         <s.SummaryContainer>
             <s.SummaryTitle>Resumo</s.SummaryTitle>
@@ -27,7 +28,10 @@ export const CartResume: React.FC<props> = ({ entrega, subTotal, total }) => {
                 <span>${formatePrice(total)}</span>
             </s.SummaryTotal>
 
-            <s.FinishButton>Finalizar compra</s.FinishButton>
+            <s.ActionsButton>
+                <s.FinishButton onClick={finalizeTrigger}>Enviar cotação</s.FinishButton>
+                <s.ClearButtton onClick={limparCarrinho}>Limpar carrinho</s.ClearButtton>
+            </s.ActionsButton>
         </s.SummaryContainer>
     </>)
 }

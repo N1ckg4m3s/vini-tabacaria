@@ -1,13 +1,20 @@
+import { formatePrice } from '@/features/_shered/hooks/price.formater'
 import * as s from './style'
 
-export const CartResume = () => {
+interface props {
+    subTotal: number,
+    entrega: number,
+    total: number
+}
+
+export const CartResume: React.FC<props> = ({ entrega, subTotal, total }) => {
 
     return (<>
         <s.SummaryContainer>
             <s.SummaryTitle>Resumo</s.SummaryTitle>
             <s.SummaryLine>
                 <span>Subtotal</span>
-                <span>R$: 10,00</span>
+                <span>${formatePrice(subTotal)}</span>
             </s.SummaryLine>
 
             <s.SummaryLine_Muted>
@@ -17,7 +24,7 @@ export const CartResume = () => {
 
             <s.SummaryTotal>
                 <span>Total</span>
-                <span>R$ 99,80</span>
+                <span>${formatePrice(total)}</span>
             </s.SummaryTotal>
 
             <s.FinishButton>Finalizar compra</s.FinishButton>

@@ -16,7 +16,7 @@ export const CartContent: React.FC<props> = ({ products }) => {
                 Nome={prod.nome}
                 Image={prod.imagme}
                 OnAumentarQuantidade={prod.OnAumentarQuantidade}
-                OnDefinirQuantidade={prod.OnDefinirQuantidade}
+                OnDefinirQuantidade={(v: number) => prod.OnDefinirQuantidade(v)}
                 OnDiminuiorQuantidade={prod.OnDiminuiorQuantidade}
                 OnRemover={prod.OnRemover}
                 Quantidade={prod.quantidade}

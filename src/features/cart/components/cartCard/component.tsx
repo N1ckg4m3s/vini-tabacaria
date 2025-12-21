@@ -24,9 +24,9 @@ export const CartCard: React.FC<props> = ({ Marca, Nome, Image, Quantidade, SubT
 
                 <s.Actions>
                     <QuantityControl
-                        onAumentar={() => OnAumentarQuantidade}
-                        onDefinir={(v:number) => OnDefinirQuantidade(v)}
-                        onDiminuir={() => OnDiminuiorQuantidade}
+                        onAumentar={OnAumentarQuantidade}
+                        onDefinir={(v: number) => OnDefinirQuantidade(v)}
+                        onDiminuir={OnDiminuiorQuantidade}
                         quantidade={Quantidade}
                     />
                     <s.Price>{formatePrice(SubTotal)}</s.Price>

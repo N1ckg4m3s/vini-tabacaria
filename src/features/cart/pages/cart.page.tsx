@@ -8,7 +8,7 @@ import * as s from './style'
 
 export const CartComponent = () => {
     const { cartProducts, count } = useCartProduct()
-    const { resume } = useCartResume()
+    const { total, subTotal, entrega } = useCartResume()
 
     return (<>
         <s.CartPage>
@@ -19,7 +19,11 @@ export const CartComponent = () => {
 
             <s.ContentLayout>
                 <CartContent products={cartProducts} />
-                <CartResume />
+                <CartResume
+                    entrega={entrega}
+                    subTotal={subTotal}
+                    total={total}
+                />
             </s.ContentLayout>
         </s.CartPage>
     </>)

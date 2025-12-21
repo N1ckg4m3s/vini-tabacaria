@@ -1,7 +1,12 @@
 import { useCart } from "@/providers/cart.provider"
+import { useCartResume_Props } from "../types/HooksProps"
 
-export const useCartResume = () => {
-    const { produtos: cartProducts } = useCart()
+export const useCartResume: useCartResume_Props = () => {
+    const { total } = useCart()
 
-    return { resume: '' }
+    return {
+        subTotal: total,
+        entrega: 0,
+        total: total
+    }
 }

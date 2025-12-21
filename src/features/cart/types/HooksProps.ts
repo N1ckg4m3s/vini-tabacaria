@@ -26,10 +26,13 @@ export type useCartProduct_Props = () => useCartProduct_Respose
 // ------------------------
 // Use relativos parametros
 // ------------------------
-type useCartResume_Params = { id: string, relacao: "marca" | "relevancia" }
-type useCartResume_Respose = { products: Produto[], loading: boolean }
+type useCartResume_Respose = {
+    subTotal: number,
+    entrega: number,
+    total: number
+}
 
-export type useCartResume_Props = (params: useCartResume_Params) => useCartResume_Respose
+export type useCartResume_Props = () => useCartResume_Respose
 
 // ------------------------
 // NO NAME

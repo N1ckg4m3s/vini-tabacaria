@@ -5,10 +5,10 @@ import Cart from '@/assets/SmallCart.svg';
 import { obterInformacoesDoProduto } from '../../helpers/obterInformacoesDoProduto';
 import { Produto } from '@/shered/shered.types';
 import { formatePrice } from '../../hooks/price.formater';
+import { useCart } from '@/providers/cart.provider';
 
 interface props {
     small?: boolean;
-    noCarrinho?: boolean;
     itemData: Produto;
 }
 
@@ -17,12 +17,14 @@ interface props {
  * @component
  * @returns {JSX.Element}
  */
-const ProductCard: React.FC<props> = ({ small, noCarrinho, itemData }) => {
+const ProductCard: React.FC<props> = ({ small, itemData }) => {
+    const { verificarProduto } = useCart()
     const router = useRouter();
 
     const { titulo, especificacao } = obterInformacoesDoProduto(itemData);
-
     const Imagem = itemData.imagem || '/assets/NoImageAvaliable.png';
+
+    const noCarrinho = verificarProduto(itemData.id)
 
     const handleRedirectToProductInfo = () => router.push(`/informacao-produto/${itemData.id}`);
 

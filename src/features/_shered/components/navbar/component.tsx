@@ -3,12 +3,16 @@
 import * as s from './style'
 import Logo from '@assets/LogoEstenca.svg'
 import Carrinho from '@assets/cart.svg'
-import Lupa from '@assets/search.svg'
+// import Lupa from '@assets/search.svg'
 import Menu from '@assets/menu.svg'
 import { FormEvent, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useCart } from '@/providers/cart.provider'
+import { formatePrice } from '../../hooks/price.formater'
 
 const NavBarComponent = () => {
+    const { total } = useCart()
+
     const router = useRouter()
     const searchInput = useRef<HTMLInputElement>(null)
     const [drawerAberto, setDrawerAberto] = useState(false)
@@ -68,7 +72,7 @@ const NavBarComponent = () => {
                         onClick={closeDrawer}
                         aria-label="Abrir carrinho"
                     >
-                        <span>0,00$</span>
+                        <span>{formatePrice(total)}</span>
                         <Carrinho />
                     </s.LinkStyle>
                 </s.LinksContainer>

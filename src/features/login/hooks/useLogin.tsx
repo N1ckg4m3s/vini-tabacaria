@@ -6,8 +6,10 @@ import { ExecuteLoginRequest } from "../api/executeLogin"
 import { useState } from "react"
 import { validateEmail } from "@/shered/validators/email.validator"
 import { loginCredential } from "@/shered/shered.types"
+import { useRouter } from "next/navigation"
 
 export const useLogin: useLogin_Props = () => {
+    const { push } = useRouter()
     const [loading, setLoading] = useState<boolean>(false)
     const { adicionarNotificacao } = useNotification()
 
@@ -18,10 +20,9 @@ export const useLogin: useLogin_Props = () => {
             validateEmail(email)
             validateSenha(password)
 
-            const { token } = await ExecuteLoginRequest({ email, password })
+            await ExecuteLoginRequest({ email, password })
 
-            console.log({ token })
-
+            push('/admin/product/list')
         } catch (e) {
             adicionarNotificacao(errorToNotification(e))
         } finally {

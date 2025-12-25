@@ -1,13 +1,9 @@
-import { loginCredential } from "./type"
+import { loginCredential } from "@/shered/shered.types"
 
 // ------------------------
 // Execute login
 // ------------------------
-type executeLogin_Respose = {
-    token: string
-}
-
-export type executeLogin_Props = (params: loginCredential) => Promise<executeLogin_Respose>
+export type executeLogin_Props = (params: loginCredential) => Promise<void>
 
 // ------------------------
 // NO NAME

@@ -1,3 +1,6 @@
+import { AppError } from "@/http/error/appError";
+import { AuthError, BadRequestError, InternalError, NotFoundError } from "@/http/error/erros.handle";
+
 type ApiCallerProps = {
     url: string;
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -42,51 +45,53 @@ const buildUrl = (
  * @returns 
 */
 export async function apiCaller({ url, method = 'GET', body, headers = {}, params }: ApiCallerProps) {
-    try {
-        /* Gerar a url com os paramstros */
-        const finalUrl: string = buildUrl(url, params);
+    /* Gerar a url com os paramstros */
+    const finalUrl: string = buildUrl(url, params);
 
-        /* configurações da Requisição */
-        const options: RequestInit = {
-            method,
-            headers: {
-                'Content-Type': 'application/json',
-                ...headers,
-            },
-            /* Adicionando o corpo na requisição */
-            // body: body ?? {},
-            credentials: 'include', // envia cookies como o HttpOnly
-        };
-
-        if (body) {
-            options.body = body;
-        }
-
-        /* Chamar a API com parametros e configurações */
-        const response = await fetch(finalUrl, options);
-
-        /* Retornar erro */
-        if (!response.ok) {
-            const errorText = await response.text();
-
-            // Redireciona para login se for 401
-            if (response.status === 401) {
-                if (typeof window !== 'undefined') {
-                    // window.location.href = '/admin-login';
-                }
-            }
-
-            const error = new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
-            (error as any).status = response.status;
-            throw error;
-        }
+    /* configurações da Requisição */
+    const options: RequestInit = {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+            ...headers,
+        },
+        credentials: 'include', // envia cookies como o HttpOnly
+    };
 
 
-        /* Retornar data */
-        const data = await response.json().catch(() => null);
-
-        return data;
-    } catch (error) {
-        throw error;
+    if (body !== undefined) {
+        options.body = JSON.stringify(body);
     }
+
+    /* Chamar a API com parametros e configurações */
+    const response = await fetch(finalUrl, options);
+
+    /* Retornar data */
+    let data = null;
+    try {
+        data = await response.json();
+    } catch { }
+
+    /* Retornar erro */
+    if (!response.ok) {
+        switch (response.status) {
+            case 400:
+                throw new BadRequestError(data?.message);
+            case 401:
+                throw new AuthError(data?.message);
+            case 404:
+                throw new NotFoundError(data?.message);
+            case 429:
+                throw new AppError({
+                    message: data?.message ?? 'Muitas tentativas',
+                    code: 'RATE_LIMIT',
+                    status: 429,
+                    retryable: true,
+                });
+            default:
+                throw new InternalError(data);
+        }
+    }
+
+    return data;
 }

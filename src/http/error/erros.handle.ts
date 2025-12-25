@@ -4,15 +4,15 @@ import { AppError } from "./appError";
 // Sem resposta
 // ----------
 export class NoResponseError extends AppError {
-    constructor(cause?: unknown) {
-        super({
-            message: 'Sem resposta do servidor',
-            code: 'NO_RESPONSE',
-            retryable: true,
-            cause,
-        });
-        this.name = 'NoResponseError';
-    }
+  constructor(cause?: unknown) {
+    super({
+      message: 'Sem resposta do servidor',
+      code: 'NO_RESPONSE',
+      retryable: true,
+      cause,
+    });
+    this.name = 'NoResponseError';
+  }
 }
 
 // ----------
@@ -58,5 +58,20 @@ export class NotFoundError extends AppError {
       retryable: false,
     });
     this.name = 'NotFoundError';
+  }
+}
+
+// ----------
+// Não encontrado
+// ----------
+export class AuthError extends AppError {
+  constructor(message = 'Credenciais inválidas') {
+    super({
+      message,
+      code: 'UNAUTHORIDED',
+      status: 401,
+      retryable: false,
+    });
+    this.name = 'Unauthorized';
   }
 }

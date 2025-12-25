@@ -1,8 +1,8 @@
 import { Produto } from '@/shered/shered.types'
 import * as s from './style'
-import { formateText } from '@/features/_shered/hooks/text.formater'
-import { formatePrice } from '@/features/_shered/hooks/price.formater'
-import { formatMetadataValue } from '@/features/_shered/hooks/meta.formater'
+import { formateText } from '@/features/_shered/services/formaters/text.formater'
+import { formatePrice } from '@/features/_shered/services/formaters/price.formater'
+import { formatMetadataValue } from '@/features/_shered/services/formaters/meta.formater'
 import { ProductClientActions } from '../ProductClientActions/component'
 
 interface Props {

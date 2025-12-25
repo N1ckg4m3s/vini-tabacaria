@@ -2,9 +2,9 @@
 import { useRouter } from 'next/navigation';
 import * as s from './style';
 import Cart from '@/assets/SmallCart.svg';
-import { obterInformacoesDoProduto } from '../../helpers/obterInformacoesDoProduto';
+import { obterInformacoesDoProduto } from '../../utils/obterInformacoesDoProduto';
 import { Produto } from '@/shered/shered.types';
-import { formatePrice } from '../../hooks/price.formater';
+import { formatePrice } from '../../services/formaters/price.formater';
 import { useCart } from '@/providers/cart.provider';
 
 interface props {

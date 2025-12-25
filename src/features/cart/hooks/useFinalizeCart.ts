@@ -1,4 +1,4 @@
-import { formatePrice } from "@/features/_shered/hooks/price.formater";
+import { formatePrice } from "@/features/_shered/services/formaters/price.formater";
 import { formatProdForHuman } from "../service/formatCartForHuman";
 import { sendListToWatsapp } from "../service/sendListToWhatsapp";
 import { useFinalize_Props } from "../types/HooksProps";

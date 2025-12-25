@@ -1,5 +1,5 @@
 import { Produto } from "@/shered/shered.types";
-import { formatMetadataValue } from "../hooks/meta.formater";
+import { formatMetadataValue } from "../services/formaters/meta.formater";
 
 export const obterInformacoesDoProduto = (produto: Produto) => {
     const marca = produto.marca ?? '';

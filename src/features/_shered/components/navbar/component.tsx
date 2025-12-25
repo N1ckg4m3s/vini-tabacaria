@@ -8,7 +8,7 @@ import Menu from '@assets/menu.svg'
 import { FormEvent, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/providers/cart.provider'
-import { formatePrice } from '../../hooks/price.formater'
+import { formatePrice } from '../../services/formaters/price.formater'
 
 const NavBarComponent = () => {
     const { total } = useCart()

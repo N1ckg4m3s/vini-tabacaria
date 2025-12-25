@@ -64,3 +64,12 @@ export const filtrosPorTipo = {
   aluminio: ["kit", "tipo"],
   outros: ["especificacao"],
 } as const;
+
+
+// --------------------
+// Credenciais de login
+// --------------------
+export interface loginCredential {
+    email: string
+    password: string
+}

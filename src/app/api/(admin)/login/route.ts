@@ -1,56 +1,43 @@
-import { NextResponse } from 'next/server'
-import validateEmail from '@/controller/utilits'
-import { generateToken } from '@/controller/auth'
+import { NextRequest, NextResponse } from 'next/server'
+import { LoginService } from '@/server/login/login.service'
+import { canAttemptLogin, registerLoginFailure, clearLoginAttempts } from '@/http/rate-limit/login-rate-limit'
 
-const JWT_SECRET = process.env.JWT_SECRET!
+export const POST = async (req: NextRequest) => {
+    const { email, password } = await req.json()
 
-interface LoginRequest {
-    acesso: string
-    senha: string
-}
+    const forwardedFor = req.headers.get('x-forwarded-for')
+    const ip = forwardedFor?.split(',')[0]?.trim() ?? 'unknown'
 
-const acessoCorreto = 'admim@admim.com'
-const senhaCorreta = 'admim123'
-
-export async function POST(request: Request) {
-    try {
-        const { acesso, senha }: LoginRequest = await request.json()
-
-        const acessoNormalizado = (acesso ?? '').toLowerCase()
-
-        if (!validateEmail(acessoNormalizado)) throw new Error('Formato de email inválido')
-        if (acessoNormalizado !== acessoCorreto) throw new Error('Email incorreto')
-        if (senha !== senhaCorreta) throw new Error('Senha incorreta')
-
-        const tempoDeSessao: number = 60 * 60 * 24 // 1 dia
-        const dataFinalDaSessao: Date = new Date(Date.now() + tempoDeSessao * 1000)
-
-        const token: string = generateToken(
-            acessoNormalizado,
-            'admin',
+    if (!canAttemptLogin(ip)) {
+        return NextResponse.json(
+            { message: 'Muitas tentativas, tente mais tarde' },
+            { status: 429 }
         )
+    }
 
-        // Gera a resposta para poder efetuar o login
-        const response = NextResponse.json({
-            message: 'Login bem-sucedido',
-            expiraEm: dataFinalDaSessao.toISOString(),
-        })
+    try {
+        const service = new LoginService()
+        const token = service.executeLogin({ email, password })
 
-        // Definindo token no 'HttpOnly'
+        clearLoginAttempts(ip)
+
+        const response = NextResponse.json({ ok: true })
+
         response.cookies.set('authToken', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development',
+            secure: true,
             sameSite: 'lax',
             path: '/',
-            maxAge: tempoDeSessao,
+            maxAge: 60 * 60 * 24,
         })
 
-        return response;
+        return response
+    } catch (error) {
+        registerLoginFailure(ip)
 
-    } catch (error: unknown) {
-        console.error('Erro no login:', error)
-
-        const message = error instanceof Error ? error.message : 'Erro desconhecido'
-        return NextResponse.json({ error: message }, { status: 401 })
+        return NextResponse.json(
+            { message: 'Credenciais inválidas' },
+            { status: 401 }
+        )
     }
 }

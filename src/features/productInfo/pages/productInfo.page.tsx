@@ -7,12 +7,19 @@ import * as s from './style'
 import { useProduct } from '../hooks/useProduto'
 import { useRelactivesProduct } from '../hooks/useProdutosRelativos'
 import { LoadingOverlay } from '@/features/_shered/components/loading/component'
+import { useEffect } from 'react'
+import { notifyProductViewed } from '@/features/analytics/services/notifyProductViewd'
 
 export const ProductInfoComponent = () => {
     const { id } = useParams()
     const { product, loading } = useProduct({ id: String(id) })
     const { products: relativoRelevancia } = useRelactivesProduct({ id: String(id), relacao: 'relevancia' })
     const { products: relativoMarca } = useRelactivesProduct({ id: String(id), relacao: 'marca' })
+
+    useEffect(() => {
+        if (loading || !product) return;
+        notifyProductViewed(product.id)
+    }, [id, product?.id, loading])
 
     return (<>
         <ProductBaseInformations produto={product} />

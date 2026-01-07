@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { ReduxProvider } from '@/store/redux-provider'
 import FooterBarComponent from '@/features/_shered/components/footer/component';
 import NavBarComponent from '@/features/_shered/components/navbar/component';
+import { useEffect } from 'react';
+import { notifyUserUse } from '@/features/analytics/services/notifyUserUse';
 
 const LayoutContainer = styled.div`
   min-height: 100vh;
@@ -16,6 +18,9 @@ const Main = styled.main`
 `;
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
+
+    useEffect(() => notifyUserUse(), [])
+
     return (
         <ReduxProvider>
             <LayoutContainer>

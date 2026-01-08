@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { UseDirectionsProps } from "../types/hooks.types"
 import { obterProdutosInsites } from "../api/obterProdutosInsites";
-import { formatDirectionsData } from "../service/formatDirectionsData";
+import { formatCartDirectionsData, formatDirectionsData } from "../service/formatDirectionsData";
 import { TableItem } from "../types/components.types";
 
 export const useDirections: UseDirectionsProps = () => {
@@ -13,7 +13,7 @@ export const useDirections: UseDirectionsProps = () => {
             const data = await obterProdutosInsites();
 
             const viewsDataFormatted = data.ViewedProducts.map(formatDirectionsData);
-            const cartDataFormatted = data.CartStats.map(formatDirectionsData);
+            const cartDataFormatted = data.CartStats.map(formatCartDirectionsData);
 
             setCartStats(cartDataFormatted);
             setViewedProducts(viewsDataFormatted);

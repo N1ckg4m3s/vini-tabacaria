@@ -3,7 +3,11 @@ import { TableItem } from "./components.types"
 // ------------------------
 // use Actions
 // ------------------------
-type UseActionsResponse = {}
+type UseActionsResponse = {
+    navigateToProductList: () => void,
+    navigateToAddProduct: () => void,
+    navigateToClient: () => void
+}
 export type UseActionsProps = () => UseActionsResponse
 
 // ------------------------

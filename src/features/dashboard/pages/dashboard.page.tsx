@@ -10,7 +10,7 @@ import * as s from './style';
 export const DashboardPage = () => {
     const { todayAcess, topDevice, topDevicePercentage, weeklyAccesses } = usePulse();
     const { ViewedProducts, CartStats } = useDirections();
-    const { } = useActions();
+    const { navigateToAddProduct, navigateToClient, navigateToProductList } = useActions();
 
     return (
         <s.dashboardContainer>
@@ -30,15 +30,15 @@ export const DashboardPage = () => {
 
             {/* Row 3: Action */}
             <s.actionsContainer>
-                <s.actionCard>
+                <s.actionCard onClick={navigateToProductList}>
                     Gerenciar Produtos
                     <s.actionSpan>listar / editar</s.actionSpan>
                 </s.actionCard>
-                <s.actionCard>
+                <s.actionCard onClick={navigateToAddProduct}>
                     Novo Produto
                     <s.actionSpan>cadastro rápido</s.actionSpan>
                 </s.actionCard>
-                <s.actionCard>
+                <s.actionCard onClick={navigateToClient}>
                     Ver Catálogo
                     <s.actionSpan>visão do cliente</s.actionSpan>
                 </s.actionCard>

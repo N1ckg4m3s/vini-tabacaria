@@ -42,7 +42,6 @@ export const CatalogoComponent = () => {
                         <ProductCard
                             key={item.id}
                             itemData={item}
-                            noCarrinho={false}
                         />
                     ))}
                 </s.ItensContainer>

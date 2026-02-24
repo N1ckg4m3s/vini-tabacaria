@@ -1,7 +1,6 @@
 'use client'
 
 import styled from 'styled-components'
-import { ReduxProvider } from '@/store/redux-provider'
 import FooterBarComponent from '@/features/_shered/components/footer/component';
 import NavBarComponent from '@/features/_shered/components/navbar/component';
 import { useEffect } from 'react';
@@ -22,14 +21,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     useEffect(() => notifyUserUse(), [])
 
     return (
-        <ReduxProvider>
-            <LayoutContainer>
-                <NavBarComponent />
-                <Main>
-                    {children}
-                </Main>
-                <FooterBarComponent />
-            </LayoutContainer>
-        </ReduxProvider>
+        <LayoutContainer>
+            <NavBarComponent />
+            <Main>
+                {children}
+            </Main>
+            <FooterBarComponent />
+        </LayoutContainer>
     );
 }

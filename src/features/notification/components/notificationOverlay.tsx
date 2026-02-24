@@ -10,7 +10,7 @@ export const NotificationOverlay = () => {
     return (
         <s.Container>
             <s.Stack>
-                {notificacoes.reverse().map((notifi, i) =>
+                {[...notificacoes].reverse().map((notifi, i) =>
                     <NotificationItem
                         notification={notifi}
                         key={notifi.id}

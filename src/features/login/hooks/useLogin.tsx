@@ -22,7 +22,7 @@ export const useLogin: useLogin_Props = () => {
 
             await ExecuteLoginRequest({ email, password })
 
-            push('/admin/dashboard')
+            push('/admin')
         } catch (e) {
             adicionarNotificacao(errorToNotification(e))
         } finally {

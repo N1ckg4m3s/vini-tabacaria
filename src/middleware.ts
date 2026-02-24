@@ -12,7 +12,7 @@ const secret = new TextEncoder().encode(JWT_SECRET)
  * 
  * @returns {boolean} Retorna true se a rota é admin, caso publica false
  */
-const isAdminRoute = (pathname: string): boolean => pathname.startsWith('/api/admin')
+const isAdminRoute = (pathname: string): boolean => pathname.startsWith('/api/admin') || pathname.startsWith('/admin')
 
 /**
  * Função para obter o token do cookie
@@ -24,15 +24,6 @@ const isAdminRoute = (pathname: string): boolean => pathname.startsWith('/api/ad
 const obterToken = (req: NextRequest): string | null => {
     const token = req.cookies.get('authToken')?.value
     return token || null
-}
-
-/**
- * Função para redirecionar o usuário para a página de login
- * 
- * @param req Requisição do Next.js
- */
-const redirecionarParaLogin = (req: NextRequest) => {
-    return NextResponse.redirect(new URL('/login', req.url));
 }
 
 /**
@@ -50,9 +41,7 @@ export async function middleware(req: NextRequest) {
 
     const token = obterToken(req);
 
-    console.log({
-        cookies: req.cookies.get('authToken')
-    })
+    console.log('token:', token)
 
     try {
         if (!token) throw new Error('Token não encontrado');
@@ -61,8 +50,8 @@ export async function middleware(req: NextRequest) {
 
         return NextResponse.next();
     } catch (error) {
-        console.error('Erro ao obter o token:', error)
-        return redirecionarParaLogin(req)
+
+        return NextResponse.redirect(new URL('/login', req.nextUrl.origin))
     }
 }
 

@@ -41,7 +41,8 @@ export const GlobalColors = {
     Neutral: {
         950: '#121212', // fundo absoluto
         900: '#181818', // app background
-        800: '#1F1F1F', // seções grandes
+        850: '#1b1b1b', // 
+        800: '#1f1f1f', // seções grandes
         700: '#2A2A2A', // cards
         600: '#363636', // divisões / containers
         500: '#474747', // bordas leves

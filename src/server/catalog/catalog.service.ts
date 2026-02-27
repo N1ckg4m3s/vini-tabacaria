@@ -1,4 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
 import { extractUniqueStrings, rankProducts } from "./catalog.helpers";
 import { CatalogFilters, Produto } from "@/shered/shered.types";
 import { ProductRepository } from "../products/products.repository";
@@ -6,14 +5,15 @@ import { ProductRepository } from "../products/products.repository";
 export class catalogService {
     private repo = new ProductRepository();
 
-    async obterItensPorPagina(params: { page: number; perPage: number; filters: any; }) {
-        const { page, perPage, filters } = params;
+    async obterItensPorPagina(params: { page: number; perPage: number; filters: any; search?: string }) {
+        const { page, perPage, filters, search } = params;
 
         const start = (page - 1) * perPage;
         const end = start + perPage;
 
         let query = this.repo.baseQuery();
         query = this.repo.applyHardFilters(query, filters);
+        query = this.repo.applySearch(query, search)
         query = query.limit(100);
 
         const { data, count } = await this.repo.execute(query);

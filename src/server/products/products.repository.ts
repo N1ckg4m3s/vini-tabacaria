@@ -56,4 +56,14 @@ export class ProductRepository {
         if (filters.precoMax !== undefined) query = query.lte("valor", filters.precoMax);
         return query;
     }
+
+    applySearch(query: any, search?: string) {
+        if (!search?.trim()) return query;
+
+        const term = `%${search}%`;
+
+        return query.or(
+            `nome.ilike.${term},marca.ilike.${term},tipo.ilike.${term}`
+        );
+    }
 }

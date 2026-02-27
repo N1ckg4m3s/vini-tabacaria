@@ -1,26 +1,12 @@
-'use client'
+import type { Metadata } from "next";
+import '@style/globalStyleCss.css'
+import AdminLayout from "./admin_layout";
 
-import styled from 'styled-components'
-import { DrowerBarComponent } from '@/features/_shered/components/DrowerBar/component';
+export const metadata: Metadata = {
+  title: "VINI TABACARIA | ADMIN",
+  description: "Catalogo da Vini Tabacaria de Carapicuiba",
+};
 
-const LayoutContainer = styled.div`
-    min-height: 100vh;
-    display: flex;
-    flex-direction: row;
-`;
-
-const Main = styled.main`
-    margin-left: calc(70px);
-    flex: 1;
-`;
-
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <LayoutContainer>
-            <DrowerBarComponent />
-            <Main>
-                {children}
-            </Main>
-        </LayoutContainer>
-    );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <AdminLayout> {children} </AdminLayout>
 }

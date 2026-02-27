@@ -19,7 +19,7 @@ export class DashboardRepo {
 
         /* Acessos do dia */
         const today = weeklyAccessData?.find(d => d.data === hoje);
-        const todayAcess = ((today.mobile_access || 0) + (today.desktop_access || 0)) || null;
+        const todayAcess = today && (today.mobile_access + today.desktop_access) || null;
 
         /* ========== Uso durante a semana ========== */
         /* Acessos móveis e desktop durante a semana */

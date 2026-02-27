@@ -12,7 +12,11 @@ export const DrowerBarComponent = () => {
             onMouseLeave={() => setIsOpen(false)}
             $isOpen={isOpen}
         >
-            <s.NavTitle $isOpen={isOpen}>Admin</s.NavTitle>
+
+            <s.NavTitleContainer>
+                <s.MenuIcon $isOpen={!isOpen} size={20} />
+                <s.NavTitle $isOpen={isOpen}>Admin</s.NavTitle>
+            </s.NavTitleContainer>
 
             <s.NavLinks>
                 <s.NavItem href='/admin'>

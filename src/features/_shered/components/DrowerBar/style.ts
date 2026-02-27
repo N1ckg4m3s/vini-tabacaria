@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import Link from 'next/link'
-import { LayoutDashboard, Package, PlusCircle, Store } from 'lucide-react'
+import { LayoutDashboard, Package, PlusCircle, Store, Menu } from 'lucide-react'
 
 export const NavContainer = styled.aside<{ $isOpen: boolean }>`
     background: #161616;
@@ -14,21 +14,12 @@ export const NavContainer = styled.aside<{ $isOpen: boolean }>`
         width .25s ease;
 
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     
     box-shadow: ${({ $isOpen }) =>
         $isOpen
             ? '0 0 0 1px #2a2a2a, 10px 0 20px rgba(0,0,0,0.5)'
             : '0 0 0 1px #2a2a2a'};
-`
-
-export const NavTitle = styled.h2<{ $isOpen: boolean }>`
-    color: white;
-    font-size: 18px;
-    margin-bottom: 24px;
-
-    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
-    transition: opacity 0.2s ease;
 `
 
 export const NavLinks = styled.div`
@@ -37,7 +28,7 @@ export const NavLinks = styled.div`
     gap: 8px;
 `
 
-export const NavItem = styled(Link)`
+const animatedItemStyle = css`
     display: flex;
     align-items: center;
     gap: 14px;
@@ -54,6 +45,9 @@ export const NavItem = styled(Link)`
         color: white;
     }
 `
+
+export const NavTitleContainer = styled.div`${animatedItemStyle}`
+export const NavItem = styled(Link)`${animatedItemStyle}`
 
 export const NavLabel = styled.span<{ $isOpen: boolean }>`
     white-space: nowrap;
@@ -74,3 +68,21 @@ export const LayoutDashboardIcon = styled(LayoutDashboard)`${iconsSize}`
 export const PackageIcon = styled(Package)`${iconsSize}`
 export const PlusCircleIcon = styled(PlusCircle)`${iconsSize}`
 export const StoreIcon = styled(Store)`${iconsSize}`
+
+export const MenuIcon = styled(Menu) <{ $isOpen: boolean }>`
+    ${iconsSize}
+    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0px)' : 'translateX(-10px)')};
+    margin-bottom: ${({ $isOpen }) => ($isOpen ? '4px' : '5px')};
+    transition: all 0.2s ease;
+`
+
+export const NavTitle = styled.h2<{ $isOpen: boolean }>`
+    color: white;
+
+    font-size: ${({ $isOpen }) => ($isOpen ? '20px' : 0)};
+    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(-30px)' : 'translateX(0px)')};
+
+    transition: all 0.2s ease;
+`

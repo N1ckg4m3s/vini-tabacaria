@@ -5,7 +5,8 @@ import { Produto } from "@/shered/shered.types"
 // --------------------
 type useProductsListParams = {
     paginaAtual: number
-    numeroPorPagina: number
+    numeroPorPagina: number,
+    search: string
 }
 type useProductsListResponse = {
     products: Produto[],

@@ -1,4 +1,4 @@
-import { ProductInfoComponent } from '@/features/productInfo/pages/productInfo.page';
+import { ProductInfoComponent } from '@/features/client/productInfo/pages/productInfo.page';
 
 import { Metadata } from 'next';
 

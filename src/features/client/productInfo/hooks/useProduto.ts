@@ -5,7 +5,7 @@ import { Produto } from "@/shered/shered.types";
 import { loadProductInfo } from "../api/loadProduct";
 import { useProduct_Props } from "../types/HooksProps";
 import { useNotification } from "@/providers/notification.provider";
-import { errorToNotification } from "@/features/notification/service/errorToNotification";
+import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
 
 export const useProduct: useProduct_Props = ({ id }) => {
     const { adicionarNotificacao } = useNotification()

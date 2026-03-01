@@ -1,12 +1,12 @@
 import { useNotification } from "@/providers/notification.provider"
 import { useLogin_Props } from "../types/hooks.types"
 import { validateSenha } from "../services/validateForm"
-import { errorToNotification } from "@/features/notification/service/errorToNotification"
 import { ExecuteLoginRequest } from "../api/executeLogin"
 import { useState } from "react"
 import { validateEmail } from "@/shered/validators/email.validator"
 import { loginCredential } from "@/shered/shered.types"
 import { useRouter } from "next/navigation"
+import { errorToNotification } from "../../notification/service/errorToNotification"
 
 export const useLogin: useLogin_Props = () => {
     const { push } = useRouter()

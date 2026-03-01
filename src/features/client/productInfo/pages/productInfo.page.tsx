@@ -8,7 +8,7 @@ import { useProduct } from '../hooks/useProduto'
 import { useRelactivesProduct } from '../hooks/useProdutosRelativos'
 import { LoadingOverlay } from '@/features/_shered/components/loading/component'
 import { useEffect } from 'react'
-import { notifyProductViewed } from '@/features/analytics/services/notifyProductViewd'
+import { notifyProductViewed } from '@/features/system/analytics/services/notifyProductViewd'
 
 export const ProductInfoComponent = () => {
     const { id } = useParams()

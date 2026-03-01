@@ -1,0 +1,49 @@
+ta, não gostei muito de 'productForm' é formulario de produto, não indica diretamente 'editCreate', ma ta bom, depois resolvo isso!
+
+estou sismado com uma coisa, nomeclaturas!
+
+[FRONT-END]
+/src/features
+├── _shered = serviços/hooks/componentes compartilhado entre features [ esse vou manter o nome ]
+├── analytcs = apenas analiticos do sistema sem UI
+├── cart = carrinho para cotação de valores
+├── catalog = todo o catalogo do lado do cliente
+├── dashboard = dashboard do lado admin
+├── login = pagina de login do admin
+├── notificação = notificação de erro/sucesso/info do sistema [atualmente usado apenas no admin]
+├── productInfo = informação do produto [client]
+├── productList = lista de produtos do admin
+└── [o novo de criar/editar produto]
+
+[BACK-END]
+/src/server
+├── analytcs - analytics do sistema [produto acessado, interesses, dispositivos usados...]
+│   ├── analytcs.repo.ts
+│   ├── analytcs.service.ts
+│   ├── analytcs.types.ts
+│   ├── analytics.identify.ts
+│   └── analytics.validators.ts
+├── catalog - logica de obtenção dos produtos paginados e filtragem
+│   ├── catalog.helpers.ts
+│   ├── catalog.service.ts
+│   └── type.ts
+├── connections - conexão com o banco de dados
+│   └── supraBaseConnection.ts
+├── dashboard - logica de obtenção dos dados para o dashboard
+│   ├── dashboard.repo.ts
+│   ├── dashboard.service.ts
+│   └── dashboard.types.ts
+├── login - login..
+│   ├── login.helper.ts
+│   └── login.service.ts
+├── productInformations - logica de obter as informações de produtos e relacionados [marca / especificações]
+│   ├── product.dto.ts
+│   ├── product.helpers.ts
+│   ├── product.service.ts
+│   └── type.ts
+├── products - centralizador da consulta ao banco com foco nos produtos
+│   ├── product-id.resolver.ts
+│   └── products.repository.ts
+└── redis - cache [under construct]
+    ├── redis.service.ts
+    └── redisConnection.ts

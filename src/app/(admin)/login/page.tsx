@@ -1,4 +1,4 @@
-import { LoginPage } from '@/features/login/pages/login.page';
+import { LoginPage } from '@/features/system/login/pages/login.page';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

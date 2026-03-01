@@ -1,4 +1,4 @@
-import { ProductList } from "@/features/productsList/pages/productList.page"
+import { ProductList } from "@/features/admin/productsList/pages/productList.page"
 
 export default () => {
     return <ProductList />

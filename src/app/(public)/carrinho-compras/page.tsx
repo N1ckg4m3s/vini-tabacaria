@@ -1,4 +1,4 @@
-import { CartComponent } from '@/features/cart/pages/cart.page';
+import { CartComponent } from '@/features/client/cart/pages/cart.page';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

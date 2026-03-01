@@ -4,7 +4,7 @@ import { CatalogFilterSource } from '@/shered/shered.types'
 import { useEffect, useState } from 'react'
 import { getFiltersInformations } from '../api/getFiltersInformations'
 import { useNotification } from '@/providers/notification.provider';
-import { errorToNotification } from '@/features/notification/service/errorToNotification';
+import { errorToNotification } from '@/features/system/notification/service/errorToNotification';
 
 const sanitizeSource = (source: CatalogFilterSource) => {
   const result: CatalogFilterSource = {};

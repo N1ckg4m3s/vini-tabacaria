@@ -1,17 +1,6 @@
 import { Produto } from "@/shered/shered.types"
 
 // ------------------------
-// Use products parametros
-// ------------------------
-type useProduct_Params = { id: string }
-type useProduct_Respose = {
-    product: Produto | undefined
-    loading: boolean
-}
-
-export type useProduct_Props = (params: useProduct_Params) => useProduct_Respose
-
-// ------------------------
 // Use relativos parametros
 // ------------------------
 type useRelactive_Params = { id: string, relacao: "marca" | "relevancia" }

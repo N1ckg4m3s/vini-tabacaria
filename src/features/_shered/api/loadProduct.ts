@@ -1,5 +1,5 @@
 import { apiCaller } from "@/features/_shered/services/apiCaller"
-import { getProduct_Props } from "../types/ApiProps"
+import { getProduct_Props } from "../../client/productInfo/types/ApiProps"
 import { NoResponseError } from "@/http/error/erros.handle"
 
 export const loadProductInfo: getProduct_Props = async ({ id }) => {

@@ -3,11 +3,19 @@
 import { useEffect, useState } from "react";
 import { Produto } from "@/shered/shered.types";
 import { loadProductInfo } from "../api/loadProduct";
-import { useProduct_Props } from "../types/HooksProps";
 import { useNotification } from "@/providers/notification.provider";
 import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
 
-export const useProduct: useProduct_Props = ({ id }) => {
+// ------------------------
+// Use products parametros
+// ------------------------
+type useProduct_Params = { id: string }
+type useProduct_Respose = {
+    product: Produto | undefined
+    loading: boolean
+}
+
+export const useObterProdutoPorId = ({ id }: useProduct_Params): useProduct_Respose => {
     const { adicionarNotificacao } = useNotification()
 
     const [Product, setProducts] = useState<Produto | undefined>(undefined);

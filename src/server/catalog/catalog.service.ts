@@ -13,6 +13,7 @@ export class catalogService {
 
         let query = this.repo.baseQuery();
         query = this.repo.applyHardFilters(query, filters);
+        query = this.repo.applyFilters(query, filters);
         query = this.repo.applySearch(query, search)
         query = query.limit(100);
 

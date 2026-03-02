@@ -1,6 +1,6 @@
-import { AnalyticsEvent } from "@/features/analytics/types/analytics.events";
 import { BadRequestError } from "@/http/error/erros.handle";
 import { AnalyticsEventData, AnalyticsEventValidator } from "./analytcs.types";
+import { AnalyticsEvent } from "@/features/system/analytics/types/analytics.events";
 
 const requireProductId: AnalyticsEventValidator = (data) => {
     if (!data || !data.productId) {

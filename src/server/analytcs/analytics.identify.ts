@@ -1,8 +1,8 @@
-import { AnalyticsEvent } from "@/features/analytics/types/analytics.events";
 import { analyticsEventValidators } from "./analytics.validators";
 import { BadRequestError } from "@/http/error/erros.handle";
 import { AnalyticsService } from "./analytcs.service";
 import { AnalyticsEventData } from "./analytcs.types";
+import { AnalyticsEvent } from "@/features/system/analytics/types/analytics.events";
 
 export const identifyAnalyticsEvent = (event: AnalyticsEvent, data: AnalyticsEventData) => {
     // Verifica os dados necessários para o evento

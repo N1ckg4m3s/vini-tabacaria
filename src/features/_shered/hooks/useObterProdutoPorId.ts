@@ -9,7 +9,7 @@ import { errorToNotification } from "@/features/system/notification/service/erro
 // ------------------------
 // Use products parametros
 // ------------------------
-type useProduct_Params = { id: string }
+type useProduct_Params = { id?: string }
 type useProduct_Respose = {
     product: Produto | undefined
     loading: boolean
@@ -22,24 +22,35 @@ export const useObterProdutoPorId = ({ id }: useProduct_Params): useProduct_Resp
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!id) return;
+        let cancelled = false
 
-        async function fetchProducts() {
-            try {
-                const { product } = await loadProductInfo({ id });
-                if (!product) return
-                setProducts(product);
-            } catch (e) {
-                adicionarNotificacao(errorToNotification(e))
-            } finally {
+        async function fetchProduct() {
+            if (!id) {
+                setProducts(undefined)
                 setLoading(false)
+                return
             }
 
-        }
-        setLoading(true)
-        fetchProducts();
+            setLoading(true)
+            setProducts(undefined)
 
-    }, [id]);
+            try {
+                const { product } = await loadProductInfo({ id })
+                if (!cancelled) setProducts(product)
+
+            } catch (e) {
+                if (!cancelled) adicionarNotificacao(errorToNotification(e))
+
+            } finally {
+                if (!cancelled) setLoading(false)
+            }
+        }
+
+        fetchProduct()
+
+        return () => { cancelled = true }
+    }, [id])
+
 
     return { product: Product, loading };
 };

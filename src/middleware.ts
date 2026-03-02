@@ -41,8 +41,6 @@ export async function middleware(req: NextRequest) {
 
     const token = obterToken(req);
 
-    console.log('token:', token)
-
     try {
         if (!token) throw new Error('Token não encontrado');
 

@@ -1,9 +1,11 @@
+import { flexCenter } from "@/styles/mixins";
 import { GlobalColors } from "@/styles/theme";
 import styled from "styled-components";
 
 export const adminContent = styled.main`
     padding: 32px;
     color: ${GlobalColors.Neutral[0]};
+    ${flexCenter}
 `
 
 export const painel = styled.main`

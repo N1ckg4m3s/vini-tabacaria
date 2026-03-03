@@ -23,5 +23,7 @@ export const useEditProduct: useEditProduct_Props = ({ id }) => {
 
     const onChange = (newDraft: Produto) => setDraft(newDraft)
 
-    return { loading, draft, onChange }
+    const resetDraft = () => setDraft(initialState);
+
+    return { loading, draft, onChange, resetDraft }
 }

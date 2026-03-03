@@ -1,6 +1,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
-import { CatalogFilters } from "@/shered/shered.types";
+import { CatalogFilters, ProdutoSemID } from "@/shered/shered.types";
+import { Produto } from "@/controller/types";
+import { NoResponseError } from "@/http/error/erros.handle";
 
 export class ProductRepository {
     private supra: SupabaseClient<any, "public", any>;
@@ -9,7 +11,8 @@ export class ProductRepository {
     baseQuery() {
         return this.supra
             .from("products")
-            .select("*", { count: "exact" });
+            .select("*", { count: "exact" })
+            .eq('visible', true);
     }
 
     async execute(query: any) {
@@ -65,5 +68,36 @@ export class ProductRepository {
         return query.or(
             `nome.ilike.${term},marca.ilike.${term},tipo.ilike.${term}`
         );
+    }
+
+    async create(product: ProdutoSemID) {
+        const { data, error } = await this.supra.from("products")
+            .insert([product])
+            .select();
+        console.log({ data, error })
+
+        if (error) throw error;
+        if (!data) throw new NoResponseError('Não gerou resposta');
+        return data[0];
+    }
+
+    async update(id: string, product: Partial<ProdutoSemID>) {
+        const { data, error } = await this.supra.from("products")
+            .update(product)
+            .eq("id", id)
+            .select();
+        if (error) throw error;
+        if (!data) throw new NoResponseError('Não gerou resposta');
+        return data[0];
+    }
+
+    async delete(id: string) {
+        const { data, error } = await this.supra.from("products")
+            .update({ visible: false })
+            .eq("id", id)
+            .select();
+        if (error) throw error;
+        if (!data) throw new NoResponseError('Não gerou resposta');
+        return data[0];
     }
 }

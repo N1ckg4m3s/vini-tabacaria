@@ -8,8 +8,9 @@ export interface Produto {
   valor: number;
   tipo: string;
   imagem?: string
-  metadata: Record<string, string | number | string[] | number[]>
+  metadata: Record<string, string | number | string[] | number[] | boolean>
 }
+export type ProdutoSemID = Omit<Produto, 'id'>
 
 // --------------------
 // Produto no carrinho
@@ -70,6 +71,6 @@ export const filtrosPorTipo = {
 // Credenciais de login
 // --------------------
 export interface loginCredential {
-    email: string
-    password: string
+  email: string
+  password: string
 }

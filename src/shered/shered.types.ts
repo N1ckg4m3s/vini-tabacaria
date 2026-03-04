@@ -7,7 +7,7 @@ export interface Produto {
   marca: string;
   valor: number;
   tipo: string;
-  imagem?: string
+  imagem?: string | null | File;
   metadata: Record<string, string | number | string[] | number[] | boolean>
 }
 export type ProdutoSemID = Omit<Produto, 'id'>

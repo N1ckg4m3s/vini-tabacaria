@@ -1,8 +1,7 @@
 import { apiCaller } from "@/features/_shered/services/apiCaller";
 import { NoResponseError } from "@/http/error/erros.handle";
-import { ProdutoSemID } from "@/shered/shered.types";
 
-export const saveProduct = async (product: ProdutoSemID) => {
+export const saveProduct = async (product: FormData) => {
     const request = await apiCaller({
         url: '/api/admin/product',
         method: 'POST',

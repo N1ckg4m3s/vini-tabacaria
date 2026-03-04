@@ -51,16 +51,16 @@ export async function apiCaller({ url, method = 'GET', body, headers = {}, param
     /* configurações da Requisição */
     const options: RequestInit = {
         method,
-        headers: {
-            'Content-Type': 'application/json',
-            ...headers,
-        },
-        credentials: 'include', // envia cookies como o HttpOnly
+        headers: {},
+        credentials: 'include',
     };
 
-
-    if (body !== undefined) {
-        options.body = JSON.stringify(body);
+    if (body instanceof FormData) {
+        options.headers = { ...headers }
+        options.body = body
+    } else if (body !== undefined) {
+        options.body = JSON.stringify(body)
+        options.headers = { ...headers, 'Content-Type': 'application/json' }
     }
 
     /* Chamar a API com parametros e configurações */

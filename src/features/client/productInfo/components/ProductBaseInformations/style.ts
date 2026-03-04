@@ -1,5 +1,5 @@
 import { GlobalColors } from "@/styles/theme"; // to update
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ProdutoContainer = styled.div`
     width: 100%;
@@ -32,7 +32,7 @@ export const ProdutoImagem = styled.section`
     max-height: 420px;
 `
 
-export const ImagemWarper = styled.div`
+const imageWarperStyle = css`
     width: 100%;
     height: 100%;
     border: 2px dashed ${GlobalColors.Border.subtle};
@@ -42,6 +42,10 @@ export const ImagemWarper = styled.div`
     justify-content: center;
     color: ${GlobalColors.Text.secondary};
 `
+
+export const image = styled.img`${imageWarperStyle}`
+
+export const ImagemWarper = styled.div`${imageWarperStyle}`
 
 export const ImagemPlaceHolder = styled.span`
     display: flex;

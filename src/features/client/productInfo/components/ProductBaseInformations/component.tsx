@@ -13,9 +13,15 @@ export const ProductBaseInformations: React.FC<Props> = ({ produto }) => {
     return (<>
         <s.ProdutoContainer>
             <s.ProdutoImagem>
-                <s.ImagemWarper>
-                    <s.ImagemPlaceHolder> Imagem do produto </s.ImagemPlaceHolder>
-                </s.ImagemWarper>
+                {produto?.imagem ?
+                    (
+                        <s.image src={produto.imagem} alt={produto.nome} />
+                    ) : (
+                        <s.ImagemWarper>
+                            <s.ImagemPlaceHolder> Imagem do produto </s.ImagemPlaceHolder>
+                        </s.ImagemWarper>
+                    )
+                }
             </s.ProdutoImagem>
             <s.ProductInfoContainer>
                 <header>

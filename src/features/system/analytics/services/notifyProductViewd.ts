@@ -38,8 +38,6 @@ export const notifyProductViewed = (productId: string) => {
         analytcsSaved = { date: hoje, products: [] }
     }
 
-    console.log(analytcsSaved.products, productId);
-
     if (analytcsSaved.products.includes(productId)) return;
 
     analytcsSaved.products.push(productId);

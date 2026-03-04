@@ -3,6 +3,7 @@ import { saveProduct } from "../api/saveProduct"
 import { ProdutoSemID } from "@/shered/shered.types"
 import { useNotification } from "@/providers/notification.provider"
 import { updateProduct } from "../api/updateProduct"
+import { transformDraftToFormData } from "../service/draftToFormData"
 
 export const useSave = ({ resetDraft }: { resetDraft: () => void }) => {
     const { adicionarNotificacao } = useNotification()
@@ -11,12 +12,13 @@ export const useSave = ({ resetDraft }: { resetDraft: () => void }) => {
         try {
             setLoading(true)
 
+            const formData = transformDraftToFormData(product)
             let response;
 
             if (productId) {
-                response = await updateProduct(productId, product);
+                response = await updateProduct(productId, formData);
             } else {
-                response = await saveProduct(product);
+                response = await saveProduct(formData);
                 resetDraft();
             }
 
@@ -27,10 +29,10 @@ export const useSave = ({ resetDraft }: { resetDraft: () => void }) => {
             })
 
             return response;
-        } catch (error) {
+        } catch (error: any) {
             adicionarNotificacao({
                 title: 'Erro ao salvar produto',
-                message: 'Ocorreu um erro ao salvar o produto. Por favor, tente novamente.',
+                message: error?.message,
                 type: 'Error',
             })
         } finally {

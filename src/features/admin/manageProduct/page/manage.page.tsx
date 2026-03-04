@@ -9,6 +9,7 @@ import { LoadingOverlay } from '@/features/_shered/components/loading/component'
 import { useProductFieldMap } from '../hook/useProductEspecifications'
 import { MetaFieldConfig } from '../types/components.types'
 import { useSave } from '../hook/useSave'
+import { ProductImage } from '../components/ProductImage'
 
 export const ManageProduct = () => {
     const { id } = useParams()
@@ -26,6 +27,7 @@ export const ManageProduct = () => {
                 <s.painelTitle>{isEdit ? 'Adicionar' : 'Editar'} Produto</s.painelTitle>
                 <ProductBasicInfo draft={draft} onChange={onChange} />
                 <ProductSpecifications draft={draft} onChange={onChange} fiewdMap={fieldMap} />
+                <ProductImage draft={draft} onChange={onChange} />
 
                 <s.painelActions>
                     <s.painelButtonCancel>Cancelar</s.painelButtonCancel>

@@ -9,8 +9,7 @@ export function validateMetadata(tipo: string, metadata: Record<string, any>) {
         const type = validators[key];
         const value = metadata[key];
 
-        if (value === undefined || value === null)
-            throw new BadRequestError(`Campo obrigatório faltando: ${key}`);
+        if (value === undefined || value === null) throw new BadRequestError(`Campo obrigatório faltando: ${key}`);
 
         switch (type) {
             case 'text':

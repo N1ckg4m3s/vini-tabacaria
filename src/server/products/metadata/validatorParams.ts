@@ -2,7 +2,6 @@ export const metadataValidators: Record<string, Record<string, 'text' | 'number'
     essencia: {
         sabor: 'text',
         intensidade: 'checkbox',
-        mix: 'text',
     },
     acessorio: {
         cor: 'text',

@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Vini-Tabacaria – Catálogo Digital
 
-## Getting Started
+Catálogo online desenvolvido para a Vini-Tabacaria, onde clientes podem visualizar produtos, montar uma cotação através de um carrinho e encaminhar o pedido diretamente para o WhatsApp.
 
-First, run the development server:
+O sistema também possui uma área administrativa com controle de produtos e métricas de acesso.
+
+---
+
+## 🚀 Funcionalidades
+
+### 👤 Área do Cliente
+
+* Visualização de produtos
+* Carrinho para simulação de cotação
+* Envio do pedido diretamente para o WhatsApp
+* Interface responsiva
+
+### 🔐 Área Administrativa
+
+* Cadastro, edição e exclusão de produtos
+* Controle de produtos visualizados
+* Controle de intenções de compra
+* Número de acessos ao sistema
+* Dashboard com métricas
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* Next.js
+* TypeScript
+* Supabase
+* Styled Components
+* API própria utilizando rotas do Next.js
+
+---
+
+## 🏗️ Arquitetura e Padrões
+
+### 📌 Front-end
+
+* Organização baseada em **Feature-Based Structure**
+* Aplicação do princípio **SRP (Single Responsibility Principle)**
+
+### 📌 Back-end
+
+Arquitetura em camadas:
+
+* Controller
+* DTO (Data Transfer Object)
+* Service
+* Repository
+
+Separação clara de responsabilidades, facilitando manutenção e escalabilidade.
+
+---
+
+## 📦 Como executar o projeto
 
 ```bash
+# Clonar o repositório
+git clone <url-do-repositorio>
+
+# Entrar na pasta
+cd nome-do-projeto
+
+# Instalar dependências
+npm install
+
+# Rodar o projeto
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto estará disponível em:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📊 Objetivo do Projeto
 
-To learn more about Next.js, take a look at the following resources:
+Criar uma solução simples e eficiente para:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Facilitar a visualização de produtos
+* Automatizar o processo de cotação
+* Gerar intenção de compra via WhatsApp
+* Fornecer dados estratégicos para o administrador
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📌 Status do Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🚧 Em desenvolvimento
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📎 Melhorias Futuras
+
+* Relatórios avançados
+* Exportação de métricas
+* Painel com gráficos detalhados

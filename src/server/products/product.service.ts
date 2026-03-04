@@ -4,23 +4,30 @@ import { ProductRepository } from "./products.repository";
 export class ProductService {
     private repo = new ProductRepository();
 
-    async createProduct(product: ProdutoSemID) {
-        let p = { ...product }
+    private async formatMeta(product: ProdutoSemID): Promise<Record<string, string | number | boolean | string[] | number[]>> {
+        let metadata = { ...product.metadata }
 
-        const hasSabor = typeof product.metadata.sabor === 'string'
-        if (hasSabor) {
-            const sabores = (product.metadata.sabor as string).split(',')
-            p.metadata['mix'] = sabores.length >= 2
-            p.metadata['sabor'] = sabores.map(s => s.toLowerCase().trim())
+        if (typeof metadata.sabor === 'string') {
+            const sabores = (metadata.sabor as string)
+                .split(/[,\s]+/)
+                .map(s => s.toLowerCase().trim())
+                .filter(Boolean)
+            metadata['mix'] = sabores.length >= 2
+            metadata['sabor'] = sabores
         }
 
-        const repoResponse = await this.repo.create(p)
+        return metadata
+    }
 
-        return repoResponse;
+    async createProduct(product: ProdutoSemID) {
+        const metadata = await this.formatMeta(product)
+        const repoResponse = await this.repo.create({ ...product, metadata })
+        return repoResponse
     }
 
     async updateProduct(id: string, product: ProdutoSemID) {
-        const repoResponse = await this.repo.update(id, product)
+        const metadata = await this.formatMeta(product)
+        const repoResponse = await this.repo.update(id, { ...product, metadata })
         return repoResponse;
 
     }

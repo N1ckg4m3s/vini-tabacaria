@@ -1,7 +1,7 @@
 import { formateNumber } from "./number.formater"
 import { formateText, formatListToText } from "./text.formater"
 
-export const formatMetadataValue = (value: string | number | string[] | number[]): string => {
+export const formatMetadataValue = (value: string | number | string[] | number[] | boolean): string => {
     if (Array.isArray(value)) {
         if (value.length === 0) return '-'
         return formatListToText(value.map(String))

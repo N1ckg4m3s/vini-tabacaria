@@ -1,7 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
 import { CatalogFilters, ProdutoSemID } from "@/shered/shered.types";
-import { Produto } from "@/controller/types";
 import { NoResponseError } from "@/http/error/erros.handle";
 
 export class ProductRepository {

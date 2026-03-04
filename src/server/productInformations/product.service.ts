@@ -38,10 +38,16 @@ export class ProductInfoService {
         query = query.limit(50)
 
         if (produtoBase.tipo === "essencia") {
+
+            console.log({ sabores: produtoBase.metadata.sabor, intensidades: produtoBase.metadata?.intensidade })
+
+            const sabores = toArray(produtoBase.metadata.sabor as string | string[] | undefined)
+            const intensidades = toArray(produtoBase.metadata?.intensidade as string | string[] | undefined)
+
             query = this.repo.applyFilters(query, {
                 meta: {
-                    sabor: toArray(produtoBase.metadata.sabor as string | string[] | undefined),
-                    intensidade: toArray(produtoBase.metadata?.intensidade as string | string[] | undefined),
+                    sabor: sabores,
+                    intensidade: intensidades,
                 }
             })
         }

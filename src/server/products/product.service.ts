@@ -36,4 +36,9 @@ export class ProductService {
         const repoResponse = await this.repo.delete(id)
         return repoResponse;
     }
+
+    async getProductsByIds(productsId: string[]) {
+        const products = await this.repo.findByIds(productsId)
+        return products;
+    }
 }

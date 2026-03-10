@@ -99,4 +99,12 @@ export class ProductRepository {
         if (!data) throw new NoResponseError('Não gerou resposta');
         return data[0];
     }
+
+    async findByIds(ids: string[]) {
+        const { data, error } = await this.supra.from("products")
+            .select("*")
+            .in("id", ids)
+        if (error) throw error;
+        return data || [];
+    }
 }

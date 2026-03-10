@@ -15,10 +15,15 @@ export type ProdutoSemID = Omit<Produto, 'id'>
 // --------------------
 // Produto no carrinho
 // --------------------
+export type CartItemStatus = 'valid' | 'out_of_stock' | 'price_changed'
+export interface ProductWithStatus extends Partial<Produto> {
+  status: CartItemStatus
+}
 export interface CartProduto {
-  produto: Produto
   quantidade: number
   subTotal: number
+  produto: Produto
+  status: CartItemStatus
 }
 
 // --------------------

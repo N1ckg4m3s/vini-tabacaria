@@ -128,6 +128,14 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
 
     // ===== Calcular total
     const calcularTotal = () => {
+        const temProdutosInvalidos = produtos.some(p => p.status !== 'valid')
+
+        // o valor de -1, significa que tem produtos invalidos, e pode ser tratado na tela de checkout para mostrar uma mensagem pro usuario
+        if (temProdutosInvalidos) {
+            setTotal(-1)
+            return;
+        }
+
         const valorTotal = produtos.reduce((acc, prod) => acc + prod.subTotal, 0)
         setTotal(valorTotal)
     }
@@ -141,6 +149,8 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             const productsWithVerification = await verifyProducts(produtosSalvos);
 
             setProdutos(productsWithVerification)
+
+            calcularTotal()
         }
         fetchData()
     }, [])

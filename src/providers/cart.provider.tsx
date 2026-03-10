@@ -138,13 +138,9 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             const produtosSalvos = getLocalData()
             if (!produtosSalvos) return;
 
-            setProdutos(produtosSalvos)
-
-            // under implementation
             const productsWithVerification = await verifyProducts(produtosSalvos);
 
-            console.log(productsWithVerification)
-
+            setProdutos(productsWithVerification)
         }
         fetchData()
     }, [])

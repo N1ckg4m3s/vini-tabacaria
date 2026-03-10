@@ -1,5 +1,7 @@
 'use client'
 
+import { useVerifyProducts } from '@/features/system/cart/hook/useVerifyProducts';
+import { getLocalData, setLocalData } from '@/features/system/cart/service/LocalData.service';
 import { CartProduto, Produto } from '@/shered/shered.types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
@@ -31,6 +33,7 @@ interface cartProviderProps {
 }
 
 export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
+    const { verifyProducts } = useVerifyProducts()
     const [produtos, setProdutos] = useState<CartProduto[]>([])
     const [total, setTotal] = useState<number>(0)
 
@@ -44,7 +47,8 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             return [...prev, {
                 produto: prod,
                 quantidade: 1,
-                subTotal: prod.valor
+                subTotal: prod.valor,
+                status: 'valid'
             }]
         })
     }
@@ -130,15 +134,24 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
 
     // Obter do 'local' ao iniciar
     useEffect(() => {
-        const produtosSalvos = localStorage.getItem('carrinho')
-        if (!produtosSalvos) return;
+        const fetchData = async () => {
+            const produtosSalvos = getLocalData()
+            if (!produtosSalvos) return;
 
-        setProdutos(JSON.parse(produtosSalvos))
+            setProdutos(produtosSalvos)
+
+            // under implementation
+            const productsWithVerification = await verifyProducts(produtosSalvos);
+
+            console.log(productsWithVerification)
+
+        }
+        fetchData()
     }, [])
 
     // Salvar no 'local' ao alterar
     useEffect(() => {
-        localStorage.setItem('carrinho', JSON.stringify(produtos))
+        setLocalData(produtos)
         calcularTotal()
     }, [produtos])
 

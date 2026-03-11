@@ -1,5 +1,5 @@
 import { GlobalColors } from "@/styles/theme"; // to update
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CartCotaniner = styled.article`
     color: ${GlobalColors.Text.primary};
@@ -9,14 +9,19 @@ export const CartCotaniner = styled.article`
     border: 1px solid ${GlobalColors.Border.subtle};
     border-radius: 16px;
     padding: 16px;
+
+    position: relative;
 `
 
-export const CartImage = styled.div`
+const ImageStyles = css`
     width: 96px;
     height: 96px;
     border-radius: 12px;
     background: linear-gradient(135deg, #27272a, #18181b);
 `
+
+export const CartImage = styled.img` ${ImageStyles} `
+export const CartImageDiv = styled.div` ${ImageStyles} `
 
 export const CartInformations = styled.div`
     flex: 1;

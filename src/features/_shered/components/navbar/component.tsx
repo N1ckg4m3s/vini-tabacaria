@@ -72,7 +72,7 @@ const NavBarComponent = () => {
                         onClick={closeDrawer}
                         aria-label="Abrir carrinho"
                     >
-                        <span>{formatePrice(total)}</span>
+                        <span>{total < 0 ? '##.##' : formatePrice(total)}</span>
                         <Carrinho />
                     </s.LinkStyle>
                 </s.LinksContainer>

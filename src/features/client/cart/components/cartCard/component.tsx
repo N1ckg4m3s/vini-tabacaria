@@ -1,39 +1,40 @@
 import { formatePrice } from '@/features/_shered/services/formaters/price.formater'
 import * as s from './style'
 import { QuantityControl } from '@/features/_shered/components/quantityControl/component'
+import { CartProductUiFormat } from '../../types/HooksProps'
+import { CartCardStatusOutOfStock } from '../cartCardStatus/status_outOfStock'
+import { CartCardStatusPriceChange } from '../cartCardStatus/status_priceChange'
 
 interface props {
-    Nome: string
-    Marca: string
-    Image?: string
-    Quantidade: number
-    SubTotal: number
-    OnAumentarQuantidade: () => void
-    OnDiminuiorQuantidade: () => void
-    OnDefinirQuantidade: (value: number) => void
-    OnRemover: () => void
+    Produto: CartProductUiFormat
 }
 
-export const CartCard: React.FC<props> = ({ Marca, Nome, Image, Quantidade, SubTotal, OnAumentarQuantidade, OnDefinirQuantidade, OnDiminuiorQuantidade, OnRemover }) => {
+export const CartCard: React.FC<props> = ({ Produto }) => {
     return (<>
         <s.CartCotaniner>
-            <s.CartImage />
+            {Produto.image ? <s.CartImage src={Produto.image} /> : <s.CartImageDiv />}
             <s.CartInformations>
-                <s.CartTitle>{Nome}</s.CartTitle>
-                <s.CartMarca>{Marca}</s.CartMarca>
+                <s.CartTitle>{Produto.nome}</s.CartTitle>
+                <s.CartMarca>{Produto.marca}</s.CartMarca>
 
                 <s.Actions>
                     <QuantityControl
-                        onAumentar={OnAumentarQuantidade}
-                        onDefinir={(v: number) => OnDefinirQuantidade(v)}
-                        onDiminuir={OnDiminuiorQuantidade}
-                        quantidade={Quantidade}
+                        onAumentar={Produto.OnAumentarQuantidade}
+                        onDefinir={(v: number) => Produto.OnDefinirQuantidade(v)}
+                        onDiminuir={Produto.OnDiminuiorQuantidade}
+                        quantidade={Produto.quantidade}
                     />
-                    <s.Price>{formatePrice(SubTotal)}</s.Price>
+                    <s.Price>{formatePrice(Produto.subTotal)}</s.Price>
                 </s.Actions>
 
-                <s.RemoveButtton onClick={OnRemover}> Remover </s.RemoveButtton>
+                <s.RemoveButtton onClick={Produto.OnRemover}> Remover </s.RemoveButtton>
             </s.CartInformations>
+
+            {/* Status AREA */}
+
+            {Produto.status === "out_of_stock" && <CartCardStatusOutOfStock />}
+
+            {Produto.status === "price_changed" && <CartCardStatusPriceChange />}
         </s.CartCotaniner>
     </>)
 }

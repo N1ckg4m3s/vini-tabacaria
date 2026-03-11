@@ -2,109 +2,106 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
 import { CatalogFilters, ProdutoSemID } from "@/shered/shered.types";
 import { NoResponseError } from "@/http/error/erros.handle";
+import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
+
+type Query = PostgrestFilterBuilder<any, any, any[], "products", unknown>;
 
 export class ProductRepository {
-    private supra: SupabaseClient<any, "public", any>;
-    constructor() { this.supra = suprabase }
+    private db: SupabaseClient;
 
-    baseQuery() {
-        return this.supra
-            .from("products")
-            .select("*", { count: "exact" })
-            .eq('visible', true);
-    }
+    constructor() { this.db = suprabase }
 
-    async execute(query: any) {
-        const { data, count, error } = await query;
+    async findCatalog(filters: CatalogFilters, search?: string, page: number = 1, perPage: number = 20) {
+        const { data, error } = await this.db.rpc("catalog_rank", {
+            marcas: filters.marca ?? [],
+            sabores: filters.meta?.sabor ?? [],
+            intensidades: filters.meta?.intensidade ?? []
+        });
+
         if (error) throw error;
-        return { data, count };
-    }
 
-    applyFilters(query: any, filters: CatalogFilters) {
-        if (filters.meta) {
-            for (const key of Object.keys(filters.meta)) {
-                const value = filters.meta[key as keyof typeof filters.meta];
+        let result = data ?? [];
 
-                if (Array.isArray(value)) {
-                    const conditions = value
-                        .map(v => `${`metadata->>${key}`}.ilike.%${v}%`)
-                        .join(",");
-
-                    query = query.or(conditions);
-                }
-
-                else if (typeof value === "string") {
-                    query = query.ilike(`metadata->>${key}`, `%${value}%`);
-                }
-
-                else {
-                    query = query.eq(`metadata->>${key}`, value);
-                }
-            }
-        }
-        return query;
-    }
-
-    applyHardFilters(query: any, filters: CatalogFilters) {
-        if (filters.marca?.length) {
-            query = query.in("marca", filters.marca);
+        if (search?.trim()) {
+            const term = search.toLowerCase();
+            result = result.filter((p: any) =>
+                p.nome.toLowerCase().includes(term) ||
+                p.marca?.toLowerCase().includes(term) ||
+                p.tipo.toLowerCase().includes(term)
+            );
         }
 
-        if (filters.tipo?.length) {
-            query = query.in("tipo", filters.tipo);
-        }
+        const count = result.length;
 
-        if (filters.precoMin !== undefined) query = query.gte("valor", filters.precoMin);
-        if (filters.precoMax !== undefined) query = query.lte("valor", filters.precoMax);
-        return query;
+        const start = (page - 1) * perPage;
+        const end = start + perPage;
+
+        return {
+            data: result.slice(start, end),
+            count
+        };
     }
 
-    applySearch(query: any, search?: string) {
-        if (!search?.trim()) return query;
+    async findFilters(filters: CatalogFilters) {
+        const { data, error } = await this.db.rpc("catalog_filters", {
+            p_tipos: filters.tipo ?? [],
+            p_marcas: filters.marca ?? [],
+        });
 
-        const term = `%${search}%`;
+        if (error) throw error;
 
-        return query.or(
-            `nome.ilike.${term},marca.ilike.${term},tipo.ilike.${term}`
-        );
+        return data ?? [];
     }
 
     async create(product: ProdutoSemID) {
-        const { data, error } = await this.supra.from("products")
-            .insert([product])
-            .select();
-        console.log({ data, error })
+        const { data, error } = await this.db
+            .from("products")
+            .insert(product)
+            .select()
+            .single();
 
         if (error) throw error;
-        if (!data) throw new NoResponseError('Não gerou resposta');
-        return data[0];
+        if (!data) throw new NoResponseError("Produto não retornado");
+
+        return data;
     }
 
     async update(id: string, product: Partial<ProdutoSemID>) {
-        const { data, error } = await this.supra.from("products")
+        const { data, error } = await this.db
+            .from("products")
             .update(product)
             .eq("id", id)
-            .select();
+            .select()
+            .single();
+
         if (error) throw error;
-        if (!data) throw new NoResponseError('Não gerou resposta');
-        return data[0];
+        if (!data) throw new NoResponseError("Produto não retornado");
+
+        return data;
     }
 
     async delete(id: string) {
-        const { data, error } = await this.supra.from("products")
+        const { data, error } = await this.db
+            .from("products")
             .update({ visible: false })
             .eq("id", id)
-            .select();
+            .select()
+            .single();
+
         if (error) throw error;
-        if (!data) throw new NoResponseError('Não gerou resposta');
-        return data[0];
+        if (!data) throw new NoResponseError("Produto não retornado");
+
+        return data;
     }
 
     async findByIds(ids: string[]) {
-        const { data, error } = await this.supra.from("products")
+        const { data, error } = await this.db
+            .from("products")
             .select("*")
-            .in("id", ids)
+            .in("id", ids);
+
         if (error) throw error;
-        return data || [];
+
+        return data ?? [];
     }
 }

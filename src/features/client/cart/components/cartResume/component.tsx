@@ -15,7 +15,7 @@ export const CartResume: React.FC<props> = ({ entrega, subTotal, total, finalize
             <s.SummaryTitle>Resumo</s.SummaryTitle>
             <s.SummaryLine>
                 <span>Subtotal</span>
-                <span>${formatePrice(subTotal)}</span>
+                <span>{subTotal < 0 ? '##.##' : formatePrice(subTotal)}</span>
             </s.SummaryLine>
 
             <s.SummaryLine_Muted>
@@ -25,7 +25,7 @@ export const CartResume: React.FC<props> = ({ entrega, subTotal, total, finalize
 
             <s.SummaryTotal>
                 <span>Total</span>
-                <span>${formatePrice(total)}</span>
+                <span>{subTotal < 0 ? '##.##' : formatePrice(total)}</span>
             </s.SummaryTotal>
 
             <s.ActionsButton>

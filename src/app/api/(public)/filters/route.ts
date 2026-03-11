@@ -1,12 +1,12 @@
 import { createRoute } from "@/http/http.handler";
-import { catalogService } from "@/server/catalog/catalog.service";
+import { filterService } from "@/server/filters/filters.service";
 
-export const GET = createRoute(async (request) => {
-    const { searchParams } = request.nextUrl;
+export const POST = createRoute(async (request) => {
+    const body = await request.json()
 
-    const filters = JSON.parse(searchParams.get("filters") || "{}");
+    const { filters } = body;
 
-    const service = new catalogService();
+    const service = new filterService();
 
     return await service.obterDadosParaFiltragem({ filters })
 })

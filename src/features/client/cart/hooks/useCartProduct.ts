@@ -21,6 +21,7 @@ export const useCartProduct: useCartProduct_Props = () => {
         OnDiminuiorQuantidade: () => DiminuirQuantidade(p.produto.id),
         OnRemover: () => removerProduto(p.produto.id),
         OnDefinirQuantidade: (value: number) => DefinirQuantidade(p.produto.id, value),
+        status: p.status
     }))
 
     return {

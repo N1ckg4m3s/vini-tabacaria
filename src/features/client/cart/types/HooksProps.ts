@@ -1,19 +1,22 @@
-import { Produto } from "@/shered/shered.types"
-
 // ------------------------
 // Use products parametros
+
+import { CartItemStatus } from "@/shered/shered.types"
+
 // ------------------------
 export type CartProductUiFormat = {
     id: string
     nome: string
     marca: string
-    imagme?: string
+    image?: string
     quantidade: number
     subTotal: number
     OnAumentarQuantidade: () => void
     OnDiminuiorQuantidade: () => void
     OnDefinirQuantidade: (value: number) => void
     OnRemover: () => void
+
+    status: CartItemStatus
 }
 
 type useCartProduct_Respose = {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useVerifyProducts } from '@/features/system/cart/hook/useVerifyProducts';
+import { acceptNewStatus } from '@/features/system/cart/service/acceptNewStatus';
 import { getLocalData, setLocalData } from '@/features/system/cart/service/LocalData.service';
 import { CartProduto, Produto } from '@/shered/shered.types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -20,6 +21,8 @@ interface cartContextProps {
     obterQuantidade: (id: string) => number;
     verificarProduto: (id: string) => boolean
     calcularTotal(): void
+
+    AceitarMudancaDeStatus: (id: string) => void
 
     limparCarrinho: () => void
 }
@@ -48,7 +51,10 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
                 produto: prod,
                 quantidade: 1,
                 subTotal: prod.valor,
-                status: 'valid'
+                status: {
+                    type: 'valid',
+                    metadata: {}
+                }
             }]
         })
     }
@@ -112,6 +118,28 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
         )
     }
 
+    // Aceita a alteração do produto em casos de discordancia com o banco
+    const AceitarMudancaDeStatus = (id: string) => {
+        const produto = produtos.find(p => p.produto.id === id);
+
+        if (!produto) return;
+
+        const produtoUpdated: CartProduto = acceptNewStatus(produto);
+
+        setProdutos(prev =>
+            prev.map(p => {
+                if (p.produto.id !== id) return p
+
+                const produtoUpdated = acceptNewStatus(p)
+
+                return {
+                    ...produtoUpdated,
+                    subTotal: p.quantidade * produtoUpdated.produto.valor
+                }
+            })
+        )
+    }
+
     // ===== Verificar produto
     const verificarProduto = (id: string): boolean => existeProduto(produtos, id);
 
@@ -128,7 +156,7 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
 
     // ===== Calcular total
     const calcularTotal = () => {
-        const temProdutosInvalidos = produtos.some(p => p.status !== 'valid')
+        const temProdutosInvalidos = produtos.some(p => p.status.type !== 'valid')
 
         // o valor de -1, significa que tem produtos invalidos, e pode ser tratado na tela de checkout para mostrar uma mensagem pro usuario
         if (temProdutosInvalidos) {
@@ -172,6 +200,7 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             verificarProduto,
             obterQuantidade,
             limparCarrinho,
+            AceitarMudancaDeStatus,
             produtos,
             total
         }}>

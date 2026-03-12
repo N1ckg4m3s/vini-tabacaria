@@ -1,22 +1,21 @@
+import { CartProduto, Produto } from "@/shered/shered.types"
 // ------------------------
 // Use products parametros
-
-import { CartItemStatus } from "@/shered/shered.types"
-
 // ------------------------
-export type CartProductUiFormat = {
-    id: string
-    nome: string
-    marca: string
-    image?: string
-    quantidade: number
-    subTotal: number
+
+type necessaryPruductsInformationOnCart = Omit<Produto, 'tipo'> & { quantidade: number }
+
+type necessaryProductActions = {
     OnAumentarQuantidade: () => void
     OnDiminuiorQuantidade: () => void
     OnDefinirQuantidade: (value: number) => void
     OnRemover: () => void
+    onAcceptNewStatus: () => void
+}
 
-    status: CartItemStatus
+export type CartProductUiFormat = Pick<CartProduto, 'status'> & {
+    product: necessaryPruductsInformationOnCart,
+    actions: necessaryProductActions
 }
 
 type useCartProduct_Respose = {

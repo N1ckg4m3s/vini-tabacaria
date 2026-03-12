@@ -8,20 +8,25 @@ export const useCartProduct: useCartProduct_Props = () => {
         DiminuirQuantidade,
         DefinirQuantidade,
         removerProduto,
+        AceitarMudancaDeStatus
     } = useCart()
 
     const cartProductsFormated: CartProductUiFormat[] = produtos.map(p => ({
-        id: p.produto.id,
-        marca: p.produto.marca,
-        nome: p.produto.nome,
-        quantidade: p.quantidade,
-        subTotal: p.subTotal,
-        imagem: p.produto.imagem,
-        OnAumentarQuantidade: () => AumentarQuantidade(p.produto.id),
-        OnDiminuiorQuantidade: () => DiminuirQuantidade(p.produto.id),
-        OnRemover: () => removerProduto(p.produto.id),
-        OnDefinirQuantidade: (value: number) => DefinirQuantidade(p.produto.id, value),
-        status: p.status
+        actions: {
+            OnAumentarQuantidade: () => AumentarQuantidade(p.produto.id),
+            OnDiminuiorQuantidade: () => DiminuirQuantidade(p.produto.id),
+            OnRemover: () => removerProduto(p.produto.id),
+            OnDefinirQuantidade: (value: number) => DefinirQuantidade(p.produto.id, value),
+            onAcceptNewStatus: () => AceitarMudancaDeStatus(p.produto.id)
+        },
+
+        status: p.status,
+
+        product: {
+            ...p.produto,
+            quantidade: p.quantidade,
+            subTotal: p.subTotal,
+        },
     }))
 
     return {

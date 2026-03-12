@@ -10,7 +10,8 @@ export const useFinalizeCart: useFinalize_Props = () => {
     const { produtos, total } = useCart()
 
     const onFinalize = () => {
-        // Validação unica
+        if (produtos.length == 0) return;
+
         if (total < 0) {
             adicionarNotificacao({
                 message: 'há produtos a ser verificados',

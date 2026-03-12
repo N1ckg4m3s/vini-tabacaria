@@ -35,17 +35,13 @@ export interface CartProduto {
 // --------------------
 // Formato dos filtros
 // --------------------
-export interface CatalogFilterSource {
-  marca?: string[]
-  tipo?: string[]
-  meta?: {
-    sabor?: string[]
-    intensidade?: string[]
-    cor?: string[]
-    tamanho?: string[]
-    kit?: string[]
-  }
+export interface FilterSource {
+  value: string,
+  count: number,
+  checked?: boolean
 }
+export type CatalogFilterSource = Record<string, FilterSource[]>
+export type CatalogFilterSourceSanitized = Record<string, string[]>
 
 export interface CatalogFilters {
   search?: string

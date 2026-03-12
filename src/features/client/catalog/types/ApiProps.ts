@@ -1,9 +1,7 @@
-import { CatalogFilters } from "@/shered/shered.types"
+import { CatalogFilterSource, CatalogFilterSourceSanitized } from "@/shered/shered.types"
 // ------------------------
 // Obtem as informações de filtros
 // ------------------------
-type getFiltersInformationsParams = { filtros?: CatalogFilters }
+type getFiltersInformationsParams = { filtros: CatalogFilterSourceSanitized }
 
-type getFiltersInformationsRespose = { filtros: CatalogFilters }
-
-export type getFiltersInformationsProps = (params: getFiltersInformationsParams) => Promise<getFiltersInformationsRespose>
+export type getFiltersInformationsProps = (params: getFiltersInformationsParams) => Promise<CatalogFilterSource>

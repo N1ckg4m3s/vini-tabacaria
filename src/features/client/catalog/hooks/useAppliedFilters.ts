@@ -1,49 +1,32 @@
 'use client'
 
-import { CatalogFilters } from '@/shered/shered.types'
+import { CatalogFilterSource } from '@/shered/shered.types'
 import { useState } from 'react'
-import { MetaKeys } from '../types/types'
 
 export const useAppliedFilters = () => {
-    const [filters, setFilters] = useState<CatalogFilters>({})
+    const [filters, setFilters] = useState<CatalogFilterSource>({})
 
-    const toggleArrayFilter = <K extends keyof CatalogFilters>(
-        field: K,
-        value: string
-    ) => {
+    const toggleFilter = <K extends keyof CatalogFilterSource>(field: K, option: string) => {
         setFilters(prev => {
-            const current = prev[field]
-            if (!Array.isArray(current)) {
-                return { ...prev, [field]: [value] }
-            }
+            console.log(prev, prev[field], option)
+
+            if (!prev || !prev[field]) return prev;
+
+            console.log(prev[field], option)
 
             return {
                 ...prev,
-                [field]: current.includes(value)
-                    ? current.filter(v => v !== value)
-                    : [...current, value]
-            }
-        })
-    }
+                [field]: prev[field]!.map(item =>
+                    item.value === option
+                        ? { ...item, checked: !item.checked }
+                        : item
+                )
+            };
+        });
+    };
 
-    const toggleMetaFilter = <K extends MetaKeys>(
-        field: K,
-        value: string
-    ) => {
-        setFilters(prev => {
-            const meta = prev.meta ?? {}
-            const current: String[] = meta[field] ?? []
-
-            return {
-                ...prev,
-                meta: {
-                    ...meta,
-                    [field]: current.includes(value)
-                        ? current.filter(v => v !== value)
-                        : [...current, value]
-                }
-            }
-        })
+    const verifyToggle = <K extends keyof CatalogFilterSource>(field: K, option: string): boolean => {
+        return filters[field]?.find(op => op.value === option)?.checked || false;
     }
 
     const clearFilters = () => setFilters({})
@@ -51,9 +34,9 @@ export const useAppliedFilters = () => {
     return {
         filters,
         actions: {
-            toggleArrayFilter,
-            toggleMetaFilter,
-            clearFilters
+            toggleFilter,
+            clearFilters,
+            verifyToggle
         }
     }
 }

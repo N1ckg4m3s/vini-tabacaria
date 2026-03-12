@@ -1,62 +1,80 @@
-'use client'
+import { useNotification } from "@/providers/notification.provider"
+import { CatalogFilterSource } from "@/shered/shered.types"
+import { useEffect, useRef, useState } from "react"
+import { getFiltersInformations } from "../api/getFiltersInformations"
+import { errorToNotification } from "@/features/system/notification/service/errorToNotification"
+import { SelectedFilters } from "../types/HooksProps"
+import { serializeFilters } from "../services/sanitizeFilters"
 
-import { CatalogFilterSource } from '@/shered/shered.types'
-import { useEffect, useState } from 'react'
-import { getFiltersInformations } from '../api/getFiltersInformations'
-import { useNotification } from '@/providers/notification.provider';
-import { errorToNotification } from '@/features/system/notification/service/errorToNotification';
-
-const sanitizeSource = (source: CatalogFilterSource) => {
-  const result: CatalogFilterSource = {};
-
-  Object.entries(source).forEach(([key, values]) => {
-    if (!values) return;
-
-    // Caso seja string[]
-    if (Array.isArray(values) && typeof values[0] === 'string') {
-      result[key as keyof CatalogFilterSource] = values.filter(v => v && v.trim() !== '');
-    }
-    // Caso seja objeto com arrays internos (ex: essencia, acessorio)
-    else if (typeof values === 'object') {
-      const inner: any = {};
-      Object.entries(values).forEach(([subKey, subValues]) => {
-        if (Array.isArray(subValues)) {
-          const filtered = subValues.filter(v => v && v.trim() !== '');
-          if (filtered.length) inner[subKey] = filtered;
-        }
-      });
-      if (Object.keys(inner).length) result[key as keyof CatalogFilterSource] = inner;
-    }
-  });
-
-  return result;
-};
-
-export const useCatalogFilters = (filters: CatalogFilterSource) => {
+export const useCatalogFilters = () => {
   const { adicionarNotificacao } = useNotification()
-  const [source, setSource] = useState<CatalogFilterSource | null>(null)
+
+  const [selected, setSelected] = useState<SelectedFilters>({})
+  const [source, setSource] = useState<CatalogFilterSource>({})
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    let mounted = true
-    setLoading(true)
+  const debounceRef = useRef<NodeJS.Timeout | null>(null)
+  const requestIdRef = useRef(0)
 
-    const obterDados = async () => {
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+
+    debounceRef.current = setTimeout(async () => {
+      const requestId = ++requestIdRef.current
+
+      setLoading(true)
+
       try {
-        const response = await getFiltersInformations({ filtros: filters })
-        setSource(sanitizeSource(response.filtros))
+        const filtros = await getFiltersInformations({ filtros: serializeFilters(selected) })
+
+        // evita race condition
+        if (requestId === requestIdRef.current) {
+          setSource(filtros)
+        }
       } catch (e) {
         adicionarNotificacao(errorToNotification(e))
       } finally {
-        setLoading(false)
+        if (requestId === requestIdRef.current) {
+          setLoading(false)
+        }
       }
-    }
+    }, 350)
 
-    obterDados()
     return () => {
-      mounted = false
+      if (debounceRef.current) clearTimeout(debounceRef.current)
     }
-  }, [filters])
+  }, [selected])
 
-  return { source, loading }
+  const toggleFilter = (field: keyof CatalogFilterSource, value: string) => {
+    setSelected(prev => {
+      const nextSet = new Set(prev[field] ?? [])
+
+      if (nextSet.has(value)) nextSet.delete(value)
+      else nextSet.add(value)
+
+      return {
+        ...prev,
+        [field]: nextSet
+      }
+    })
+  }
+
+  const verifyToggle = (field: keyof CatalogFilterSource, value: string) => {
+    return selected[field]?.has(value) ?? false
+  }
+
+  const clearFilters = () => {
+    setSelected({})
+  }
+
+  return {
+    source,
+    selected,
+    loading,
+    actions: {
+      toggleFilter,
+      verifyToggle,
+      clearFilters
+    }
+  }
 }

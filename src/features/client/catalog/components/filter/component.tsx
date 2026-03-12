@@ -1,33 +1,27 @@
 import * as s from './style'
-import { CatalogFilters, CatalogFilterSource } from "@/shered/shered.types"
+import { CatalogFilterSource } from "@/shered/shered.types"
 import { FilterActions } from "../../types/HooksProps"
-import { renderers } from "./filtersRender"
+import React from 'react'
+import { RederizarSessoes } from './filtersRender'
 
 type Props = {
-  source: CatalogFilterSource
-  applied: CatalogFilters
+  source?: CatalogFilterSource
   actions: FilterActions
 }
 
-export const FiltroCatalogoComponent: React.FC<Props> = ({ source, applied, actions }) => {
+export const FiltroCatalogoComponent: React.FC<Props> = ({ source, actions }) => {
   if (!source) return null
 
   return (
     <s.FilterContainer>
-      {Object.entries(source).map(([key, values]) => {
-        const Renderer = renderers[key]
-        if (!Renderer) { console.log(key, values); return null };
-
-        return (
-          <Renderer
-            key={key}
-            sectionKey={key}
-            values={values}
-            applied={applied}
-            actions={actions}
-          />
-        )
-      })}
+      {Object.entries(source).map(([key, values]) => (
+        <RederizarSessoes
+          key={key}
+          actions={actions}
+          field={key}
+          values={values}
+        />
+      ))}
     </s.FilterContainer>
   )
 }

@@ -2,7 +2,6 @@
 
 import * as s from './style';
 import { useEffect, useState } from "react"
-import { useAppliedFilters } from "../hooks/useAppliedFilters"
 import { useCatalogFilters } from "../hooks/useCatalogFilter"
 import { useResponsiveColumns } from "../hooks/useResponsiveColuns"
 import { useCatalogProducts } from "../hooks/useCatalogProducts"
@@ -12,27 +11,24 @@ import ProductCard from '@/features/_shered/components/productCard/component';
 import PaginacaoComponente from '@/features/_shered/components/PaginacaoComponent/component';
 
 export const CatalogoComponent = () => {
-    const { filters, actions } = useAppliedFilters()
-    const { source, loading } = useCatalogFilters(filters)
+    // const { filters, actions } = useAppliedFilters()
+    const { source, selected, loading, actions } = useCatalogFilters()
     const [paginaAtual, setPaginaAtual] = useState(1)
 
     const { containerRef, totalItensNaTela } = useResponsiveColumns({})
 
     const { catalogProducts, totalPages } = useCatalogProducts({
-        filtros: filters,
+        filtros: selected,
         paginaAtual,
         numeroPorPagina: totalItensNaTela,
     })
 
-    useEffect(() => {
-        setPaginaAtual(1)
-    }, [totalItensNaTela, filters])
+    useEffect(() => { setPaginaAtual(1) }, [totalItensNaTela, source])
 
     return (
         <s.CatalogoContainer>
             <FiltroCatalogoComponent
-                source={source!}
-                applied={filters}
+                source={source}
                 actions={actions}
             />
 

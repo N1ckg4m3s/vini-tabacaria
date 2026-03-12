@@ -1,11 +1,11 @@
-import { CatalogFilters, Produto } from "@/shered/shered.types";
+import { CatalogFilterSource, Produto } from "@/shered/shered.types";
 import { RefObject } from "react";
 
 // ------------------------
 // Catalog Products Hook
 // ------------------------
 export type CatalogProductsParams = {
-    filtros: CatalogFilters;
+    filtros?: SelectedFilters;
     paginaAtual: number;
     numeroPorPagina: number;
 };
@@ -55,8 +55,8 @@ export type UsePaginationProps = (params: PaginationParams) => PaginationRespons
 // use applied filters
 // ------------------------
 export type FilterActions = {
-    toggleArrayFilter: <K extends keyof CatalogFilters>(field: K, value: string) => void
-    toggleMetaFilter: < K extends keyof NonNullable<CatalogFilters['meta']>>(field: K, value: string) => void
+    toggleFilter: <K extends keyof CatalogFilterSource>(field: K, value: string) => void
+    verifyToggle: <K extends keyof CatalogFilterSource>(field: K, value: string) => boolean
     clearFilters: () => void
 }
 
@@ -64,11 +64,14 @@ export type FilterActions = {
 type useAppliedFiltersParams = {}
 
 type useAppliedFiltersRespose = {
-    filters: CatalogFilters,
+    filters: CatalogFilterSource,
     actions: FilterActions
 }
 
 export type useAppliedFiltersProps = (params: useAppliedFiltersParams) => Promise<useAppliedFiltersRespose>
+
+// ------------------------
+export type SelectedFilters = Record<string, Set<string>>
 
 // ------------------------
 // NO NAME

@@ -23,7 +23,13 @@ export interface CartProduto {
   quantidade: number
   subTotal: number
   produto: Produto
-  status: CartItemStatus
+  status: {
+    type: CartItemStatus,
+    metadata: {
+      newPrice?: number,
+      oldPrice?: number
+    }
+  }
 }
 
 // --------------------

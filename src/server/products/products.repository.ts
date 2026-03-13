@@ -12,10 +12,10 @@ export class ProductRepository {
     constructor() { this.db = suprabase }
 
     async findCatalog(filters: CatalogFilters, search?: string, page: number = 1, perPage: number = 20) {
-        const { data, error } = await this.db.rpc("catalog_rank", {
-            marcas: filters.marca ?? [],
-            sabores: filters.meta?.sabor ?? [],
-            intensidades: filters.meta?.intensidade ?? []
+        const { data, error } = await this.db.rpc("catalog_products", {
+            p_tipos: filters.tipo,
+            p_marcas: filters.marca,
+            p_meta: filters.meta
         });
 
         if (error) throw error;
@@ -105,3 +105,4 @@ export class ProductRepository {
         return data ?? [];
     }
 }
+

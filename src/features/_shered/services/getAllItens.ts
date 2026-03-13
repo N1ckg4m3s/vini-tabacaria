@@ -5,8 +5,9 @@ import { NoResponseError } from "@/http/error/erros.handle"
 export const fetchProductsPaginated: fetchProductsPaginatedProps = async ({ filtros, paginaAtual, limit, search }) => {
     const request = await apiCaller({
         url: '/api/produto/get-all',
-        params: {
-            filters: JSON.stringify(filtros),
+        method: 'POST',
+        body: {
+            filters: filtros,
             page: paginaAtual,
             limit_per_page: limit,
             search: search || ''

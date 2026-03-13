@@ -7,7 +7,7 @@ export const getFiltersInformations: getFiltersInformationsProps = async ({ filt
         url: '/api/filters',
         method: 'POST',
         body: {
-            filters: JSON.stringify(filtros),
+            filters: filtros,
         }
     })
 

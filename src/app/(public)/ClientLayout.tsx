@@ -13,7 +13,8 @@ const LayoutContainer = styled.div`
 `;
 
 const Main = styled.main`
-  flex: 1;
+    display: flex;
+    flex: 1;
 `;
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {

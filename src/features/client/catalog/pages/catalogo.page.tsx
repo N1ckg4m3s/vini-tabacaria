@@ -11,11 +11,10 @@ import ProductCard from '@/features/_shered/components/productCard/component';
 import PaginacaoComponente from '@/features/_shered/components/PaginacaoComponent/component';
 
 export const CatalogoComponent = () => {
-    // const { filters, actions } = useAppliedFilters()
     const { source, selected, loading, actions } = useCatalogFilters()
     const [paginaAtual, setPaginaAtual] = useState(1)
 
-    const { containerRef, totalItensNaTela } = useResponsiveColumns({})
+    const { containerRef, totalItensNaTela } = useResponsiveColumns()
 
     const { catalogProducts, totalPages } = useCatalogProducts({
         filtros: selected,
@@ -23,7 +22,7 @@ export const CatalogoComponent = () => {
         numeroPorPagina: totalItensNaTela,
     })
 
-    useEffect(() => { setPaginaAtual(1) }, [totalItensNaTela, source])
+    useEffect(() => { setPaginaAtual(1) }, [source])
 
     return (
         <s.CatalogoContainer>
@@ -32,8 +31,8 @@ export const CatalogoComponent = () => {
                 actions={actions}
             />
 
-            <s.CatalogoPaginationContainer>
-                <s.ItensContainer ref={containerRef}>
+            <s.CatalogoPaginationContainer ref={containerRef}>
+                <s.ItensContainer>
                     {catalogProducts.map(item => (
                         <ProductCard
                             key={item.id}

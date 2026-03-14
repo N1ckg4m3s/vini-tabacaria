@@ -21,19 +21,13 @@ export type UseCatalogProductsProps = (params: CatalogProductsParams) => Catalog
 // ------------------------
 // Responsive Columns Hook
 // ------------------------
-export type ResponsiveColumnsParams = {
-    numeroDeLinhas?: number;
-    minSize?: number;
-    gapSize?: number;
-};
-
 export type ResponsiveColumnsResponse = {
     containerRef: RefObject<HTMLDivElement | null>;
     numeroDeColunas: number;
     totalItensNaTela: number;
 };
 
-export type UseResponsiveColumnsProps = (params: ResponsiveColumnsParams) => ResponsiveColumnsResponse;
+export type UseResponsiveColumnsProps = () => ResponsiveColumnsResponse;
 
 // ------------------------
 // Pagination Hook

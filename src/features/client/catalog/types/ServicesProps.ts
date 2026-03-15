@@ -5,7 +5,7 @@ import { SelectedFilters } from "./HooksProps"
 // Load catalog data service
 // ------------------------
 type loadCatalogParams = { filtros?: SelectedFilters, paginaAtual: number, limit: number }
-type loadCatalogRespose = { itens: Produto[], totalPages: number }
+export type loadCatalogRespose = { itens: Produto[], totalPages: number }
 
 export type loadCatalogProps = (params: loadCatalogParams) => Promise<loadCatalogRespose>
 

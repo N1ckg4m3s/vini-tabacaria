@@ -5,6 +5,7 @@ import { getFiltersInformations } from "../api/getFiltersInformations"
 import { errorToNotification } from "@/features/system/notification/service/errorToNotification"
 import { SelectedFilters } from "../types/HooksProps"
 import { serializeFilters } from "../services/sanitizeFilters"
+import { fetchFilterCached } from "@/features/_shered/cache/filter/filterCache"
 
 export const useCatalogFilters = () => {
   const { adicionarNotificacao } = useNotification()
@@ -25,7 +26,10 @@ export const useCatalogFilters = () => {
       setLoading(true)
 
       try {
-        const filtros = await getFiltersInformations({ filtros: serializeFilters(selected) })
+        const filtros = await fetchFilterCached({
+          selectedFilters: selected,
+          callBack: () => getFiltersInformations({ filtros: serializeFilters(selected) })
+        })
 
         // evita race condition
         if (requestId === requestIdRef.current) {

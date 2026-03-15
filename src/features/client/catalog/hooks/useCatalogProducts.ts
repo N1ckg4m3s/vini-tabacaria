@@ -6,6 +6,7 @@ import { loadCatalog } from "../services/loadCatalogData";
 import { Produto } from "@/shered/shered.types";
 import { useNotification } from "@/providers/notification.provider";
 import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
+import { fetchCatalogCached } from "@/features/_shered/cache/catalog/catalogCache";
 
 export const useCatalogProducts: UseCatalogProductsProps = ({ filtros, paginaAtual, numeroPorPagina }) => {
     const { adicionarNotificacao } = useNotification()
@@ -21,11 +22,17 @@ export const useCatalogProducts: UseCatalogProductsProps = ({ filtros, paginaAtu
 
         async function fetchProducts() {
             try {
-                const { itens, totalPages } = await loadCatalog({
-                    filtros,
-                    limit: numeroPorPagina,
-                    paginaAtual
-                });
+                const { itens, totalPages } = await fetchCatalogCached({
+                    page: paginaAtual,
+                    perPage: numeroPorPagina,
+                    filters: filtros || {},
+                    callBack: () => loadCatalog({
+                        filtros,
+                        limit: numeroPorPagina,
+                        paginaAtual
+                    }),
+                })
+
                 totalPagesRef.current = totalPages
                 setCatalogProducts(itens);
             } catch (e) {

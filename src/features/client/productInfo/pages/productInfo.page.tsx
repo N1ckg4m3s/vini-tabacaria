@@ -21,20 +21,22 @@ export const ProductInfoComponent = () => {
         notifyProductViewed(product.id)
     }, [id, product?.id, loading])
 
-    return (<>
-        <ProductBaseInformations produto={product} />
+    return (
+        <s.Container>
+            <ProductBaseInformations produto={product} />
 
-        <s.ProductRelations>
-            <ProductCarousel
-                tilte='Produtos da marca'
-                produtos={relativoMarca}
-            />
-            <ProductCarousel
-                tilte='Produtos Relativos'
-                produtos={relativoRelevancia}
-            />
-        </s.ProductRelations>
+            <s.ProductRelations>
+                <ProductCarousel
+                    tilte='Produtos da marca'
+                    produtos={relativoMarca}
+                />
+                <ProductCarousel
+                    tilte='Produtos Relativos'
+                    produtos={relativoRelevancia}
+                />
+            </s.ProductRelations>
 
-        {loading && <LoadingOverlay />}
-    </>)
+            {loading && <LoadingOverlay />}
+        </s.Container>
+    )
 }

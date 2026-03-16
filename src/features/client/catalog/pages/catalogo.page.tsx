@@ -12,6 +12,8 @@ import PaginacaoComponente from '@/features/_shered/components/PaginacaoComponen
 
 export const CatalogoComponent = () => {
     const { source, selected, loading, actions } = useCatalogFilters()
+
+    const [filterOppened, setFilterOppened] = useState(false)
     const [paginaAtual, setPaginaAtual] = useState(1)
 
     const { containerRef, totalItensNaTela } = useResponsiveColumns()
@@ -26,7 +28,18 @@ export const CatalogoComponent = () => {
 
     return (
         <s.CatalogoContainer>
+            {/* Botão para abrir o filtro */}
+
+            <s.openCatalogContainer>
+                <s.openCatalogButton
+                    onClick={() => setFilterOppened(!filterOppened)}
+                >
+                    Filtros
+                </s.openCatalogButton>
+            </s.openCatalogContainer>
+
             <FiltroCatalogoComponent
+                oppened={filterOppened}
                 source={source}
                 actions={actions}
             />

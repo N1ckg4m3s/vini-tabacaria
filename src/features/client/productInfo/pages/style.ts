@@ -1,4 +1,7 @@
+import { flexColumn } from "@/styles/mixins";
 import styled from "styled-components";
+
+export const Container = styled.div` ${flexColumn}`
 
 export const ProductRelations = styled.section`
     width: calc(100% - 80px);

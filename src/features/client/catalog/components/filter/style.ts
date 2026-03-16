@@ -9,12 +9,26 @@ const ContainerBase = css`
     padding: 5px;
 `
 
-export const FilterContainer = styled.form`
+export const FilterAnimation = styled.div`
+    overflow: hidden;
+    width: fit-content;
+    height: fit-content;
+`
+
+export const FilterContainer = styled.form<{ $oppend: boolean }>`
     ${ContainerBase};
     ${flexColumn};
     max-width: 250px;
     background-color: ${GlobalColors.Neutral[600]};
     gap: 10px;
+
+    @media screen and (width<600px){
+        position: absolute;
+        z-index: 2;
+        transition: margin 0.5s;
+        margin-left: ${({ $oppend }) => $oppend ? 0 : -100}%;
+        box-shadow: 15px 5px 10px 10px ${GlobalColors.Neutral[900]}CC;
+    }
 `
 
 export const FilterTitle = styled.button`

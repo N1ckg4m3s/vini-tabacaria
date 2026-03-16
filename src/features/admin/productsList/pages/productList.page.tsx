@@ -1,11 +1,11 @@
 'use client'
 
-import PaginacaoComponente from "@/components/CatalogComponents/paginacao-component/component"
 import { useState } from "react"
 import { useProductsList } from "../hooks/useProducts"
 import * as s from './style'
 import { ProductItem } from "../components/tableItem/component"
-import { useDebounce } from "@/features/_shered/hooks/useDebounce"
+import { useDebounce } from "../../../_shered/hooks/useDebounce"
+import PaginacaoComponente from "../../../_shered/components/PaginacaoComponent/component"
 
 export const ProductList = () => {
     const [paginaAtual, setPaginaAtual] = useState(1);

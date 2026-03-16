@@ -26,18 +26,12 @@
       "@/*": [
         "./src/*"
       ],
-      // "@comp/*": [
-      //   "./src/components/*"
-      // ],
       "@style/*": [
         "./src/styles/*"
       ],
       "@assets/*": [
         "./src/assets/*"
-      ],
-      // "@controller/*": [
-      //   "./src/controllers/*"
-      // ]
+      ]
     }
   },
   "include": [

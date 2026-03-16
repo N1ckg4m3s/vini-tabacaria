@@ -1,25 +1,25 @@
 'use client'
 
-import { Produto } from '@/shered/shered.types'
+import { useCart } from '../../../../../providers/cart.provider';
+import { Produto } from '../../../../../shered/shered.types';
+import { QuantityControl } from '../../../../_shered/components/quantityControl/component';
 import * as s from './style'
-import { useCart } from '@/providers/cart.provider'
-import { QuantityControl } from '@/features/_shered/components/quantityControl/component'
 
 interface Props {
     produto?: Produto
 }
 
 export const ProductClientActions: React.FC<Props> = ({ produto }) => {
-    if (!produto) return <s.BotaoCompra disabled>—</s.BotaoCompra>;
-
     const {
+        obterQuantidade,
         verificarProduto,
         adicionarProduto,
         AumentarQuantidade,
-        DefinirQuantidade,
         DiminuirQuantidade,
-        obterQuantidade
+        DefinirQuantidade,
     } = useCart()
+
+    if (!produto) return <s.BotaoCompra disabled>—</s.BotaoCompra>;
 
     const quantidade = obterQuantidade(produto.id)
 

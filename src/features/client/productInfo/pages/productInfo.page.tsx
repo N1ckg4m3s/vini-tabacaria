@@ -6,9 +6,9 @@ import { ProductCarousel } from '../components/ProductCarousel/component'
 import * as s from './style'
 import { useObterProdutoPorId } from '../../../_shered/hooks/useObterProdutoPorId'
 import { useRelactivesProduct } from '../hooks/useProdutosRelativos'
-import { LoadingOverlay } from '@/features/_shered/components/loading/component'
 import { useEffect } from 'react'
-import { notifyProductViewed } from '@/features/system/analytics/services/notifyProductViewd'
+import { notifyProductViewed } from '../../../system/analytics/api/notifyProductViewd'
+import { LoadingOverlay } from '../../../_shered/components/loading/component'
 
 export const ProductInfoComponent = () => {
     const { id } = useParams()
@@ -19,6 +19,8 @@ export const ProductInfoComponent = () => {
     useEffect(() => {
         if (loading || !product) return;
         notifyProductViewed(product.id)
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, product?.id, loading])
 
     return (

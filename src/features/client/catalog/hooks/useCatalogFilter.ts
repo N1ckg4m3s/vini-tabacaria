@@ -1,11 +1,11 @@
-import { useNotification } from "@/providers/notification.provider"
-import { CatalogFilterSource } from "@/shered/shered.types"
 import { useEffect, useRef, useState } from "react"
 import { getFiltersInformations } from "../api/getFiltersInformations"
-import { errorToNotification } from "@/features/system/notification/service/errorToNotification"
 import { SelectedFilters } from "../types/HooksProps"
 import { serializeFilters } from "../services/sanitizeFilters"
-import { fetchFilterCached } from "@/features/_shered/cache/filter/filterCache"
+import { useNotification } from "../../../../providers/notification.provider"
+import { CatalogFilterSource } from "../../../../shered/shered.types"
+import { fetchFilterCached } from "../../../_shered/cache/filter/filterCache"
+import { errorToNotification } from "../../../system/notification/service/errorToNotification"
 
 export const useCatalogFilters = () => {
   const { adicionarNotificacao } = useNotification()
@@ -47,6 +47,8 @@ export const useCatalogFilters = () => {
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current)
     }
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
 
   const toggleFilter = (field: keyof CatalogFilterSource, value: string) => {

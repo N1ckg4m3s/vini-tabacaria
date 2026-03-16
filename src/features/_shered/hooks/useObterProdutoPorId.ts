@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { Produto } from "@/shered/shered.types";
 import { loadProductInfo } from "../api/loadProduct";
-import { useNotification } from "@/providers/notification.provider";
-import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
+import { useNotification } from "../../../providers/notification.provider";
+import { Produto } from "../../../shered/shered.types";
+import { errorToNotification } from "../../system/notification/service/errorToNotification";
 
 // ------------------------
 // Use products parametros
@@ -49,6 +49,8 @@ export const useObterProdutoPorId = ({ id }: useProduct_Params): useProduct_Resp
         fetchProduct()
 
         return () => { cancelled = true }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
 

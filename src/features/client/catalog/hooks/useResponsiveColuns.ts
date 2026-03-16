@@ -33,6 +33,7 @@ export const useResponsiveColumns = () => {
             clearTimeout(timeout)
             observer.disconnect()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const totalItensNaTela = numeroDeColunas * 6;

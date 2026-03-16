@@ -175,12 +175,16 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             calcularTotal()
         }
         fetchData()
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Salvar no 'local' ao alterar
     useEffect(() => {
         setLocalData(produtos)
         calcularTotal()
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [produtos])
 
     return (

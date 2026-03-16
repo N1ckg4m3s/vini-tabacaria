@@ -10,7 +10,7 @@ export const transformDraftToFormData = (draft: OptionalID): FormData => {
     formData.append("marca", draft.marca);
     formData.append("valor", String(draft.valor));
     formData.append("metadata", JSON.stringify(draft.metadata));
-    formData.append("imagem", draft.imagem);
+    if (draft.imagem) formData.append("imagem", draft.imagem);
     if (draft.id) formData.append("id", draft.id);
 
     return formData;

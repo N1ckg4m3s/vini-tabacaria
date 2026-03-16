@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useProductsListProps } from "../types/hooks.types"
-import { fetchProductsPaginated } from "@/features/_shered/services/getAllItens"
-import { Produto } from "@/shered/shered.types"
+import { fetchProductsPaginated } from "../../../_shered/services/getAllItens"
+import { Produto } from "../../../../shered/shered.types"
 
 export const useProductsList: useProductsListProps = ({ numeroPorPagina, paginaAtual, search }) => {
     const [products, setProducts] = useState<Produto[]>([])
@@ -19,7 +19,7 @@ export const useProductsList: useProductsListProps = ({ numeroPorPagina, paginaA
             setTotalPages(productResponse.totalPages)
         }
         asyncFunction()
-    }, [paginaAtual, search])
+    }, [paginaAtual, search, numeroPorPagina])
 
     return { products, totalPages }
 }

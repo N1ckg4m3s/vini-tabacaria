@@ -4,7 +4,7 @@ import { DataInsite } from "../types/service.types";
 
 export const formatDirectionsData = (data: DataInsite): TableItem => ({
     name: formateText(`${data.productType} | ${data.productBrand} - ${data.productName}`),
-    value: data.views,
+    value: data.views || 0,
     variant: 'positive'
 })
 

@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { Produto } from "@/shered/shered.types";
 import { useRelactive_Props } from "../types/HooksProps";
 import { loadRelactiveProducts } from "../api/loadRelactive";
-import { useNotification } from "@/providers/notification.provider";
-import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
+import { Produto } from "../../../../shered/shered.types";
+import { useNotification } from "../../../../providers/notification.provider";
+import { errorToNotification } from "../../../system/notification/service/errorToNotification";
 
 export const useRelactivesProduct: useRelactive_Props = ({ id, relacao }) => {
     const { adicionarNotificacao } = useNotification()
@@ -30,6 +30,7 @@ export const useRelactivesProduct: useRelactive_Props = ({ id, relacao }) => {
         setLoading(true)
         fetchProducts();
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return {

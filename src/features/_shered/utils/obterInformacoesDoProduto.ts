@@ -5,7 +5,7 @@ export const obterInformacoesDoProduto = (produto: Produto) => {
     const marca = produto.marca ?? '';
     const nome = produto.nome ?? '';
     let titulo = '-//-';
-    let especificacao: string;
+    let especificacao: string = '';
 
     switch (produto.tipo) {
         case "essencia":

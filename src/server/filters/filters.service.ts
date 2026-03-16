@@ -9,7 +9,7 @@ export class filterService {
     obterDadosParaFiltragem = async (params: { filters: CatalogFilters }) => {
         const { filters } = params
 
-        let produtos = await this.repo.findFilters(filters)
+        const produtos = await this.repo.findFilters(filters)
 
         const grouped = produtos.reduce((
             acc: { [x: string]: { value: any; count: any; }[]; },

@@ -1,5 +1,5 @@
 import { GlobalColors } from "@/styles/theme";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const adminContent = styled.main`
     padding: 32px;

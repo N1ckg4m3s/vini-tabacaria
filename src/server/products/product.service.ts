@@ -5,7 +5,7 @@ export class ProductService {
     private repo = new ProductRepository();
 
     private async formatMeta(product: ProdutoSemID): Promise<Record<string, string | number | boolean | string[] | number[]>> {
-        let metadata = { ...product.metadata }
+        const metadata = { ...product.metadata }
 
         if (typeof metadata.sabor === 'string') {
             const sabores = (metadata.sabor as string)

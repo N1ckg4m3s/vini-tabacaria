@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { ProductRepository } from "../products/products.repository";
 import { CatalogFilters, Produto } from "@/shered/shered.types";
 

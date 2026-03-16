@@ -1,4 +1,4 @@
-import { AuthError, BadRequestError, NoResponseError } from "@/http/error/erros.handle";
+import { BadRequestError } from "@/http/error/erros.handle";
 import { createRoute } from "@/http/http.handler";
 import { identifyAnalyticsEvent } from "@/server/analytcs/analytics.identify";
 

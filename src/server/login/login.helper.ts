@@ -1,4 +1,3 @@
-import { AuthError } from '@/http/error/erros.handle'
 import { loginCredential } from '@/shered/shered.types'
 import jwt from 'jsonwebtoken'
 

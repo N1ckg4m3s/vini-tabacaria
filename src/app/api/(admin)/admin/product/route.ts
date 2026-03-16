@@ -3,7 +3,6 @@ import { createRoute } from "@/http/http.handler";
 import { ImageService } from "@/server/productImage/image.service";
 import { productDTOWithoutID } from "@/server/products/product.DTO";
 import { ProductService } from "@/server/products/product.service";
-import { Produto } from "@/shered/shered.types";
 
 export const POST = createRoute(async (req) => {
     console.log('cheguei na rota')

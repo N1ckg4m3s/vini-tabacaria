@@ -1,4 +1,4 @@
-import { CartProduto, Produto } from "@/shered/shered.types"
+import { CartProduto } from "@/shered/shered.types"
 import { paramsToVerifyProducts } from "../service/paramsToVerify.service"
 import { verifyCartApi } from "../api/verifyCartApi"
 import { setStatusOnProduct } from "../service/setStatusOnProduct"

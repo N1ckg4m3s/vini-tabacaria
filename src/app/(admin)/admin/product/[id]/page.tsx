@@ -6,4 +6,6 @@ export const metadata: Metadata = {
     description: "Catalogo da Vini Tabacaria de Carapicuiba",
 };
 
-export default () => <ManageProduct />
+export default function Page() {
+    return <ManageProduct />
+}

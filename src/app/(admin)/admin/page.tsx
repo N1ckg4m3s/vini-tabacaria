@@ -1,5 +1,5 @@
 import { DashboardPage } from "@/features/admin/dashboard/pages/dashboard.page"
 
-export default () => {
+export default function Page() {
     return (<DashboardPage />)
 }

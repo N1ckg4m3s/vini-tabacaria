@@ -6,6 +6,6 @@ export const metadata: Metadata = {
     description: "Carrinho de cotação da Vini Tabacaria",
 };
 
-export default () => {
+export default function Page() {
     return <CartComponent />
 }

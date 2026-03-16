@@ -6,6 +6,6 @@ export const metadata: Metadata = {
     description: "Login da area de ADM da vini tabacaria",
 };
 
-export default () => {
+export default function Page() {
     return <LoginPage />
 }

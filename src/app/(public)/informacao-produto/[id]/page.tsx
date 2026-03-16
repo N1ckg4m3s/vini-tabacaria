@@ -7,6 +7,6 @@ export const metadata: Metadata = {
     description: "Informações do produto",
 };
 
-export default () => {
+export default function Page() {
     return <ProductInfoComponent />
 };

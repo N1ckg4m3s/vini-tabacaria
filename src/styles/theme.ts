@@ -45,6 +45,7 @@ export const GlobalColors = {
         800: '#1f1f1f', // seções grandes
         700: '#2A2A2A', // cards
         600: '#363636', // divisões / containers
+        550: '#3F3F3F', // 
         500: '#474747', // bordas leves
         400: '#6B6B6B', // texto secundário
         300: '#909090', // texto muted

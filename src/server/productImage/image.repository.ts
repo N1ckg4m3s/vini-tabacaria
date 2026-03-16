@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
-import { InternalError } from "@/http/error/erros.handle";
+import { InternalError } from "../../http/error/erros.handle";
 
 export class ImageRepository {
     private supra: SupabaseClient<any, "public", any>;

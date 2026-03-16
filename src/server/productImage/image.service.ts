@@ -18,8 +18,6 @@ export class ImageService {
         return publicUrl
     }
 
-    async deleteImageFromProduct(imageUrl: string, productId: number) { }
-
     private async optimizeImage(image: File): Promise<Buffer> {
         const arrayBuffer = await image.arrayBuffer()
         const buffer = Buffer.from(arrayBuffer)

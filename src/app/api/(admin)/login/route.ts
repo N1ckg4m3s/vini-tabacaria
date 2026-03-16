@@ -32,7 +32,7 @@ export const POST = async (req: NextRequest) => {
         })
 
         return response
-    } catch (_error) {
+    } catch (_) {
         registerLoginFailure(ip)
 
         return NextResponse.json(

@@ -1,6 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
-import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { CatalogFilters, ProdutoSemID } from "../../shered/shered.types";
 import { NoResponseError } from "../../http/error/erros.handle";
 

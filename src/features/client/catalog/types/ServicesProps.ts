@@ -1,4 +1,4 @@
-import { CatalogFilterSource, Produto } from "@/shered/shered.types"
+import { CatalogFilterSource, Produto } from "../../../../shered/shered.types"
 import { SelectedFilters } from "./HooksProps"
 
 // ------------------------
@@ -14,15 +14,4 @@ export type loadCatalogProps = (params: loadCatalogParams) => Promise<loadCatalo
 // ------------------------
 type loadFiltersInformaitonsParams = { filtros: CatalogFilterSource }
 
-type loadFiltersInformaitonsRespose = {}
-
-export type loadFiltersInformaitonsProps = (params: loadFiltersInformaitonsParams) => Promise<loadFiltersInformaitonsRespose>
-
-// ------------------------
-// NO NAME
-// ------------------------
-type NO_NAME_Params = {}
-
-type NO_NAME_Respose = {}
-
-export type NO_NAME_Props = (params: NO_NAME_Params) => Promise<NO_NAME_Respose>
+export type loadFiltersInformaitonsProps = (params: loadFiltersInformaitonsParams) => Promise<void>

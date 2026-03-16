@@ -1,10 +1,7 @@
 // --------------------
 // Notificando produto visualizado
 // --------------------
-type notifyProductViewdParams = {}
-type notifyProductViewdResponse = {}
-
-export type notifyProductViewdProps = (params: notifyProductViewdParams) => notifyProductViewdResponse
+export type notifyProductViewdProps = () => void
 
 // --------------------
 // Formato do localStorage do Visualizado

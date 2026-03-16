@@ -1,4 +1,3 @@
-import { TableItem } from "./components.types"
 import { DataInsite } from "./service.types"
 
 // ------------------------

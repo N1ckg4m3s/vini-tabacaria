@@ -1,4 +1,4 @@
-import { Produto } from "@/shered/shered.types"
+import { Produto } from "../../../../shered/shered.types"
 
 // --------------------
 // Obtem uma lista de produtos com base nas paginas
@@ -13,10 +13,3 @@ type useProductsListResponse = {
     totalPages: number
 }
 export type useProductsListProps = (params: useProductsListParams) => useProductsListResponse
-
-// --------------------
-// NO_NAME
-// --------------------
-type NoNameParams = {}
-type NoNameResponse = {}
-export type NoNameProps = (params: NoNameParams) => NoNameResponse

@@ -1,5 +1,5 @@
-import { CatalogFilterSource, Produto } from "@/shered/shered.types";
 import { RefObject } from "react";
+import { CatalogFilterSource, Produto } from "../../../../shered/shered.types";
 
 // ------------------------
 // Catalog Products Hook
@@ -54,24 +54,12 @@ export type FilterActions = {
     clearFilters: () => void
 }
 
-
-type useAppliedFiltersParams = {}
-
 type useAppliedFiltersRespose = {
     filters: CatalogFilterSource,
     actions: FilterActions
 }
 
-export type useAppliedFiltersProps = (params: useAppliedFiltersParams) => Promise<useAppliedFiltersRespose>
+export type useAppliedFiltersProps = () => Promise<useAppliedFiltersRespose>
 
 // ------------------------
 export type SelectedFilters = Record<string, Set<string>>
-
-// ------------------------
-// NO NAME
-// ------------------------
-type NO_NAME_Params = {}
-
-type NO_NAME_Respose = {}
-
-export type NO_NAME_Props = (params: NO_NAME_Params) => Promise<NO_NAME_Respose>

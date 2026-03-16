@@ -44,13 +44,14 @@ const NavBarComponent = () => {
                         <Menu />
                     </s.MenuIcon>
 
-                    <s.LinksGroup
-                        $showdrawer={drawerAberto ? 'true' : 'false'}
-                        id="menu-lateral"
-                    >
+                    <s.LinksGroup $showdrawer={drawerAberto} id="menu-lateral" >
+
                         <s.CloseButton onClick={closeDrawer}>X</s.CloseButton>
 
-                        <s.LinkStyle href="/catalogo" onClick={closeDrawer}>
+                        <s.LinkStyle
+                            href="/catalogo"
+                            onClick={closeDrawer}
+                        >
                             Catálogo
                         </s.LinkStyle>
 
@@ -71,6 +72,7 @@ const NavBarComponent = () => {
                         href="/carrinho-compras"
                         onClick={closeDrawer}
                         aria-label="Abrir carrinho"
+                        $noStyle={true}
                     >
                         <span>{total < 0 ? '##.##' : formatePrice(total)}</span>
                         <Carrinho />

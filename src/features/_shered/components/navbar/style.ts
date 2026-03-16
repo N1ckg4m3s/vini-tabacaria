@@ -25,38 +25,50 @@ export const LinksContainer = styled.div`
     gap: 20px;
 `
 
-export const LinkStyle = styled(Link) <{ $nodrawer?: string }>`
+export const LinkStyle = styled(Link) <{ $noStyle?: boolean }>`
   color: ${GlobalColors.Text.secondary};
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  ${({ $noStyle }) =>
+        !$noStyle && css`
+        @media screen and (width< 750px) {
+            width: 100%;
+            padding: 12px 16px;
 
-  ${({ $nodrawer }) =>
-        $nodrawer === "true" &&
-        css`
-            @media screen and (max-width: 750px) {
-                width: 100%;
-                background-color: ${GlobalColors.Neutral[600]};
-                padding: 10px 0;
-                border-radius: 10px;
-                color: ${GlobalColors.Text.primary};
-                border: 1px solid black;
-                font-weight: bold;
+            background-color: ${GlobalColors.Neutral[550]};
+            color: ${GlobalColors.Text.primary};
+
+            border-radius: 8px;
+            border: 1px solid ${GlobalColors.Border.strong};
+
+            font-weight: 600;
+            text-align: left;
+
+            transition: background 0.2s ease, transform 0.1s ease;
+
+            &:hover {
+                background-color: ${GlobalColors.Neutral[400]};
             }
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
     `}
 `;
 
 /* RESPONSIVIDADE */
-export const LinksGroup = styled.div<{ $showdrawer: string }>`
+export const LinksGroup = styled.div<{ $showdrawer: boolean }>`
     ${flexCenter};
     gap: 20px;
 
     @media screen and (max-width: 750px) {
-        display: ${({ $showdrawer }) => ($showdrawer === "true" ? "flex" : "none")};
-        position: absolute;
-        min-width: 380px;
+        display: ${({ $showdrawer }) => ($showdrawer ? "flex" : "none")};
+        position: fixed;
+        min-width: 300px;
         width: 25vw;
         height: 100vh;
         top: 0;

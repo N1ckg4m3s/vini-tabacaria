@@ -1,7 +1,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { CartIntentionRow, getLast7DaysParams, getLast7DaysProps } from "./dashboard.types";
 import suprabase from "../connections/supraBaseConnection";
-import { NoResponseError } from "@/http/error/erros.handle";
+import { NoResponseError } from "../../http/error/erros.handle";
 
 export class DashboardRepo {
     private supra: SupabaseClient<any, "public", any>;
@@ -71,7 +71,7 @@ export class DashboardRepo {
         }));
     }
 
-    obterInsitesProdutosMovimentadosNoCarrinho = async ({ hoje, seteDiasAtras }: getLast7DaysParams) => {
+    obterInsitesProdutosMovimentadosNoCarrinho = async () => {
         const { data } = await this.supra
             .from('analytics_cart_product_intention')
             .select(`

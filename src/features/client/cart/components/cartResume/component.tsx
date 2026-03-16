@@ -1,15 +1,14 @@
-import { formatePrice } from '@/features/_shered/services/formaters/price.formater'
+import { formatePrice } from '../../../../_shered/services/formaters/price.formater'
 import * as s from './style'
 
 interface props {
     subTotal: number,
-    entrega: number,
     total: number,
     finalizeTrigger: () => void
     limparCarrinho: () => void
 }
 
-export const CartResume: React.FC<props> = ({ entrega, subTotal, total, finalizeTrigger, limparCarrinho }) => {
+export const CartResume: React.FC<props> = ({ subTotal, total, finalizeTrigger, limparCarrinho }) => {
     return (<>
         <s.SummaryContainer>
             <s.SummaryTitle>Resumo</s.SummaryTitle>

@@ -1,10 +1,9 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
-import { CatalogFilters, ProdutoSemID } from "@/shered/shered.types";
-import { NoResponseError } from "@/http/error/erros.handle";
 import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
+import { CatalogFilters, ProdutoSemID } from "../../shered/shered.types";
+import { NoResponseError } from "../../http/error/erros.handle";
 
-type Query = PostgrestFilterBuilder<any, any, any[], "products", unknown>;
 
 export class ProductRepository {
     private db: SupabaseClient;

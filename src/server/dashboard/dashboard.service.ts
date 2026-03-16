@@ -20,7 +20,7 @@ export class DashboardService {
 
         const ViewedProducts = await this.dashboardRepo.obterInsitesProdutosMaisVistos({ hoje, seteDiasAtras: seteDias });
 
-        const CartStats = await this.dashboardRepo.obterInsitesProdutosMovimentadosNoCarrinho({ hoje, seteDiasAtras: seteDias });
+        const CartStats = await this.dashboardRepo.obterInsitesProdutosMovimentadosNoCarrinho();
 
         return { ViewedProducts, CartStats };
     }

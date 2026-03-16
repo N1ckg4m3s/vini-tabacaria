@@ -1,10 +1,10 @@
 'use client'
 
-import { useVerifyProducts } from '@/features/system/cart/hook/useVerifyProducts';
-import { acceptNewStatus } from '@/features/system/cart/service/acceptNewStatus';
-import { getLocalData, setLocalData } from '@/features/system/cart/service/LocalData.service';
-import { CartProduto, Produto } from '@/shered/shered.types';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { CartProduto, Produto } from '../shered/shered.types';
+import { useVerifyProducts } from '../features/system/cart/hook/useVerifyProducts';
+import { acceptNewStatus } from '../features/system/cart/service/acceptNewStatus';
+import { getLocalData, setLocalData } from '../features/system/cart/service/LocalData.service';
 
 // --------------------
 // Context
@@ -120,12 +120,6 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
 
     // Aceita a alteração do produto em casos de discordancia com o banco
     const AceitarMudancaDeStatus = (id: string) => {
-        const produto = produtos.find(p => p.produto.id === id);
-
-        if (!produto) return;
-
-        const produtoUpdated: CartProduto = acceptNewStatus(produto);
-
         setProdutos(prev =>
             prev.map(p => {
                 if (p.produto.id !== id) return p

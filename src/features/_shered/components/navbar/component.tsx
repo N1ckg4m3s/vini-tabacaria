@@ -5,27 +5,27 @@ import Logo from '@assets/LogoEstenca.svg'
 import Carrinho from '@assets/cart.svg'
 // import Lupa from '@assets/search.svg'
 import Menu from '@assets/menu.svg'
-import { FormEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useCart } from '@/providers/cart.provider'
 import { formatePrice } from '../../services/formaters/price.formater'
+import { useCart } from '../../../../providers/cart.provider'
 
 const NavBarComponent = () => {
     const { total } = useCart()
 
-    const router = useRouter()
-    const searchInput = useRef<HTMLInputElement>(null)
+    // const router = useRouter()
+    // const searchInput = useRef<HTMLInputElement>(null)
     const [drawerAberto, setDrawerAberto] = useState(false)
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    // const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    //     event.preventDefault()
 
-        const value = searchInput.current?.value.trim()
-        if (!value) return
+    //     const value = searchInput.current?.value.trim()
+    //     if (!value) return
 
-        searchInput.current!.value = ''
-        router.push(`/catalogo?search=${encodeURIComponent(value)}`)
-    }
+    //     searchInput.current!.value = ''
+    //     router.push(`/catalogo?search=${encodeURIComponent(value)}`)
+    // }
 
     const closeDrawer = () => setDrawerAberto(false)
 

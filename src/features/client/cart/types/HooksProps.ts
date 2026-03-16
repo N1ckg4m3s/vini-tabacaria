@@ -1,4 +1,5 @@
-import { CartProduto, Produto } from "@/shered/shered.types"
+import { CartProduto, Produto } from "../../../../shered/shered.types"
+
 // ------------------------
 // Use products parametros
 // ------------------------
@@ -30,7 +31,6 @@ export type useCartProduct_Props = () => useCartProduct_Respose
 // ------------------------
 type useCartResume_Respose = {
     subTotal: number,
-    entrega: number,
     total: number
     limparCarrinho: () => void
 }

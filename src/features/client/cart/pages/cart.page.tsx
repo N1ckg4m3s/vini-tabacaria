@@ -9,7 +9,7 @@ import * as s from './style'
 
 export const CartComponent = () => {
     const { cartProducts, count } = useCartProduct()
-    const { total, subTotal, entrega, limparCarrinho } = useCartResume()
+    const { total, subTotal, limparCarrinho } = useCartResume()
     const { onFinalize } = useFinalizeCart()
 
     return (<>
@@ -22,7 +22,6 @@ export const CartComponent = () => {
             <s.ContentLayout>
                 <CartContent products={cartProducts} />
                 <CartResume
-                    entrega={entrega}
                     subTotal={subTotal}
                     total={total}
                     finalizeTrigger={onFinalize}

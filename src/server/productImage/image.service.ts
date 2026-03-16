@@ -8,18 +8,12 @@ export class ImageService {
     }
 
     async addImageToProduct(image: File, productId: string) {
-        console.log({ image, productId })
         const fileName = await this.generateFileName(productId)// o id é UUID
-
         const optimizedImageBuffer = await this.optimizeImage(image)
 
-        console.log('otimizei a imagem, vou salvar no banco')
-        
-        const imageResponse = await this.imageRepo.insertImage(optimizedImageBuffer, fileName)
-        console.log('passei do adicionar imagem')
+        await this.imageRepo.insertImage(optimizedImageBuffer, fileName)
 
         const publicUrl = await this.imageRepo.getImageUrl(fileName)
-        console.log('public url', publicUrl)
 
         return publicUrl
     }

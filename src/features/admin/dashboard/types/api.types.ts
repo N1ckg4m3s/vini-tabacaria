@@ -1,4 +1,5 @@
 import { TableItem } from "./components.types"
+import { DataInsite } from "./service.types"
 
 // ------------------------
 // Obter pulso do usuario
@@ -15,7 +16,7 @@ export type obterPulsoDeUsoProps = () => Promise<PulsoDeUso>
 // Obter produtos insights
 // ------------------------
 type obterProdutosInsitesRespose = {
-    ViewedProducts: TableItem[],
-    CartStats: TableItem[],
+    ViewedProducts: DataInsite[],
+    CartStats: DataInsite[],
 }
 export type obterProdutosInsitesProps = () => Promise<obterProdutosInsitesRespose>

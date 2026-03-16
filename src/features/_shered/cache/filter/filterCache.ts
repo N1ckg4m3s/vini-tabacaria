@@ -1,3 +1,4 @@
+import { CatalogFilterSource } from "../../../../shered/shered.types";
 import { MAX_CACHE_KEYS, SerializeFilterToCacheKey, verifyTTL } from "../shered/cache.helper";
 import { filterCacheEntity, filterCacheParams } from "./filter.types";
 
@@ -21,9 +22,9 @@ const cleanOldCache = () => {
     }
 }
 
-const getCacheByKey = (key: string): any | undefined => CatalogFilterCache.get(key);
+const getCacheByKey = (key: string): filterCacheEntity | undefined => CatalogFilterCache.get(key);
 
-const saveDataByKey = (key: string, data: any) => {
+const saveDataByKey = (key: string, data: CatalogFilterSource) => {
     cleanOldCache()
     CatalogFilterCache.set(key, {
         createdAt: Date.now(),

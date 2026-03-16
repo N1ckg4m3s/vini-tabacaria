@@ -1,5 +1,5 @@
-import { apiCaller } from "@/features/_shered/services/apiCaller"
-import { NoResponseError } from "@/http/error/erros.handle"
+import { NoResponseError } from "../../../../http/error/erros.handle"
+import { apiCaller } from "../../../_shered/services/apiCaller"
 import { obterProdutosInsitesProps } from "../types/api.types"
 
 export const obterProdutosInsites: obterProdutosInsitesProps = async () => {

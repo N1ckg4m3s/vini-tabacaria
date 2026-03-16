@@ -1,9 +1,9 @@
 'use client'
 
-import { formatDateBR } from "@/features/_shered/services/formaters/data.formatter";
 import { ProductIntention, ProductIntentionStorageFormat } from "../types/services.types";
 import { AnalyticsEvent } from "../types/analytics.events";
-import { apiCaller } from "@/features/_shered/services/apiCaller";
+import { formatDateBR } from "../../../_shered/services/formaters/data.formatter";
+import { apiCaller } from "../../../_shered/services/apiCaller";
 
 const storageKey = 'analytics_product_intention';
 const limitAntSpan = 5;
@@ -28,9 +28,9 @@ export const notifyProductIntention = (productId: string, intention: 'add' | 're
 
             const safeProducts: ProductIntention[] =
                 parsedStorageValue.products.filter(
-                    (p: any) =>
+                    (p: ProductIntention) =>
                         p &&
-                        typeof p.priductId === 'string' &&
+                        typeof p.productId === 'string' &&
                         typeof p.atempts?.add === 'number' &&
                         typeof p.atempts?.remove === 'number'
                 );

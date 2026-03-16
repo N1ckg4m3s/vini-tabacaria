@@ -1,4 +1,8 @@
-export const transformDraftToFormData = (draft: any): FormData => {
+import { ProdutoSemID } from "../../../../shered/shered.types";
+
+type OptionalID = ProdutoSemID & { id?: string }
+
+export const transformDraftToFormData = (draft: OptionalID): FormData => {
     const formData = new FormData();
 
     formData.append("nome", draft.nome);
@@ -7,7 +11,7 @@ export const transformDraftToFormData = (draft: any): FormData => {
     formData.append("valor", String(draft.valor));
     formData.append("metadata", JSON.stringify(draft.metadata));
     formData.append("imagem", draft.imagem);
-    formData.append("id", draft.id);
+    if (draft.id) formData.append("id", draft.id);
 
     return formData;
 }

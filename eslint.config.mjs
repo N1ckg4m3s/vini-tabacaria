@@ -29,7 +29,7 @@ export default [
       ],
       "unused-imports/no-unused-imports": "error",
       "prefer-const": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];

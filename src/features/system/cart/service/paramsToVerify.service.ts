@@ -1,4 +1,5 @@
-import { Produto } from "@/shered/shered.types";
+import { Produto } from "../../../../shered/shered.types"
+
 export const paramsToVerifyProducts = (produto: Produto): Partial<Produto> => {
     return {
         id: produto.id, // identificador do produto

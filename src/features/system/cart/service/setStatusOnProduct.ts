@@ -1,4 +1,4 @@
-import { CartProduto } from "@/shered/shered.types"
+import { CartProduto } from "../../../../shered/shered.types"
 import { verifyCartApiResponse } from "../types/api.type"
 
 export const setStatusOnProduct = (productSavedOnLocalStorage: CartProduto[], productsWithValidStatus: verifyCartApiResponse[]): CartProduto[] => {

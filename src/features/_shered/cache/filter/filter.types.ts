@@ -1,5 +1,5 @@
-import { SelectedFilters } from "@/features/client/catalog/types/HooksProps";
-import { CatalogFilterSource } from "@/shered/shered.types";
+import { CatalogFilterSource } from "../../../../shered/shered.types"
+import { SelectedFilters } from "../../../client/catalog/types/HooksProps"
 
 export type filterCacheEntity = {
     lastAccess: number,

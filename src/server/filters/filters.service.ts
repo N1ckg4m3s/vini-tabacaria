@@ -1,4 +1,4 @@
-import { CatalogFilters } from "@/shered/shered.types";
+import { CatalogFilters } from "../../shered/shered.types";
 import { filterRepository } from "./filters.repository";
 
 export class filterService {
@@ -12,8 +12,8 @@ export class filterService {
         const produtos = await this.repo.findFilters(filters)
 
         const grouped = produtos.reduce((
-            acc: { [x: string]: { value: any; count: any; }[]; },
-            row: { key: string | number; value: any; count: any; }
+            acc: { [x: string]: { value: any; count: number; }[]; },
+            row: { key: string | number; value: any; count: number; }
         ) => {
             if (!acc[row.key]) {
                 acc[row.key] = []

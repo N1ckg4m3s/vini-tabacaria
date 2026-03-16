@@ -1,9 +1,9 @@
 'use client'
 
-import { formatDateBR } from "@/features/_shered/services/formaters/data.formatter";
 import { ProductViewedStorageFormat } from "../types/services.types";
 import { AnalyticsEvent } from "../types/analytics.events";
-import { apiCaller } from "@/features/_shered/services/apiCaller";
+import { formatDateBR } from "../../../_shered/services/formaters/data.formatter";
+import { apiCaller } from "../../../_shered/services/apiCaller";
 
 const storageKey = 'analytics_product_viewed';
 
@@ -25,7 +25,7 @@ export const notifyProductViewed = (productId: string) => {
                 !Array.isArray(parsedStorageValue.products)
             ) return;
 
-            const safeProducts = parsedStorageValue.products.filter((p: any) => typeof p === 'string');
+            const safeProducts = parsedStorageValue.products.filter((p: ProductViewedStorageFormat) => typeof p === 'string');
 
             analytcsSaved = {
                 date: parsedStorageValue.date,

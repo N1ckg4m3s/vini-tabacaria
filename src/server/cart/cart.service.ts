@@ -1,4 +1,4 @@
-import { ProductWithStatus, Produto } from "@/shered/shered.types";
+import { ProductWithStatus, Produto } from "../../shered/shered.types";
 
 export class CartService {
     verifyDiferrences(productsOnDataBase: any[], productsToComparate: Partial<Produto>[]): ProductWithStatus[] {

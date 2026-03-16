@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { saveProduct } from "../api/saveProduct"
-import { ProdutoSemID } from "@/shered/shered.types"
-import { useNotification } from "@/providers/notification.provider"
 import { updateProduct } from "../api/updateProduct"
 import { transformDraftToFormData } from "../service/draftToFormData"
+import { ProdutoSemID } from "../../../../shered/shered.types"
+import { useNotification } from "../../../../providers/notification.provider"
 
 export const useSave = ({ resetDraft }: { resetDraft: () => void }) => {
     const { adicionarNotificacao } = useNotification()
@@ -29,12 +29,13 @@ export const useSave = ({ resetDraft }: { resetDraft: () => void }) => {
             })
 
             return response;
-        } catch (error: any) {
-            adicionarNotificacao({
-                title: 'Erro ao salvar produto',
-                message: error?.message,
-                type: 'Error',
-            })
+        } catch (error: unknown) {
+            if (error instanceof Error)
+                adicionarNotificacao({
+                    title: 'Erro ao salvar produto',
+                    message: error?.message,
+                    type: 'Error',
+                })
         } finally {
             setLoading(false)
         }

@@ -1,5 +1,5 @@
-import { BadRequestError } from "@/http/error/erros.handle";
-import { Produto } from "@/shered/shered.types"
+import { BadRequestError } from "../../http/error/erros.handle";
+import { Produto } from "../../shered/shered.types";
 import { validateMetadata } from "./metadata/validator";
 
 export const productDTOWithoutID = (formData: any): Omit<Produto, 'id'> => {

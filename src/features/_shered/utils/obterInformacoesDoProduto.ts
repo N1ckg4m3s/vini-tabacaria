@@ -1,11 +1,11 @@
-import { Produto } from "@/shered/shered.types";
+import { Produto } from "../../../shered/shered.types";
 import { formatMetadataValue } from "../services/formaters/meta.formater";
 
 export const obterInformacoesDoProduto = (produto: Produto) => {
     const marca = produto.marca ?? '';
     const nome = produto.nome ?? '';
     let titulo = '-//-';
-    let especificacao: any;
+    let especificacao: string;
 
     switch (produto.tipo) {
         case "essencia":

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { NotFoundPage } from '../features/system/notFount/pages/notFound.page';
 
 /**
  * Esta página exibe um erro ao não encontrar a pagina solicitada
@@ -15,19 +16,6 @@ import Link from 'next/link';
     }
 */
 
-const ErrorPage = () => {
-    return (
-        <div>
-            <h1>404 - Página Não Encontrada</h1>
-            <p>
-                A página que você está procurando não existe. Volte para a página inicial.
-            </p>
-            <Link href="/catalogo">
-                Voltar para a Página Inicial
-            </Link>
-        </div>
-    );
-
+export default function Page() {
+    return <NotFoundPage />
 }
-
-export default ErrorPage;

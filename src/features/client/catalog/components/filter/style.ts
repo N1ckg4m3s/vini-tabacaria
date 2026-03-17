@@ -1,6 +1,6 @@
-import { buttonReset, flexColumn } from "@/styles/mixins";
-import { GlobalColors } from "@/styles/theme";
-import { styled, css } from "styled-components";
+import styled, { css } from "styled-components"
+import { buttonReset, flexColumn } from "../../../../../styles/mixins"
+import { GlobalColors } from "../../../../../styles/theme"
 
 const ContainerBase = css`
     width: 100%;
@@ -11,7 +11,8 @@ const ContainerBase = css`
 
 export const FilterAnimation = styled.div`
     overflow: hidden;
-    width: fit-content;
+    width: 100%;
+    max-width: 250px;
     height: fit-content;
 `
 

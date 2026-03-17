@@ -1,8 +1,8 @@
 import * as s from './style'
-import { CatalogFilterSource } from "@/shered/shered.types"
 import { FilterActions } from "../../types/HooksProps"
 import React from 'react'
 import { RederizarSessoes } from './filtersRender'
+import { CatalogFilterSource } from '../../../../../shered/shered.types'
 
 type Props = {
   source?: CatalogFilterSource

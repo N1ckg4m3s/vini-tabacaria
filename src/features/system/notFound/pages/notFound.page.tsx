@@ -18,7 +18,7 @@ export const NotFoundPage = () => {
         if (!ctx) return;
 
         const bufferCanvas = document.createElement('canvas');
-        const bufferCtx = bufferCanvas.getContext('2d');
+        const bufferCtx = bufferCanvas.getContext('2d')!;
 
         const smoke = SmokeMachine(bufferCtx, [127, 127, 127]);
 

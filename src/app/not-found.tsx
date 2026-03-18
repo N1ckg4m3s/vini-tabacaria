@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { NotFoundPage } from '../features/system/notFound/pages/notFound.page';
 
 /**

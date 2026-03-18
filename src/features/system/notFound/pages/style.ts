@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { buttonReset, flexCenter } from "../../../../styles/mixins";
+import { flexCenter } from "../../../../styles/mixins";
 import { GlobalColors } from "../../../../styles/theme";
 
 export const pageContainer = styled.div`

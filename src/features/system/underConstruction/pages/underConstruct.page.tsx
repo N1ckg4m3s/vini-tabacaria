@@ -27,7 +27,7 @@ export const UnderConstructPage = () => {
 
         const smoke = SmokeMachine(bufferCtx, [200, 200, 200]);
 
-        smoke.setPreDrawCallback(() => generateTextMask({ bufferCanvas, canvas, ctx, svgImageRef: svgImageRef.current }))
+        smoke.setPreDrawCallback(() => generateTextMask({ bufferCanvas, canvas, ctx, svgImageRef: svgImageRef.current || img }))
 
         smoke.start();
 

@@ -15,7 +15,7 @@ const makeSmokeSprite = (color?: color) => {
     smokeSprite.width = smokeSpriteSize
     smokeSprite.height = smokeSpriteSize
 
-    const ctx = smokeSprite.getContext('2d')
+    const ctx = smokeSprite.getContext('2d')!
 
     const data = ctx.createImageData(smokeSpriteSize, smokeSpriteSize)
     const dt = data.data
@@ -32,7 +32,7 @@ const makeSmokeSprite = (color?: color) => {
     return smokeSprite
 }
 
-const createParticle = (x: number, y: number, opt: particleOptions): particle => {
+const createParticle = (x: number, y: number, opt?: particleOptions): particle => {
     const options: particleOptions = opt || {}
     const particle: particle = {
         x, y,
@@ -55,7 +55,7 @@ const createParticle = (x: number, y: number, opt: particleOptions): particle =>
 
 const updateParticle = (particle: particle, deltaTime: number) => {
     particle.x += particle.vx * deltaTime
-    particle.y += particle.vy * deltaTime
+    particle.y += (particle.vy || 0) * deltaTime
     const frac = Math.sqrt(particle.age / particle.lifetime)
     particle.vy = (1 - frac) * particle.startvy
     particle.age += deltaTime
@@ -74,7 +74,7 @@ const drawParticle = (particle: particle, smokeParticleImage: HTMLCanvasElement,
 
 export const SmokeMachine = (context: CanvasRenderingContext2D, color?: color) => {
     const smokeParticleImage: HTMLCanvasElement = makeSmokeSprite(color)
-    let particles = [];
+    let particles: particle[] = [];
     let preDrownCallBack: preDrownCallBack;
 
     const updateAndDrawParticles = (deltaTime: number) => {

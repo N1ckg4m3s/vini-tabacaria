@@ -1,4 +1,4 @@
-import { CatalogoComponent } from "@/features/client/catalog/pages/catalogo.page"
+import { CatalogoComponent } from "../../../features/client/catalog/pages/catalogo.page"
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

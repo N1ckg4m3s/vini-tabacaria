@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { NotFoundPage } from '../features/system/notFount/pages/notFound.page';
+import { NotFoundPage } from '../features/system/notFound/pages/notFound.page';
 
 /**
  * Esta página exibe um erro ao não encontrar a pagina solicitada

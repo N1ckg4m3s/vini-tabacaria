@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import * as s from './style'
-import { SmokeMachine } from "../service/smoke";
 import { generateTextMask } from "../service/generateTextMask";
 import { useRouter } from "next/navigation";
+import { SmokeMachine } from "../../../../lib/smoke/smoke";
 
 export const NotFoundPage = () => {
     const router = useRouter()

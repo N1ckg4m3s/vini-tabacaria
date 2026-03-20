@@ -2,6 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
 import { CreateOrderType, DataBaseFormat, OrderStatus } from "./order.types";
 import { BadRequestError, InternalError } from "../../http/error/erros.handle";
+import { Order } from "../../shered/shered.types";
 
 export class OrderRepo {
     private supra: SupabaseClient<any, "public", any>;
@@ -32,9 +33,24 @@ export class OrderRepo {
         return data
     }
 
-    async getOrderById(orderId: string) {
+    async getOrderById(orderId: string): Promise<Order> {
         const { data, error } = await this.supra.from('orders')
-            .select(`*`)
+            .select(`
+                id,
+                total,
+                status,
+                order_items(
+                    quantity,
+                    unit_price,
+                    product:products (
+                        nome,
+                        marca,
+                        tipo,
+                        metadata,
+                        imagem
+                    )
+                )
+            `)
             .eq('id', orderId)
             .single()
 

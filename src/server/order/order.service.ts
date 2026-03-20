@@ -1,5 +1,5 @@
 import { InternalError } from "../../http/error/erros.handle";
-import { CartProduto } from "../../shered/shered.types";
+import { CartProduto, Order } from "../../shered/shered.types";
 import { formatOrderItem } from "./order.dto";
 import { OrderRepo } from "./order.repo";
 
@@ -24,5 +24,13 @@ export class OrderService {
         }
 
         return orderId;
+    }
+
+    getOrderById = async (orderId: string): Promise<Order> => {
+        const order = await this.orderRepo.getOrderById(orderId);
+
+        if(!order) throw new InternalError('Não foi possivel obter a order')
+
+        return order
     }
 }

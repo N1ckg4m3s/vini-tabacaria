@@ -1,3 +1,5 @@
+import { OrderStatus } from "../server/order/order.types";
+
 // --------------------
 // Campos base nos produtos
 // --------------------
@@ -73,11 +75,28 @@ export const filtrosPorTipo = {
   outros: ["especificacao"],
 } as const;
 
-
 // --------------------
 // Credenciais de login
 // --------------------
 export interface loginCredential {
   email: string
   password: string
+}
+
+// --------------------
+// Order do pedido
+// --------------------
+export type OrderProduct = Pick<Produto, 'nome' | 'marca' | 'tipo' | 'metadata' | 'imagem'>
+
+export type OrderItem = {
+  quantity: number,
+  unit_price: number,
+  product: OrderProduct[]
+}
+
+export interface Order {
+  id: string,
+  total: number,
+  status: OrderStatus
+  order_items: OrderItem[]
 }

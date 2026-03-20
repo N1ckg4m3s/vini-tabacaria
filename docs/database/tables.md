@@ -55,6 +55,113 @@ Armazena os produtos disponíveis na loja.
 
 ---
 
+## Tables: orders
+
+### Table: orders
+
+Armazena os pedidos realizados no sistema, incluindo valor total e status atual.
+
+#### Estrutura
+
+| Campo      | Tipo                     | Descrição                                              |
+| ---------- | ------------------------ | ------------------------------------------------------ |
+| id         | uuid                     | Identificador único do pedido                          |
+| created_at | timestamp with time zone | Data e hora de criação do pedido                       |
+| total      | integer                  | Valor total do pedido em centavos (ex: 1290 = R$12,90) |
+| status     | order_status             | Status atual do pedido (ex: pending, paid, canceled)   |
+| updated_at | timestamp with time zone | Data e hora da última atualização do pedido            |
+
+#### Fonte de Dados
+
+- Inserções diretas da aplicação ao criar um novo pedido
+- Atualizações feitas durante o fluxo do pedido (ex: pagamento, cancelamento)
+
+#### Regras de Negócio
+
+- `id` é gerado automaticamente com `gen_random_uuid()`.
+- `created_at` é definido automaticamente no momento da criação.
+- `updated_at` é atualizado automaticamente a cada modificação no registro.
+- `total` deve representar sempre a soma dos itens do pedido (fonte de verdade deve ser `order_items`).
+- `status` utiliza o tipo `order_status` para garantir consistência de valores.
+- Um pedido pode iniciar com `total = 0` e ser atualizado conforme itens são adicionados.
+
+#### SQL
+
+```sql
+create type order_status as enum (
+  'pending',
+  'paid',
+  'canceled'
+);
+
+create table public.orders (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamp with time zone not null default now(),
+  total integer not null default 0,
+  status order_status not null default 'pending',
+  updated_at timestamp with time zone not null default now()
+);
+
+create or replace function update_orders_updated_at()
+returns trigger as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger set_orders_updated_at
+before update on public.orders
+for each row
+execute function update_orders_updated_at();
+```
+
+---
+
+### Table: order_items
+
+Armazena os itens associados a cada pedido, garantindo unicidade de produto por pedido.
+
+#### Estrutura
+
+| Campo      | Tipo    | Descrição                                                    |
+| ---------- | ------- | ------------------------------------------------------------ |
+| order_id   | uuid    | Referência ao pedido ao qual o item pertence                 |
+| product_id | uuid    | Produto associado ao item                                    |
+| quantity   | integer | Quantidade do produto no pedido                              |
+| unit_price | integer | Preço unitário do produto no momento do pedido (em centavos) |
+
+#### Fonte de Dados
+
+- Inserções feitas pela aplicação ao adicionar produtos ao pedido
+- Atualizações feitas ao alterar a quantidade de um produto já existente no pedido
+
+#### Regras de Negócio
+
+- A combinação (`order_id`, `product_id`) é única, impedindo duplicidade de produtos no mesmo pedido.
+- `order_id` deve sempre referenciar um pedido válido existente em `orders`.
+- `product_id` deve sempre referenciar um produto válido existente em `products`.
+- `quantity` deve ser maior que zero.
+- `unit_price` deve ser maior ou igual a zero.
+- `unit_price` representa o valor do produto no momento da compra, não devendo depender do valor atual em `products`.
+- O valor total do pedido (`orders.total`) deve ser a soma de (`quantity * unit_price`) de todos os itens associados.
+
+#### SQL
+
+```sql
+create table public.order_items (
+  order_id uuid not null,
+  product_id uuid not null,
+  quantity integer not null,
+  unit_price integer not null,
+  constraint order_items_pkey primary key (order_id, product_id),
+  constraint order_items_order_id_fkey foreign KEY (order_id) references orders (id),
+  constraint order_items_product_id_fkey foreign KEY (product_id) references products (id)
+) TABLESPACE pg_default;
+```
+
+---
+
 ## Tables: analytics
 
 Tabelas usadas para métricas e monitoramento de uso da aplicação.
@@ -220,4 +327,3 @@ from analytics_daily_product_interest api
 where api.data >= current_date - interval '7 days'
 group by api.product_id;
 ```
-

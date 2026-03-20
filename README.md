@@ -59,10 +59,10 @@ Separação clara de responsabilidades, facilitando manutenção e escalabilidad
 
 ```bash
 # Clonar o repositório
-git clone <url-do-repositorio>
+git clone git@github.com:N1ckg4m3s/vini-tabacaria.git
 
 # Entrar na pasta
-cd nome-do-projeto
+cd vini-tabacaria
 
 # Instalar dependências
 npm install

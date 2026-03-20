@@ -1,7 +1,7 @@
 'use client'
 
-import { notification } from '@/features/system/notification/types/notification.type'
 import React, { createContext, useContext, useRef, useState } from 'react'
+import { notification } from '../features/system/notification/types/notification.type'
 
 const DEFAULT_TTL = 5000
 

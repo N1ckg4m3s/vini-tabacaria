@@ -15,3 +15,27 @@ export const POST = createRoute(async (request) => {
 
     return OrderId;
 })
+
+export const GET = createRoute(async (request) => {
+    const { searchParams } = request.nextUrl;
+    const orderId = searchParams.get('orderId')
+
+    if (!orderId) throw new BadRequestError('Order Id não informado')
+
+    const service = new OrderService()
+
+    const order = service.getOrderById(orderId)
+
+    console.log(`obter order por Id: ${orderId}`)
+})
+
+export const PUT = createRoute(async (request) => {
+    const { searchParams } = request.nextUrl;
+    const orderId = searchParams.get('orderId')
+
+    if (!orderId) throw new BadRequestError('Order Id não informado')
+
+    const service = new OrderService()
+
+    console.log(`atualizar order por Id: ${orderId}`)
+})

@@ -1,5 +1,6 @@
 'use client'
 
+import { LoadingOverlay } from '../../../_shered/components/loading/component'
 import { CartContent } from '../components/cartContent/component'
 import { CartResume } from '../components/cartResume/component'
 import { useCartProduct } from '../hooks/useCartProduct'
@@ -10,10 +11,11 @@ import * as s from './style'
 export const CartComponent = () => {
     const { cartProducts, count } = useCartProduct()
     const { total, subTotal, limparCarrinho } = useCartResume()
-    const { onFinalize } = useFinalizeCart()
+    const { onFinalize, loading } = useFinalizeCart()
 
     return (<>
         <s.CartPage>
+            {loading && <LoadingOverlay />}
             <s.CartHeader>
                 <s.CartTitle>Carrinho</s.CartTitle>
                 <s.CartItensCount>{count} Itens</s.CartItensCount>

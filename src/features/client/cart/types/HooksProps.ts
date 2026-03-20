@@ -41,7 +41,8 @@ export type useCartResume_Props = () => useCartResume_Respose
 // use finalize
 // ------------------------
 type useFinalize_Respose = {
-    onFinalize: () => void
+    onFinalize: () => void,
+    loading: boolean
 }
 
 export type useFinalize_Props = () => useFinalize_Respose

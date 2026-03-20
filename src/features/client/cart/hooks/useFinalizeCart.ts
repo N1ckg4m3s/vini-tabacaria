@@ -1,15 +1,17 @@
-import { formatePrice } from "@/features/_shered/services/formaters/price.formater";
-import { formatProdForHuman } from "../service/formatCartForHuman";
-import { sendListToWatsapp } from "../service/sendListToWhatsapp";
+import { useState } from "react";
+import { useCart } from "../../../../providers/cart.provider";
+import { useNotification } from "../../../../providers/notification.provider";
+import { saveOrder } from "../api/saveOrder";
 import { useFinalize_Props } from "../types/HooksProps";
-import { useCart } from "@/providers/cart.provider";
-import { useNotification } from "@/providers/notification.provider";
+import { generateMessage } from "../service/generateMessage";
+import { sendMessageToWhatsapp } from "../service/sendMessage";
 
 export const useFinalizeCart: useFinalize_Props = () => {
     const { adicionarNotificacao } = useNotification()
     const { produtos, total } = useCart()
+    const [loading, setLoading] = useState(false)
 
-    const onFinalize = () => {
+    const onFinalize = async () => {
         if (produtos.length == 0) return;
 
         if (total < 0) {
@@ -20,11 +22,22 @@ export const useFinalizeCart: useFinalize_Props = () => {
             })
             return;
         }
+        try {
+            setLoading(true)
+            const orderId = await saveOrder(produtos)
+            const message = generateMessage(orderId, total)
 
-        const produtosFormatado: string[] = produtos.map(p => formatProdForHuman(p))
-
-        sendListToWatsapp(produtosFormatado, formatePrice(total))
+            sendMessageToWhatsapp(message)
+        } catch (e) {
+            adicionarNotificacao({
+                message: 'há produtos a ser verificados',
+                title: "Ops, Não é possivel finalizar",
+                type: "Error"
+            })
+        } finally {
+            setLoading(false)
+        }
     }
 
-    return { onFinalize }
+    return { onFinalize, loading }
 }

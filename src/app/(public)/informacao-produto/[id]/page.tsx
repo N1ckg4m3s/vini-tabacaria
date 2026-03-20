@@ -1,6 +1,5 @@
-import { ProductInfoComponent } from '@/features/client/productInfo/pages/productInfo.page';
-
 import { Metadata } from 'next';
+import { ProductInfoComponent } from '../../../../features/client/productInfo/pages/productInfo.page';
 
 export const metadata: Metadata = {
     title: "Vini Tabacaria | Informações do produto",

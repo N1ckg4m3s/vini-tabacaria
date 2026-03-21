@@ -91,7 +91,7 @@ export type OrderProduct = Pick<Produto, 'nome' | 'marca' | 'tipo' | 'metadata' 
 export type OrderItem = {
   quantity: number,
   unit_price: number,
-  product: OrderProduct[]
+  product: OrderProduct
 }
 
 export interface Order {

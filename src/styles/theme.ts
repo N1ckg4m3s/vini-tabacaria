@@ -85,9 +85,10 @@ export const GlobalColors = {
         muted: '#909090',
         inverse: '#000000',
         onPrimary: '#052E16',
-        onDark: '#FFFFFF'
+        onDark: '#FFFFFF',
+        focus: '#25A249',
     },
-    
+
     Border: {
         subtle: '#474747',
         strong: '#363636',

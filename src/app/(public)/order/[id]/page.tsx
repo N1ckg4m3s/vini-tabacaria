@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { getOrderById } from '../../../../features/core/order/service/getOrderById';
 import { OrderView } from '../../../../features/core/order/components/orderView/component';
+import { Order } from '../../../../shered/shered.types';
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
     title: "Vini Tabacaria | Informações do produto",
@@ -8,9 +10,15 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({ params }: { params: { id: string } }) {
-    const orderId = params.id
+    const orderId = (await params).id
 
-    const order = await getOrderById(orderId)
+    let order: Order
+
+    try {
+        order = await getOrderById(orderId)
+    } catch {
+        notFound()
+    }
 
     return <OrderView order={order} />
 }

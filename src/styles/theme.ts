@@ -1,3 +1,5 @@
+import { OrderStatus } from "../server/order/order.types"
+
 export const Theme = {
     colors: {
         Borda: {
@@ -93,5 +95,31 @@ export const GlobalColors = {
         subtle: '#474747',
         strong: '#363636',
         focus: '#25A249',
+    },
+
+    statusColor: {
+        [OrderStatus.PENDING]: {
+            bg: 'rgba(107,107,107,0.15)', // Neutral 400
+            text: '#C1C8C0', // Neutral 200
+            border: '#6B6B6B'
+        },
+
+        [OrderStatus.HANDLING]: {
+            bg: 'rgba(15,98,254,0.15)', // Feedback.info strong
+            text: '#A9C7FF',
+            border: '#0F62FE'
+        },
+
+        [OrderStatus.COMPLETED]: {
+            bg: 'rgba(37,162,73,0.15)', // Feedback.success strong
+            text: '#B0DDBE',
+            border: '#25A249'
+        },
+
+        [OrderStatus.CANCELED]: {
+            bg: 'rgba(218,30,40,0.15)', // Feedback.error strong
+            text: '#F2AEB2',
+            border: '#DA1E28'
+        }
     }
 }

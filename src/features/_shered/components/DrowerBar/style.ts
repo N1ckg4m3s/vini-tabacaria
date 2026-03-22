@@ -7,6 +7,7 @@ export const NavContainer = styled.aside<{ $isOpen: boolean }>`
     border-right: 1px solid #2a2a2a;
     height: 100vh;
     padding: 24px 12px;
+    z-index: 2;
 
     width: ${({ $isOpen }) => ($isOpen ? '220px' : '70px')};
     transition: 

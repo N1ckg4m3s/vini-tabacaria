@@ -86,7 +86,7 @@ export interface loginCredential {
 // --------------------
 // Order do pedido
 // --------------------
-export type OrderProduct = Pick<Produto, 'nome' | 'marca' | 'tipo' | 'metadata' | 'imagem'>
+export type OrderProduct = Pick<Produto, 'nome' | 'marca' | 'tipo' | 'imagem'>
 
 export type OrderItem = {
   quantity: number,

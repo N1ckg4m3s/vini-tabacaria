@@ -3,6 +3,7 @@ import { getOrderById } from '../../../../../features/core/order/service/getOrde
 import { OrderView } from '../../../../../features/core/order/components/orderView/component';
 import { notFound } from 'next/navigation';
 import { Order } from '../../../../../shered/shered.types';
+import { OrderStatusChanger } from '../../../../../features/core/order/components/status_changer/component';
 
 export const metadata: Metadata = {
     title: "Vini Tabacaria | Informações do produto",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 
 export default async function Page({ params }: { params: { id: string } }) {
-    const orderId = await params.id
+    const orderId = (await params).id
 
     let order: Order
 
@@ -22,7 +23,10 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (<>
-        {/* Editor de status */}
+        <OrderStatusChanger
+            actualStatus={order.status}
+            orderId={orderId}
+        />
         <OrderView order={order} />
     </>)
 }

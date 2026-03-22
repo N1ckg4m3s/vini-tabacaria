@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GlobalColors } from "../../../../../styles/theme";
 import { flexCenter } from "../../../../../styles/mixins";
+import { OrderStatus } from "../../../../../server/order/order.types";
 
 export const orderHeader = styled.div`
     ${flexCenter}
@@ -18,10 +19,12 @@ export const orderId = styled.div`
     color: ${GlobalColors.Text.primary};
 `
 
-export const orderStatus = styled.div`
+export const orderStatus = styled.div<{ status: OrderStatus }>`
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 14px;
-    background-color: ${GlobalColors.Neutral[550]};
-    color: ${GlobalColors.Text.secondary};
+    
+    background-color: ${({ status }) => GlobalColors.statusColor[status].bg};
+    border: 1px solid  ${({ status }) => GlobalColors.statusColor[status].border};
+    color:  ${({ status }) => GlobalColors.statusColor[status].text};
 `

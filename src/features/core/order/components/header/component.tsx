@@ -1,6 +1,6 @@
 'use client'
 
-import { OrderStatus } from "../../../../../server/order/order.types"
+import { OrderStatus, statusMap } from "../../../../../server/order/order.types"
 import * as s from './style'
 
 interface props {
@@ -14,8 +14,8 @@ export const OrderHeader: React.FC<props> = ({ orderId, status }) => {
             <s.orderId>
                 Pedido ${orderId.slice(0, 10)}
             </s.orderId>
-            <s.orderStatus>
-                Pendente
+            <s.orderStatus status={status} >
+                {statusMap[status]}
             </s.orderStatus>
         </s.orderHeader>
     )

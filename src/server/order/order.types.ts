@@ -5,6 +5,13 @@ export enum OrderStatus {
     CANCELED = 'canceled',
 }
 
+export const statusMap: Record<OrderStatus, string> = {
+    canceled: 'Cancelado',
+    completed: 'Entregue',
+    handling: 'Em finalização',
+    pending: 'Em analise'
+}
+
 export type CreateOrderType = { total: number }
 
 export type DataBaseFormat = {

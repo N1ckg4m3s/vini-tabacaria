@@ -46,13 +46,12 @@ export class OrderRepo {
                         nome,
                         marca,
                         tipo,
-                        metadata,
                         imagem
                     )
                 )
             `)
             .eq('id', orderId)
-            .single()
+            .single<Order>()
 
         if (error) throw new BadRequestError(error.message, error.cause);
 
@@ -71,5 +70,18 @@ export class OrderRepo {
             .delete()
             .eq('order_id', orderId);
         if (error) throw new BadRequestError(error.message, error.cause);
+    }
+
+    async updateOrderStatus(orderId: string, newStatus: OrderStatus) {
+        const { data, error } = await this.supra
+            .from('orders')
+            .update({ status: newStatus })
+            .eq('id', orderId)
+            .select()
+            .single();
+
+        if (error) throw new BadRequestError(error.message, error.cause);
+
+        return data
     }
 }

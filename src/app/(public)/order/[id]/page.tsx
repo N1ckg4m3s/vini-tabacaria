@@ -9,8 +9,8 @@ export const metadata: Metadata = {
     description: "Informações do produto",
 };
 
-export default async function Page({ params }: { params: { id: string } }) {
-    const orderId = (await params).id
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+    const { id: orderId } = await params
 
     let order: Order
 

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { OrderStatus } from "../../../../../server/order/order.types";
 import { buttonReset, flexCenter } from "../../../../../styles/mixins";
 import { GlobalColors } from "../../../../../styles/theme";

@@ -5,6 +5,7 @@ import { saveOrder } from "../api/saveOrder";
 import { useFinalize_Props } from "../types/HooksProps";
 import { generateMessage } from "../service/generateMessage";
 import { sendMessageToWhatsapp } from "../service/sendMessage";
+import { errorToNotification } from "../../../system/notification/service/errorToNotification";
 
 export const useFinalizeCart: useFinalize_Props = () => {
     const { adicionarNotificacao } = useNotification()
@@ -29,11 +30,7 @@ export const useFinalizeCart: useFinalize_Props = () => {
 
             sendMessageToWhatsapp(message)
         } catch (e) {
-            adicionarNotificacao({
-                message: 'há produtos a ser verificados',
-                title: "Ops, Não é possivel finalizar",
-                type: "Error"
-            })
+            adicionarNotificacao(errorToNotification(e))
         } finally {
             setLoading(false)
         }

@@ -2,15 +2,19 @@
 
 import { useState, useEffect, useRef } from "react";
 
-export const useResponsiveColumns = () => {
+interface hookProps {
+    CARD_MIN_WIDTH?: number,
+    GAP?: number,
+    LIMIT_ROWS?: number
+}
+
+export const useResponsiveColumns = ({ CARD_MIN_WIDTH = 150, GAP = 16, LIMIT_ROWS = 6 }: hookProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [numeroDeColunas, setNumeroDeColunas] = useState(0);
 
     const handleResize = (width: number) => {
         if (!containerRef.current) return;
 
-        const CARD_MIN_WIDTH = 150
-        const GAP = 16
         const columns = Math.floor((width + GAP) / (CARD_MIN_WIDTH + GAP))
 
         if (columns !== numeroDeColunas) setNumeroDeColunas(columns)
@@ -36,7 +40,7 @@ export const useResponsiveColumns = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const totalItensNaTela = numeroDeColunas * 6;
+    const totalItensNaTela = numeroDeColunas * LIMIT_ROWS;
 
     return { containerRef, numeroDeColunas, totalItensNaTela };
 };

@@ -3,12 +3,12 @@
 import * as s from './style';
 import { useEffect, useState } from "react"
 import { useCatalogFilters } from "../hooks/useCatalogFilter"
-import { useResponsiveColumns } from "../hooks/useResponsiveColuns"
 import { useCatalogProducts } from "../hooks/useCatalogProducts"
 import { FiltroCatalogoComponent } from '../components/filter/component';
-import { LoadingOverlay } from '@/features/_shered/components/loading/component';
-import ProductCard from '@/features/_shered/components/productCard/component';
-import PaginacaoComponente from '@/features/_shered/components/PaginacaoComponent/component';
+import { useResponsiveColumns } from '../../../_shered/hooks/useResponsiveColuns';
+import ProductCard from '../../../_shered/components/productCard/component';
+import PaginacaoComponente from '../../../_shered/components/PaginacaoComponent/component';
+import { LoadingOverlay } from '../../../_shered/components/loading/component';
 
 export const CatalogoComponent = () => {
     const { source, selected, loading, actions } = useCatalogFilters()
@@ -16,7 +16,7 @@ export const CatalogoComponent = () => {
     const [filterOppened, setFilterOppened] = useState(false)
     const [paginaAtual, setPaginaAtual] = useState(1)
 
-    const { containerRef, totalItensNaTela } = useResponsiveColumns()
+    const { containerRef, totalItensNaTela } = useResponsiveColumns({})
 
     const { catalogProducts, totalPages } = useCatalogProducts({
         filtros: selected,

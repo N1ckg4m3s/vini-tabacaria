@@ -1,8 +1,9 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import suprabase from "../connections/supraBaseConnection";
-import { CreateOrderType, DataBaseFormat, OrderStatus } from "./order.types";
+import { CreateOrderType, DataBaseFormat, getOrderByTabRepo, OrderStatus } from "./order.types";
 import { BadRequestError, InternalError } from "../../http/error/erros.handle";
 import { Order } from "../../shered/shered.types";
+import { orderResume } from "../../features/admin/orderList/types/type";
 
 export class OrderRepo {
     private supra: SupabaseClient<any, "public", any>;
@@ -31,6 +32,27 @@ export class OrderRepo {
         if (data.length < products.length) throw new InternalError() // Algum deu merda..
 
         return data
+    }
+
+    async getOrderByTab(params: getOrderByTabRepo): Promise<any> {
+        const { from, statusList, to } = params
+
+        const { data, error, count } = await this.supra
+            .from('orders')
+            .select(`
+                id,
+                total,
+                status,
+                created_at,
+                order_items(quantity)
+            `, { count: 'exact' })
+            .in('status', statusList)
+            .order('created_at', { ascending: false })
+            .range(from, to);
+
+        if (error) throw new BadRequestError(error.message, error.cause);
+
+        return { data, count }
     }
 
     async getOrderById(orderId: string): Promise<Order> {

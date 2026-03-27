@@ -20,3 +20,15 @@ export type DataBaseFormat = {
     quantity: number,
     unit_price: number
 }
+
+export interface getOrderByTab {
+    tab: 'processing' | 'finished',
+    page: number,
+    limit?: number,
+}
+
+export interface getOrderByTabRepo {
+    statusList: OrderStatus[],
+    from: number,
+    to: number,
+}

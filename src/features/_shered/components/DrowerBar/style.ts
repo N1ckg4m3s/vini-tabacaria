@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import Link from 'next/link'
-import { LayoutDashboard, Package, PlusCircle, Store, Menu } from 'lucide-react'
+import { LayoutDashboard, Package, PlusCircle, Store, Menu, List } from 'lucide-react'
 
 export const NavContainer = styled.aside<{ $isOpen: boolean }>`
     background: #161616;
@@ -69,6 +69,7 @@ export const LayoutDashboardIcon = styled(LayoutDashboard)`${iconsSize}`
 export const PackageIcon = styled(Package)`${iconsSize}`
 export const PlusCircleIcon = styled(PlusCircle)`${iconsSize}`
 export const StoreIcon = styled(Store)`${iconsSize}`
+export const ListIcon = styled(List)`${iconsSize}`
 
 export const MenuIcon = styled(Menu) <{ $isOpen: boolean }>`
     ${iconsSize}

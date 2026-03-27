@@ -38,6 +38,11 @@ export const DrowerBarComponent = () => {
                     <s.PlusCircleIcon size={20} />
                     <s.NavLabel $isOpen={isOpen}>Adicionar</s.NavLabel>
                 </s.NavItem>
+
+                <s.NavItem href='/admin/order'>
+                    <s.ListIcon size={20} />
+                    <s.NavLabel $isOpen={isOpen}>Pedidos</s.NavLabel>
+                </s.NavItem>
             </s.NavLinks>
         </s.NavContainer>
     )

@@ -19,7 +19,7 @@ const rules: Record<OrderStatus, statusMap> = {
         pending: true,
         handling: true,
         completed: true,
-        canceled: true
+        canceled: false
     },
     [OrderStatus.CANCELED]: {
         pending: true,

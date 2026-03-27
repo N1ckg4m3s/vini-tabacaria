@@ -19,6 +19,8 @@ export const orderContainer = styled.div<{ status: OrderStatus }>`
         border-color: ${GlobalColors.Border.subtle};
         transform: translateY(-2px);
     }
+
+    cursor: pointer;
 `
 
 export const orderHeader = styled.div`

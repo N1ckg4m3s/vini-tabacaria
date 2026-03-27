@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { formatePrice } from '../../../../_shered/services/formaters/price.formater'
 import { orderResume } from '../../types/type'
 import * as s from './style'
@@ -9,6 +10,7 @@ interface props {
 }
 
 export const OrderCardResume: React.FC<props> = ({ order }) => {
+    const router = useRouter()
 
     const renderOrderDate = () => {
         const day = String(order.created_at.getDate()).padStart(2, '0');
@@ -27,7 +29,10 @@ export const OrderCardResume: React.FC<props> = ({ order }) => {
 
     return (
         <>
-            <s.orderContainer status={order.status}>
+            <s.orderContainer
+                status={order.status}
+                onClick={() => { router.push(`/admin/order/${order.id}`) }}
+            >
                 <s.orderHeader>
                     <s.orderStatus>{order.status}</s.orderStatus>
                     <s.orderTotal>{formatePrice(order.total)}</s.orderTotal>

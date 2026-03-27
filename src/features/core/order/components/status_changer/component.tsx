@@ -6,6 +6,7 @@ import { CSSProperties } from 'styled-components'
 import { disableStatus } from '../../service/disableStatus'
 import { useChangeState } from '../../hook/useChangeStatus'
 import { LoadingOverlay } from '../../../../_shered/components/loading/component'
+import { useRouter } from 'next/navigation'
 
 interface props {
     actualStatus: OrderStatus,
@@ -20,21 +21,25 @@ const styledDiv: CSSProperties = {
 }
 
 export const OrderStatusChanger: React.FC<props> = ({ actualStatus, orderId }) => {
+    const router = useRouter()
     const { loading, changeToStatus } = useChangeState(orderId)
 
     const disabledStatus = disableStatus(actualStatus)
 
-    const renderButton = (status: OrderStatus) => {
-        return (
-            <s.statusButton
-                status={status}
-                disabled={disabledStatus[status]}
-                onClick={() => changeToStatus(status)}
-            >
-                {statusMap[status]}
-            </s.statusButton>
-        )
+    const handleChange = async (status: OrderStatus) => {
+        await changeToStatus(status)
+        router.refresh()
     }
+
+    const renderButton = (status: OrderStatus) => (
+        <s.statusButton
+            status={status}
+            disabled={disabledStatus[status]}
+            onClick={() => handleChange(status)}
+        >
+            {status}
+        </s.statusButton>
+    )
 
     return (
         <div style={styledDiv}>

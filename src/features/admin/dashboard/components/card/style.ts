@@ -1,29 +1,30 @@
-import { GlobalColors } from "@/styles/theme";
 import styled from "styled-components";
+import { GlobalColors } from "../../../../../styles/theme";
+import { flexColumn } from "../../../../../styles/mixins";
 
 export const cardContainer = styled.div`
-    background-color: ${GlobalColors.Neutral[600]};
-    border: 1px solid ${GlobalColors.Border.subtle};
-    border-radius: 10px;
-    padding: 20px;
+    background: ${GlobalColors.Neutral[700]};
+    padding: 16px;
+    border-radius: 12px;
+    ${flexColumn}
+    gap: 8px;
+    border: 1px solid ${GlobalColors.Border.strong};
 `
 
 export const cardTitle = styled.h3`
-    margin: 0 0 12px;
     font-size: 14px;
     font-weight: 600;
-    color: ${GlobalColors.Text.muted};
+    color: ${GlobalColors.Text.secondary};
     text-transform: uppercase;
-    letter-spacing: 0.04em;
 `
 
-export const cardMetric = styled.div`
-    font-size: 32px;
-    font-weight: 700;
+export const cardValue = styled.p`
+    color: ${GlobalColors.Text.primary};
+    font-size: 28px;
+    font-weight: bold;
 `
 
-export const cardSub = styled.div`
-    margin-top: 6px;
-    font-size: 13px;
+export const cardObs = styled.span`
     color: ${GlobalColors.Text.muted};
+    font-size: 12px;
 `

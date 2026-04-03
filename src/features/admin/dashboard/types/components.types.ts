@@ -3,8 +3,8 @@
 // --------------------
 export interface CardProps {
     title: string
-    metric: number | string | null
-    sub: string
+    value: string | null
+    obs: string
 }
 
 // --------------------

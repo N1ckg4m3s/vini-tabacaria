@@ -1,36 +1,34 @@
-import { flexColumn, flexSpaceBetween } from "@/styles/mixins";
-import { GlobalColors } from "@/styles/theme";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { GlobalColors } from "../../../../../styles/theme";
 
-export const cardContainer = styled.div`
-    background-color: ${GlobalColors.Neutral[600]};
-    border: 1px solid ${GlobalColors.Border.subtle};
-    border-radius: 10px;
-    padding: 20px;
+export const table = styled.table`
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: ${GlobalColors.Neutral[700]};
+    border: 1px solid ${GlobalColors.Border.strong};
+    `
+
+export const tableHead = styled.thead`
+    background-color: ${GlobalColors.Neutral[850]};
 `
 
-export const cardTitle = styled.h3`
-    margin: 0 0 12px;
-    font-size: 14px;
-    font-weight: 600;
-    color: ${GlobalColors.Text.muted};
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-`
+export const tableBody = styled.tbody``
 
-export const tableList = styled.div`
-    ${flexColumn}
-    gap: 10px;
-`
-
-export const tableRow = styled.div`
-    ${flexSpaceBetween}
+const baseTD_TR = css`
+    padding: 12px;
+    text-align: left;
     font-size: 14px;
 `
 
-export const span = styled.span<{ variant?: 'positive' | 'negative' }>`
-    color: ${({ variant }) =>
-        variant === 'positive' ? '#22c55e' :
-            variant === 'negative' ? '#ef4444' :
-                'inherit'};
+export const tableData = styled.td`
+    ${baseTD_TR}
+    color: ${GlobalColors.Text.secondary};
+`
+
+export const tableRow = styled.tr`
+    ${baseTD_TR}
+    color: ${GlobalColors.Text.primary};
+    border-top: 1px solid ${GlobalColors.Border.strong};
 `

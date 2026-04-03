@@ -5,6 +5,7 @@ import { CartProduto, Produto } from '../shered/shered.types';
 import { useVerifyProducts } from '../features/system/cart/hook/useVerifyProducts';
 import { acceptNewStatus } from '../features/system/cart/service/acceptNewStatus';
 import { getLocalData, setLocalData } from '../features/system/cart/service/LocalData.service';
+import { notifyProductIntention } from '../features/system/analytics/services/notifyProductIntention';
 
 // --------------------
 // Context
@@ -47,6 +48,9 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
     const adicionarProduto = (prod: Produto) => {
         setProdutos(prev => {
             if (existeProduto(prev, prod.id)) return prev;
+
+            notifyProductIntention(prod.id, 'add')
+
             return [...prev, {
                 produto: prod,
                 quantidade: 1,
@@ -62,6 +66,7 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
     // ===== Remover produto
     const removerProduto = (id: string) => {
         setProdutos(prev => prev.filter(p => p.produto.id !== id));
+        notifyProductIntention(id, 'remove')
     }
 
     // ===== Alterar produto ===== //
@@ -175,7 +180,7 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
             calcularTotal()
         }
         fetchData()
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -183,7 +188,7 @@ export const CartProvider: React.FC<cartProviderProps> = ({ children }) => {
     useEffect(() => {
         setLocalData(produtos)
         calcularTotal()
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [produtos])
 

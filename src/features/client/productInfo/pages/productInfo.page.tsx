@@ -7,8 +7,8 @@ import * as s from './style'
 import { useObterProdutoPorId } from '../../../_shered/hooks/useObterProdutoPorId'
 import { useRelactivesProduct } from '../hooks/useProdutosRelativos'
 import { useEffect } from 'react'
-import { notifyProductViewed } from '../../../system/analytics/api/notifyProductViewd'
 import { LoadingOverlay } from '../../../_shered/components/loading/component'
+import { notifyProductViewed } from '../../../system/analytics/services/notifyProductViewd'
 
 export const ProductInfoComponent = () => {
     const { id } = useParams()

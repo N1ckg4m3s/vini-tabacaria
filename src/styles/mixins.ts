@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { GlobalColors } from "@/styles/theme"; // to update
 
 export const flexCenter = css`
@@ -69,3 +69,29 @@ export const VerticalLine = styled.div`
   width: 3px;
   background-color: ${GlobalColors.Border.strong};
 `
+
+// SKELETON ANIMATION //
+
+const shimmer = keyframes`
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+`;
+
+export const skeletonEffect = css`
+  position: relative;
+  overflow: hidden;
+  background: ${GlobalColors.Neutral[700]};
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent
+    );
+    animation: ${shimmer} 1.2s infinite;
+  }
+`;

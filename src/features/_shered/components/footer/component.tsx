@@ -17,7 +17,11 @@ const FooterBarComponent = () => {
         <s.FooterContainer>
             <s.FooterCopyrightText>
                 © @ViniTabacaria 2024. All rights reserved.
+                <s.AdminLink href="/admin">
+                    Área restrita
+                </s.AdminLink>
             </s.FooterCopyrightText>
+
 
             <s.FooterLogo>
                 <LogoEstenca />

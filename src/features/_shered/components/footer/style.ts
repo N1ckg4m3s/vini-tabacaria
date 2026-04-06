@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { flexSpaceBetween } from '@/styles/mixins';
 import { GlobalColors } from "@/styles/theme"; // to update
+import Link from 'next/link';
+import { flexColumn } from '../../../../styles/mixins';
 
 export const FooterContainer = styled.footer`
     margin-top: 10px;
@@ -35,10 +37,13 @@ export const FooterLogo = styled.div`
 `;
 
 export const FooterCopyrightText = styled.p`
+    ${flexColumn}
+
     font-size: 0.85rem;
     color: ${GlobalColors.Text.secondary};
     grid-area: copyright;
     justify-self: start;
+
     @media screen and (max-width: 480px){
         justify-self: center;
     }
@@ -51,5 +56,19 @@ export const IconsContainer = styled.div`
     gap: 12px;
     @media screen and (max-width: 480px){
         justify-self: center;
+    }
+`;
+
+export const AdminLink = styled(Link)`
+    margin-left: 6px;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    font-weight: bold;
+
+    &:hover {
+        opacity: 1;
+        text-decoration: underline;
     }
 `;

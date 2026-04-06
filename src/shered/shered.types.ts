@@ -100,3 +100,15 @@ export interface Order {
   status: OrderStatus
   order_items: OrderItem[]
 }
+
+// --------------------
+// Formato dos dados para o dashboard
+// --------------------
+export interface productConversionData {
+  product_id: string,
+  product_label: string,
+  views: number,
+  adds: number,
+  orders: number,
+  conversion: number
+}

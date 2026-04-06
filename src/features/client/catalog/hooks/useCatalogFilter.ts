@@ -4,8 +4,8 @@ import { SelectedFilters } from "../types/HooksProps"
 import { serializeFilters } from "../services/sanitizeFilters"
 import { useNotification } from "@/providers/notification.provider"
 import { CatalogFilterSource } from "@/shered/shered.types"
-import { fetchFilterCached } from "@/_shered/cache/filter/filterCache"
-import { errorToNotification } from "@/system/notification/service/errorToNotification"
+import { fetchFilterCached } from "@/features/_shered/cache/filter/filterCache"
+import { errorToNotification } from "@/features/system/notification/service/errorToNotification"
 
 export const useCatalogFilters = () => {
   const { adicionarNotificacao } = useNotification()

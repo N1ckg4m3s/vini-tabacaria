@@ -1,9 +1,9 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { formatePrice } from '@/_shered/services/formaters/price.formater'
-import { orderResume } from '../../types/type'
 import * as s from './style'
+import { formatePrice } from '@/features/_shered/services/formaters/price.formater'
+import { orderResume } from '../../types/type'
 
 interface props {
     order: orderResume

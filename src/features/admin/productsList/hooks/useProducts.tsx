@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useProductsListProps } from "../types/hooks.types"
-import { fetchProductsPaginated } from "@/_shered/services/getAllItens"
+import { fetchProductsPaginated } from "@/features/_shered/services/getAllItens"
 import { Produto } from "@/shered/shered.types"
 
 export const useProductsList: useProductsListProps = ({ numeroPorPagina, paginaAtual, search }) => {

@@ -4,8 +4,8 @@ import { useState } from "react"
 import { useProductsList } from "../hooks/useProducts"
 import * as s from './style'
 import { ProductItem } from "../components/tableItem/component"
-import { useDebounce } from "@/_shered/hooks/useDebounce"
-import PaginacaoComponente from "@/_shered/components/PaginacaoComponent/component"
+import PaginacaoComponente from "@/features/_shered/components/PaginacaoComponent/component"
+import { useDebounce } from "@/features/_shered/hooks/useDebounce"
 
 export const ProductList = () => {
     const [paginaAtual, setPaginaAtual] = useState(1);

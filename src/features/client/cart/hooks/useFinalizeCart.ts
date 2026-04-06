@@ -5,7 +5,7 @@ import { saveOrder } from "../api/saveOrder";
 import { useFinalize_Props } from "../types/HooksProps";
 import { generateMessage } from "../service/generateMessage";
 import { sendMessageToWhatsapp } from "../service/sendMessage";
-import { errorToNotification } from "@/system/notification/service/errorToNotification";
+import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
 
 export const useFinalizeCart: useFinalize_Props = () => {
     const { adicionarNotificacao } = useNotification()

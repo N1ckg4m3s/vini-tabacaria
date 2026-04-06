@@ -2,8 +2,8 @@
 
 import { ProductViewedStorageFormat } from "../types/services.types";
 import { AnalyticsEvent } from "../types/analytics.events";
-import { formatDateBR } from "@/_shered/services/formaters/data.formatter";
-import { apiCaller } from "@/_shered/services/apiCaller";
+import { formatDateBR } from "@/features/_shered/services/formaters/data.formatter";
+import { apiCaller } from "@/features/_shered/services/apiCaller";
 
 const storageKey = 'analytics_product_viewed';
 

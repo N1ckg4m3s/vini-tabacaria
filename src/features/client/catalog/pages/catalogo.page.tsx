@@ -5,10 +5,10 @@ import { useEffect, useState } from "react"
 import { useCatalogFilters } from "../hooks/useCatalogFilter"
 import { useCatalogProducts } from "../hooks/useCatalogProducts"
 import { FiltroCatalogoComponent } from '../components/filter/component';
-import { useResponsiveColumns } from '@/_shered/hooks/useResponsiveColuns';
-import ProductCard from '@/_shered/components/productCard/component';
-import PaginacaoComponente from '@/_shered/components/PaginacaoComponent/component';
-import { LoadingOverlay } from '@/_shered/components/loading/component';
+import { useResponsiveColumns } from '@/features/_shered/hooks/useResponsiveColuns';
+import ProductCard from '@/features/_shered/components/productCard/component';
+import PaginacaoComponente from '@/features/_shered/components/PaginacaoComponent/component';
+import { LoadingOverlay } from '@/features/_shered/components/loading/component';
 
 export const CatalogoComponent = () => {
     const { source, selected, loading, actions } = useCatalogFilters()

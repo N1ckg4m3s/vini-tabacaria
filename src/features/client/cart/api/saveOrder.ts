@@ -1,6 +1,6 @@
 import { NoResponseError } from "@/http/error/erros.handle"
 import { CartProduto } from "@/shered/shered.types"
-import { apiCaller } from "@/_shered/services/apiCaller"
+import { apiCaller } from "@/features/_shered/services/apiCaller"
 
 export const saveOrder = async (produtos: CartProduto[]) => {
     const request = await apiCaller({

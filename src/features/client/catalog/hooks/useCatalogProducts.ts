@@ -5,8 +5,8 @@ import { UseCatalogProductsProps } from "../types/HooksProps";
 import { loadCatalog } from "../services/loadCatalogData";
 import { Produto } from "@/shered/shered.types";
 import { useNotification } from "@/providers/notification.provider";
-import { errorToNotification } from "@/system/notification/service/errorToNotification";
-import { fetchCatalogCached } from "@/_shered/cache/catalog/catalogCache";
+import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
+import { fetchCatalogCached } from "@/features/_shered/cache/catalog/catalogCache";
 
 export const useCatalogProducts: UseCatalogProductsProps = ({ filtros, paginaAtual, numeroPorPagina }) => {
     const { adicionarNotificacao } = useNotification()

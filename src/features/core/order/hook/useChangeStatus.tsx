@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNotification } from "@/providers/notification.provider";
-import { errorToNotification } from "@/system/notification/service/errorToNotification";
+import { errorToNotification } from "@/features/system/notification/service/errorToNotification";
 import { changeStatus } from "../api/changeStatus";
 import { OrderStatus } from "@/server/order/order.types";
 

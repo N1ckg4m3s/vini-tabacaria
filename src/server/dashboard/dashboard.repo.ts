@@ -102,4 +102,43 @@ export class DashboardRepo {
             intentionScore: view.intention_score,
         }));
     }
+
+    // NEW
+    getGeralInformations = async () => {
+        const { data, error } = await this.supra.rpc("get_dashboard_today");
+        if (error) throw new NoResponseError("Erro ao obter informações gerais do dashboard.");
+        return data;
+    }
+
+    getFunelWeekInformations = async () => {
+        const { data, error } = await this.supra.rpc("get_weekly_funnel");
+        if (error) throw new NoResponseError("Erro ao obter informações do funil semanal.");
+        return data;
+    }
+
+    getWeekRevenueData = async () => {
+        const { data, error } = await this.supra.rpc('get_week_revenue')
+
+        if (error) throw new NoResponseError("Erro ao obter dados de receita dos últimos 7 dias.");
+
+        return data
+    }
+
+    getWeekAccessData = async ({ hoje, seteDiasAtras }: getLast7DaysParams) => {
+        const { data: weeklyAccessData } = await this.supra.from('analytics_daily_access')
+            .select('*')
+            .gte('data', seteDiasAtras)
+            .lte('data', hoje)
+            .limit(7);
+
+        return weeklyAccessData;
+    }
+
+    getProductsInsights = async (period: number) => {
+        const { data, error } = await this.supra.rpc('get_product_conversion', { days: period });
+
+        if (error) throw new NoResponseError("Erro ao obter insights de produtos.");
+
+        return data;
+    }
 }

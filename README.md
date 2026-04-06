@@ -94,6 +94,11 @@ Criar uma solução simples e eficiente para:
 
 🚧 Em desenvolvimento
 
+## Deploy
+```bash
+    https://vini-tabacaria.vercel.app/catalogo
+```
+
 ---
 
 ## 📎 Melhorias Futuras

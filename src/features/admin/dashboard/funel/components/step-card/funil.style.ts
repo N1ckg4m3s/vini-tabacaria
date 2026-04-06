@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { flexCenter, skeletonEffect } from "../../../../../../styles/mixins";
-import { GlobalColors } from "../../../../../../styles/theme";
+import { flexCenter, skeletonEffect } from "@/styles/mixins";
+import { GlobalColors } from "@/styles/theme";
 
 export const stepContainer = styled.div`
     ${flexCenter}

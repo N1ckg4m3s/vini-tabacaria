@@ -1,4 +1,4 @@
-import { ProdutoSemID } from "../../../../shered/shered.types";
+import { ProdutoSemID } from "@/shered/shered.types";
 
 type OptionalID = ProdutoSemID & { id?: string }
 

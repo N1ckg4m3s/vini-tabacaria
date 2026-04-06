@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { OrderList } from '../../../../features/admin/orderList/page/orderList';
-import { OrderService } from '../../../../server/order/order.service';
+import { OrderList } from '@/features/admin/orderList/page/orderList';
+import { OrderService } from '@/server/order/order.service';
 
 export const metadata: Metadata = {
     title: "Vini Tabacaria | Lista de pedidos",

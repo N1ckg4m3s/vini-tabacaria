@@ -1,6 +1,6 @@
-import { DashboardService } from '../../../../server/dashboard/dashboard.service';
-import { GlobalColors } from '../../../../styles/theme';
-import { formatePrice } from '../../../_shered/services/formaters/price.formater';
+import { DashboardService } from '@/server/dashboard/dashboard.service';
+import { GlobalColors } from '@/styles/theme';
+import { formatePrice } from '@/_shered/services/formaters/price.formater';
 import { DashboardCard } from './components/card/card.component';
 
 /* CSS style */

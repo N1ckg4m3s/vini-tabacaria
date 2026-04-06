@@ -1,4 +1,4 @@
-import { FilterSource } from '../../../../../shered/shered.types'
+import { FilterSource } from '@/shered/shered.types'
 import { FilterActions } from '../../types/HooksProps'
 import * as s from './style'
 

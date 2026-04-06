@@ -1,6 +1,6 @@
 import { AuthError } from "@supabase/supabase-js";
-import { BadRequestError, InternalError, NotFoundError } from "../../../http/error/erros.handle";
-import { AppError } from "../../../http/error/appError";
+import { BadRequestError, InternalError, NotFoundError } from "@/http/error/erros.handle";
+import { AppError } from "@/http/error/appError";
 
 type ApiCallerProps = {
     url: string;

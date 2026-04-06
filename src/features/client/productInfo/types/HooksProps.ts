@@ -1,4 +1,4 @@
-import { Produto } from "../../../../shered/shered.types"
+import { Produto } from "@/shered/shered.types"
 
 // ------------------------
 // Use relativos parametros

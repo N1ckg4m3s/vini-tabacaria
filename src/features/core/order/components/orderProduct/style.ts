@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { GlobalColors } from "../../../../../styles/theme";
-import { flexCenter, flexColumn } from "../../../../../styles/mixins";
+import { GlobalColors } from "@/styles/theme";
+import { flexCenter, flexColumn } from "@/styles/mixins";
 
 export const itemContainer = styled.div`
     position: relative;

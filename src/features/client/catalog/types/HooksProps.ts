@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { CatalogFilterSource, Produto } from "../../../../shered/shered.types";
+import { CatalogFilterSource, Produto } from "@/shered/shered.types";
 
 // ------------------------
 // Catalog Products Hook

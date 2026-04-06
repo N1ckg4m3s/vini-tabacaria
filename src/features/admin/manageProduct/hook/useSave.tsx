@@ -2,8 +2,8 @@ import { useState } from "react"
 import { saveProduct } from "../api/saveProduct"
 import { updateProduct } from "../api/updateProduct"
 import { transformDraftToFormData } from "../service/draftToFormData"
-import { ProdutoSemID } from "../../../../shered/shered.types"
-import { useNotification } from "../../../../providers/notification.provider"
+import { ProdutoSemID } from "@/shered/shered.types"
+import { useNotification } from "@/providers/notification.provider"
 
 export const useSave = ({ resetDraft }: { resetDraft: () => void }) => {
     const { adicionarNotificacao } = useNotification()

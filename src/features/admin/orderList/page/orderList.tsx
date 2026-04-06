@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { useResponsiveColumns } from '../../../_shered/hooks/useResponsiveColuns'
+import { useResponsiveColumns } from '@/_shered/hooks/useResponsiveColuns'
 import { OrderCardResume } from '../components/orderCard/component'
 import { OrderSection } from '../types/type'
 import * as s from './style'
-import PaginacaoComponente from '../../../_shered/components/PaginacaoComponent/component'
+import PaginacaoComponente from '@/_shered/components/PaginacaoComponent/component'
 import { useChangeTab } from '../hook/useChangeTab'
 
 interface props {

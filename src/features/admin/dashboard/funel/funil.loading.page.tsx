@@ -1,4 +1,4 @@
-import { GlobalColors } from "../../../../styles/theme";
+import { GlobalColors } from "@/styles/theme";
 import { FunilFlowStepSkeleton } from "./components/flow-arrow/funil.component";
 import { FunilStepSkeleton } from "./components/step-card/funil.component";
 

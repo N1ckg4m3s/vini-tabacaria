@@ -1,6 +1,6 @@
-import { orderResume, OrderSection } from "../../features/admin/orderList/types/type";
+import { orderResume, OrderSection } from "@/features/admin/orderList/types/type";
 import { InternalError } from "../../http/error/erros.handle";
-import { CartProduto, Order } from "../../shered/shered.types";
+import { CartProduto, Order } from "@/shered/shered.types";
 import { formatOrderItem } from "./order.dto";
 import { OrderRepo } from "./order.repo";
 import { getOrderByTab, OrderStatus, statusMap } from "./order.types";

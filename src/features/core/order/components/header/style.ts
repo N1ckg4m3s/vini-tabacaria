@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { GlobalColors } from "../../../../../styles/theme";
-import { flexCenter } from "../../../../../styles/mixins";
-import { OrderStatus } from "../../../../../server/order/order.types";
+import { GlobalColors } from "@/styles/theme";
+import { flexCenter } from "@/styles/mixins";
+import { OrderStatus } from "@/server/order/order.types";
 
 export const orderHeader = styled.div`
     ${flexCenter}

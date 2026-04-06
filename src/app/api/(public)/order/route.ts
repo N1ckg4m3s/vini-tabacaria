@@ -1,8 +1,8 @@
-import { BadRequestError } from "../../../../http/error/erros.handle";
-import { createRoute } from "../../../../http/http.handler";
-import { OrderService } from "../../../../server/order/order.service";
-import { OrderStatus } from "../../../../server/order/order.types";
-import { CartProduto } from "../../../../shered/shered.types";
+import { BadRequestError } from "@/http/error/erros.handle";
+import { createRoute } from "@/http/http.handler";
+import { OrderService } from "@/server/order/order.service";
+import { OrderStatus } from "@/server/order/order.types";
+import { CartProduto } from "@/shered/shered.types";
 
 export const POST = createRoute(async (request) => {
     const body = await request.json()

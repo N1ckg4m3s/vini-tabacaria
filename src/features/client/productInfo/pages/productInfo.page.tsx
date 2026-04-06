@@ -4,11 +4,11 @@ import { useParams } from 'next/navigation'
 import { ProductBaseInformations } from '../components/ProductBaseInformations/component'
 import { ProductCarousel } from '../components/ProductCarousel/component'
 import * as s from './style'
-import { useObterProdutoPorId } from '../../../_shered/hooks/useObterProdutoPorId'
+import { useObterProdutoPorId } from '@/_shered/hooks/useObterProdutoPorId'
 import { useRelactivesProduct } from '../hooks/useProdutosRelativos'
 import { useEffect } from 'react'
-import { LoadingOverlay } from '../../../_shered/components/loading/component'
-import { notifyProductViewed } from '../../../system/analytics/services/notifyProductViewd'
+import { LoadingOverlay } from '@/_shered/components/loading/component'
+import { notifyProductViewed } from '@/system/analytics/services/notifyProductViewd'
 
 export const ProductInfoComponent = () => {
     const { id } = useParams()

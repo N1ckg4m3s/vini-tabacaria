@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { getOrderById } from '../../../../features/core/order/service/getOrderById';
-import { OrderView } from '../../../../features/core/order/components/orderView/component';
-import { Order } from '../../../../shered/shered.types';
+import { getOrderById } from '@/features/core/order/service/getOrderById';
+import { OrderView } from '@/features/core/order/components/orderView/component';
+import { Order } from '@/shered/shered.types';
 import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {

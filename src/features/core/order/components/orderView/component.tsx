@@ -1,5 +1,5 @@
 import { CSSProperties } from "react"
-import { Order } from "../../../../../shered/shered.types"
+import { Order } from "@/shered/shered.types"
 import { OrderFooter } from "../footer/component"
 import { OrderHeader } from "../header/component"
 import { OrderProductList } from "../product_list/component"

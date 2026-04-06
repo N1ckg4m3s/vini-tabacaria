@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { LoginService } from '../../../../server/login/login.service'
-import { canAttemptLogin, clearLoginAttempts, registerLoginFailure } from '../../../../http/rate-limit/login-rate-limit'
+import { LoginService } from '@/server/login/login.service'
+import { canAttemptLogin, clearLoginAttempts, registerLoginFailure } from '@/http/rate-limit/login-rate-limit'
 
 export const POST = async (req: NextRequest) => {
     const { email, password } = await req.json()

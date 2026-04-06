@@ -1,4 +1,4 @@
-import { loginCredential } from "../../../../shered/shered.types"
+import { loginCredential } from "@/shered/shered.types"
 
 // ------------------------
 // Use login

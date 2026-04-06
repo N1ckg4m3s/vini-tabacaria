@@ -2,9 +2,9 @@
 
 import styled from 'styled-components'
 import { useEffect } from 'react';
-import NavBarComponent from '../../features/_shered/components/navbar/component';
-import FooterBarComponent from '../../features/_shered/components/footer/component';
-import { notifyUserUse } from '../../features/system/analytics/services/notifyUserUse';
+import NavBarComponent from '@/features/_shered/components/navbar/component';
+import FooterBarComponent from '@/features/_shered/components/footer/component';
+import { notifyUserUse } from '@/features/system/analytics/services/notifyUserUse';
 
 const LayoutContainer = styled.div`
   min-height: 100vh;

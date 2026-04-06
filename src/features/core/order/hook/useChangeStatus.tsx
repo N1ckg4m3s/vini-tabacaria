@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { useNotification } from "../../../../providers/notification.provider";
-import { errorToNotification } from "../../../system/notification/service/errorToNotification";
+import { useNotification } from "@/providers/notification.provider";
+import { errorToNotification } from "@/system/notification/service/errorToNotification";
 import { changeStatus } from "../api/changeStatus";
-import { OrderStatus } from "../../../../server/order/order.types";
+import { OrderStatus } from "@/server/order/order.types";
 
 export const useChangeState = (orderId: string) => {
     const { adicionarNotificacao } = useNotification()

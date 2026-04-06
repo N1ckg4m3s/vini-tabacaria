@@ -1,4 +1,4 @@
-import { CatalogFilterSource } from "../../../../shered/shered.types";
+import { CatalogFilterSource } from "@/shered/shered.types";
 import { MAX_CACHE_KEYS, SerializeFilterToCacheKey, verifyTTL } from "../shered/cache.helper";
 import { filterCacheEntity, filterCacheParams } from "./filter.types";
 

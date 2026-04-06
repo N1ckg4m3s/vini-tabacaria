@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
-import { flexCenter } from "../../../../styles/mixins";
-import { GlobalColors } from "../../../../styles/theme";
+import { flexCenter } from "@/styles/mixins";
+import { GlobalColors } from "@/styles/theme";
 
 export const pageContainer = styled.div`
     ${flexCenter} 

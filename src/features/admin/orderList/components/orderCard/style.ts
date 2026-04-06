@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { GlobalColors } from "../../../../../styles/theme";
-import { flexCenter, flexColumn } from "../../../../../styles/mixins";
-import { OrderStatus } from "../../../../../server/order/order.types";
+import { GlobalColors } from "@/styles/theme";
+import { flexCenter, flexColumn } from "@/styles/mixins";
+import { OrderStatus } from "@/server/order/order.types";
 
 export const orderContainer = styled.div<{ status: OrderStatus }>`
     background-color: ${({ status }) => GlobalColors.statusColor[status].bg};

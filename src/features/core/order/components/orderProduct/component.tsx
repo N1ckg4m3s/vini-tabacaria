@@ -1,5 +1,5 @@
-import { OrderItem } from '../../../../../shered/shered.types'
-import { formatePrice } from '../../../../_shered/services/formaters/price.formater'
+import { OrderItem } from '@/shered/shered.types'
+import { formatePrice } from '@/_shered/services/formaters/price.formater'
 import * as s from './style'
 
 interface props { Produto: OrderItem }

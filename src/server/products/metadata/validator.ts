@@ -1,4 +1,4 @@
-import { BadRequestError } from "../../../http/error/erros.handle";
+import { BadRequestError } from "@/http/error/erros.handle";
 import { metadataValidators } from "./validatorParams";
 
 export function validateMetadata(tipo: string, metadata: Record<string, any>) {

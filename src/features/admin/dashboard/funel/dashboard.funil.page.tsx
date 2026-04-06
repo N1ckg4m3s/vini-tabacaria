@@ -1,5 +1,5 @@
-import { DashboardService } from "../../../../server/dashboard/dashboard.service";
-import { GlobalColors } from "../../../../styles/theme";
+import { DashboardService } from "@/server/dashboard/dashboard.service";
+import { GlobalColors } from "@/styles/theme";
 import { FunilFlowStep } from "./components/flow-arrow/funil.component";
 import { FunilStep } from "./components/step-card/funil.component";
 

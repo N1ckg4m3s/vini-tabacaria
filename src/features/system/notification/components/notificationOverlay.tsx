@@ -1,6 +1,6 @@
 'use client'
 
-import { useNotification } from '../../../../providers/notification.provider';
+import { useNotification } from '@/providers/notification.provider';
 import { NotificationItem } from './notificationItem/component';
 import * as s from './style';
 

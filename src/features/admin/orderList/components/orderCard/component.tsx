@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { formatePrice } from '../../../../_shered/services/formaters/price.formater'
+import { formatePrice } from '@/_shered/services/formaters/price.formater'
 import { orderResume } from '../../types/type'
 import * as s from './style'
 

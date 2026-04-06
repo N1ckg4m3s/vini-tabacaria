@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { GlobalColors } from "../../../../../../styles/theme";
+import { GlobalColors } from "@/styles/theme";
 
 export const table = styled.table`
     width: 100%;

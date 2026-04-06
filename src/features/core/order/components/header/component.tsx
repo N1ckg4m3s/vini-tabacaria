@@ -1,6 +1,6 @@
 'use client'
 
-import { OrderStatus, statusMap } from "../../../../../server/order/order.types"
+import { OrderStatus, statusMap } from "@/server/order/order.types"
 import * as s from './style'
 
 interface props {

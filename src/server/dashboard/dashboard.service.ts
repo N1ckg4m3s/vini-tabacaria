@@ -1,7 +1,7 @@
 import { BadRequestError } from "../../http/error/erros.handle";
 import { DashboardRepo } from "./dashboard.repo";
 import { get7DaysAgoData, normalizeWeekData } from "./dashboard.helper"
-import { productConversionData } from "../../shered/shered.types";
+import { productConversionData } from "@/shered/shered.types";
 
 export class DashboardService {
     private dashboardRepo = new DashboardRepo()

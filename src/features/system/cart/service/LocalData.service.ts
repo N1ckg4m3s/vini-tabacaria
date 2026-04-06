@@ -1,4 +1,4 @@
-import { CartProduto } from "../../../../shered/shered.types"
+import { CartProduto } from "@/shered/shered.types"
 
 export const getLocalData = () => {
     const data = localStorage.getItem('cartData')

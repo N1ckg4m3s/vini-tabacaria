@@ -1,6 +1,6 @@
 'use client'
 
-import { LoadingOverlay } from '../../../_shered/components/loading/component'
+import { LoadingOverlay } from '@/_shered/components/loading/component'
 import { CartContent } from '../components/cartContent/component'
 import { CartResume } from '../components/cartResume/component'
 import { useCartProduct } from '../hooks/useCartProduct'

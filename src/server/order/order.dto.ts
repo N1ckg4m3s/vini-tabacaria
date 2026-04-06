@@ -1,5 +1,5 @@
 import { BadRequestError } from "../../http/error/erros.handle";
-import { CartProduto } from "../../shered/shered.types";
+import { CartProduto } from "@/shered/shered.types";
 import { DataBaseFormat } from "./order.types";
 
 export const formatOrderItem = (produtoNoCarrinho: CartProduto, order_id: string): DataBaseFormat => {

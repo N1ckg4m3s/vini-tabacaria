@@ -1,4 +1,4 @@
-import { formatePrice } from "../../../_shered/services/formaters/price.formater"
+import { formatePrice } from "@/_shered/services/formaters/price.formater"
 
 export const generateMessage = (orderId: string, total: number): string => {
     const safeOrderId = orderId.slice(0, 10)

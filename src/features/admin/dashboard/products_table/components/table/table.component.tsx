@@ -1,6 +1,6 @@
 'use client'
 
-import { productConversionData } from '../../../../../../shered/shered.types'
+import { productConversionData } from '@/shered/shered.types'
 import * as s from './style'
 
 interface DashboardTableProps {

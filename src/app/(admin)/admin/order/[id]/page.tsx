@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import { getOrderById } from '../../../../../features/core/order/service/getOrderById';
-import { OrderView } from '../../../../../features/core/order/components/orderView/component';
+import { getOrderById } from '@/features/core/order/service/getOrderById';
+import { OrderView } from '@/features/core/order/components/orderView/component';
 import { notFound } from 'next/navigation';
-import { Order } from '../../../../../shered/shered.types';
-import { OrderStatusChanger } from '../../../../../features/core/order/components/status_changer/component';
+import { Order } from '@/shered/shered.types';
+import { OrderStatusChanger } from '@/features/core/order/components/status_changer/component';
 
 export const metadata: Metadata = {
     title: "Vini Tabacaria | Informações do produto",

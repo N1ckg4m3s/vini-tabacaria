@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
-import { buttonReset, flexColumn } from "../../../../../styles/mixins"
-import { GlobalColors } from "../../../../../styles/theme"
+import { buttonReset, flexColumn } from "@/styles/mixins"
+import { GlobalColors } from "@/styles/theme"
 
 const ContainerBase = css`
     width: 100%;

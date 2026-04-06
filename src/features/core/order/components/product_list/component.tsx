@@ -1,8 +1,8 @@
 'use client'
 
 import styled from "styled-components"
-import { OrderItem } from "../../../../../shered/shered.types"
-import { flexColumn } from "../../../../../styles/mixins"
+import { OrderItem } from "@/shered/shered.types"
+import { flexColumn } from "@/styles/mixins"
 import { OrderProduct } from "../orderProduct/component"
 
 interface props {

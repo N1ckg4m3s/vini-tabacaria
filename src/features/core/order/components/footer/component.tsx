@@ -1,6 +1,6 @@
 'use client'
 
-import { formatePrice } from '../../../../_shered/services/formaters/price.formater'
+import { formatePrice } from '@/_shered/services/formaters/price.formater'
 import * as s from './style'
 
 interface props { total: number }

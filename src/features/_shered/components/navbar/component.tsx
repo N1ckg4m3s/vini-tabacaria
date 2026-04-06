@@ -7,7 +7,7 @@ import Carrinho from '@assets/cart.svg'
 import Menu from '@assets/menu.svg'
 import { useState } from 'react'
 import { formatePrice } from '../../services/formaters/price.formater'
-import { useCart } from '../../../../providers/cart.provider'
+import { useCart } from '@/providers/cart.provider'
 
 const NavBarComponent = () => {
     const { total } = useCart()

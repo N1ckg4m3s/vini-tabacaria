@@ -1,4 +1,4 @@
-import { Produto } from "../../../../shered/shered.types"
+import { Produto } from "@/shered/shered.types"
 
 // --------------------
 // Obtem uma lista de produtos com base nas paginas

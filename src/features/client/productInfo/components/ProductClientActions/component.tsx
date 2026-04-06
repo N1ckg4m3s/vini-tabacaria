@@ -1,8 +1,8 @@
 'use client'
 
-import { useCart } from '../../../../../providers/cart.provider';
-import { Produto } from '../../../../../shered/shered.types';
-import { QuantityControl } from '../../../../_shered/components/quantityControl/component';
+import { useCart } from '@/providers/cart.provider';
+import { Produto } from '@/shered/shered.types';
+import { QuantityControl } from '@/_shered/components/quantityControl/component';
 import * as s from './style'
 
 interface Props {

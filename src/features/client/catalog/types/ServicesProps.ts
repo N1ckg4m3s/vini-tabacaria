@@ -1,4 +1,4 @@
-import { CatalogFilterSource, Produto } from "../../../../shered/shered.types"
+import { CatalogFilterSource, Produto } from "@/shered/shered.types"
 import { SelectedFilters } from "./HooksProps"
 
 // ------------------------

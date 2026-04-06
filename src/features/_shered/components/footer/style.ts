@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { flexSpaceBetween } from '@/styles/mixins';
 import { GlobalColors } from "@/styles/theme"; // to update
 import Link from 'next/link';
-import { flexColumn } from '../../../../styles/mixins';
+import { flexColumn } from '@/styles/mixins';
 
 export const FooterContainer = styled.footer`
     margin-top: 10px;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { GlobalColors } from "../../../../../../styles/theme";
-import { flexColumn, skeletonEffect } from "../../../../../../styles/mixins";
+import { GlobalColors } from "@/styles/theme";
+import { flexColumn, skeletonEffect } from "@/styles/mixins";
 
 export const cardContainer = styled.div`
     background: ${GlobalColors.Neutral[700]};

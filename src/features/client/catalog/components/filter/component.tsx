@@ -2,7 +2,7 @@ import * as s from './style'
 import { FilterActions } from "../../types/HooksProps"
 import React from 'react'
 import { RederizarSessoes } from './filtersRender'
-import { CatalogFilterSource } from '../../../../../shered/shered.types'
+import { CatalogFilterSource } from '@/shered/shered.types'
 
 type Props = {
   source?: CatalogFilterSource

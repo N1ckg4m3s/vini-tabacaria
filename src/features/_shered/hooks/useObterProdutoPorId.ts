@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { loadProductInfo } from "../api/loadProduct";
-import { useNotification } from "../../../providers/notification.provider";
-import { Produto } from "../../../shered/shered.types";
+import { useNotification } from "@/providers/notification.provider";
+import { Produto } from "@/shered/shered.types";
 import { errorToNotification } from "../../system/notification/service/errorToNotification";
 
 // ------------------------

@@ -1,4 +1,4 @@
-import { CartProduto, Produto } from "../../../../shered/shered.types"
+import { CartProduto, Produto } from "@/shered/shered.types"
 
 // ------------------------
 // Use products parametros

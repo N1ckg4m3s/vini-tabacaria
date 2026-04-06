@@ -1,4 +1,4 @@
-import { CartProduto } from "../../../../shered/shered.types";
+import { CartProduto } from "@/shered/shered.types";
 
 export const acceptNewStatus = (cartProduto: CartProduto): CartProduto => {
     const { produto, status } = cartProduto

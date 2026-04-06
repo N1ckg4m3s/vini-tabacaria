@@ -1,4 +1,4 @@
-import { Produto } from "../../../shered/shered.types";
+import { Produto } from "@/shered/shered.types";
 import { formatMetadataValue } from "../services/formaters/meta.formater";
 
 export const obterInformacoesDoProduto = (produto: Produto) => {

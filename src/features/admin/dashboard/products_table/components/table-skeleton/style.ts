@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { GlobalColors } from "../../../../../../styles/theme";
-import { flexColumn, skeletonEffect } from "../../../../../../styles/mixins";
+import { GlobalColors } from "@/styles/theme";
+import { flexColumn, skeletonEffect } from "@/styles/mixins";
 
 export const table = styled.div`
     ${flexColumn}

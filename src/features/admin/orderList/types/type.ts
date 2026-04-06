@@ -1,4 +1,4 @@
-import { Order } from "../../../../shered/shered.types";
+import { Order } from "@/shered/shered.types";
 
 export type orderResume = Pick<Order, 'id' | 'status' | 'total'> & {
     order_products_count: number,

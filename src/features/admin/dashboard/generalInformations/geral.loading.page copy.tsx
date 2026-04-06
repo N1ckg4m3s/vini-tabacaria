@@ -1,4 +1,4 @@
-import { GlobalColors } from '../../../../styles/theme';
+import { GlobalColors } from '@/styles/theme';
 import { DashboardCardSkeleton } from './components/card/card.component';
 
 /* CSS style */

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexCenter, flexColumn, skeletonEffect } from "../../../../../../styles/mixins";
+import { flexCenter, flexColumn, skeletonEffect } from "@/styles/mixins";
 
 export const chartContainer = styled.div`
     width: 100%;

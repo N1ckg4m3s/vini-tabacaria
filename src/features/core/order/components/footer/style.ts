@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { GlobalColors } from "../../../../../styles/theme";
-import { flexCenter } from "../../../../../styles/mixins";
+import { GlobalColors } from "@/styles/theme";
+import { flexCenter } from "@/styles/mixins";
 
 export const TotalContainer = styled.div`
     ${flexCenter}

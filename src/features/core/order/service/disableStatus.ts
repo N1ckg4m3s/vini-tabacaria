@@ -1,4 +1,4 @@
-import { OrderStatus } from "../../../../server/order/order.types";
+import { OrderStatus } from "@/server/order/order.types";
 
 type statusMap = Record<OrderStatus, boolean>
 

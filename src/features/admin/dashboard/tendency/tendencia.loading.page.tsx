@@ -1,4 +1,4 @@
-import { GlobalColors } from '../../../../styles/theme';
+import { GlobalColors } from '@/styles/theme';
 import { LineChartSkeleton } from './components/chart-skeleton/chart.skeeton.component';
 
 /* CSS style */

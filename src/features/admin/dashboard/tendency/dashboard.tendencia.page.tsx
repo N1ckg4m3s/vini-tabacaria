@@ -1,5 +1,5 @@
-import { DashboardService } from '../../../../server/dashboard/dashboard.service';
-import { GlobalColors } from '../../../../styles/theme';
+import { DashboardService } from '@/server/dashboard/dashboard.service';
+import { GlobalColors } from '@/styles/theme';
 import { LineChartComponent } from './components/chart/chart.component';
 
 /* CSS style */

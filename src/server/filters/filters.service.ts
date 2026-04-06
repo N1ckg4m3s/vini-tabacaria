@@ -1,4 +1,4 @@
-import { CatalogFilters } from "../../shered/shered.types";
+import { CatalogFilters } from "@/shered/shered.types";
 import { filterRepository } from "./filters.repository";
 
 export class filterService {

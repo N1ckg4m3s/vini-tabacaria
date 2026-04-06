@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ManageProduct } from "../../../../../features/admin/manageProduct/page/manage.page";
+import { ManageProduct } from "@/features/admin/manageProduct/page/manage.page";
 
 export const metadata: Metadata = {
     title: "Editando produto",

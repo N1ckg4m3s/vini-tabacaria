@@ -1,6 +1,5 @@
 import { GlobalColors } from "@/styles/theme";
 import { TableSkeleton } from "./components/table-skeleton/table.component";
-import { DashboardTable } from "./components/table/table.component";
 
 /* CSS style */
 const sectionStyle: React.CSSProperties = {

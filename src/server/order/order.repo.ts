@@ -3,7 +3,6 @@ import suprabase from "../connections/supraBaseConnection";
 import { CreateOrderType, DataBaseFormat, getOrderByTabRepo, OrderStatus } from "./order.types";
 import { BadRequestError, InternalError } from "../../http/error/erros.handle";
 import { Order } from "@/shered/shered.types";
-import { orderResume } from "@/features/admin/orderList/types/type";
 
 export class OrderRepo {
     private supra: SupabaseClient<any, "public", any>;

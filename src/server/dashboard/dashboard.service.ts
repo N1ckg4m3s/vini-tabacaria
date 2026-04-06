@@ -31,7 +31,7 @@ export class DashboardService {
     async getWeekRevenueData() {
         const weeklyRevenueDataRow = await this.dashboardRepo.getWeekRevenueData()
 
-        const revenueData = normalizeWeekData(weeklyRevenueDataRow.map(row => ({ date: row.day, value: row.total })));
+        const revenueData = normalizeWeekData(weeklyRevenueDataRow.map((row: { day: string, total: number }) => ({ date: row.day, value: row.total })));
 
         return revenueData
     }
@@ -40,6 +40,7 @@ export class DashboardService {
         const { hoje, seteDiasAtras } = get7DaysAgoData();
 
         const weeklyAccessesRow = await this.dashboardRepo.getWeekAccessData({ hoje, seteDiasAtras });
+        if (!weeklyAccessesRow) throw new BadRequestError("Não foi possível obter os dados de acesso da semana.");
 
         const acessData = normalizeWeekData(weeklyAccessesRow.map(row => ({ date: row.data, value: row.mobile_access + row.desktop_access })));
 

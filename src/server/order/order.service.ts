@@ -57,12 +57,12 @@ export class OrderService {
         const { data, count } = await this.orderRepo.getOrderByTab({ statusList, from, to })
 
         // Format resposta
-        const orders: orderResume[] = data.map(order => ({
+        const orders: orderResume[] = data.map((order: any) => ({
             id: order.id,
             created_at: new Date(order.created_at),
             status: order.status,
             total: order.total,
-            order_products_count: order.order_items?.reduce((sum, item) => sum + (item.quantity ?? 0), 0)
+            order_products_count: order.order_items?.reduce((sum: number, item: any) => sum + (item.quantity ?? 0), 0)
         }));
 
         const sectionsMap = orders.reduce((acc, order) => {

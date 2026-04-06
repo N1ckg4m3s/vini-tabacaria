@@ -1,7 +1,7 @@
 'use client'
 
 import * as s from './style'
-import { OrderStatus, statusMap } from '@/server/order/order.types'
+import { OrderStatus } from '@/server/order/order.types'
 import { CSSProperties } from 'styled-components'
 import { disableStatus } from '../../service/disableStatus'
 import { useChangeState } from '../../hook/useChangeStatus'

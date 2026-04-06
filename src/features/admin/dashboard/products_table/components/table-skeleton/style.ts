@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { GlobalColors } from "@/styles/theme";
 import { flexColumn, skeletonEffect } from "@/styles/mixins";
 

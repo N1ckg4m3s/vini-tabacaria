@@ -8,16 +8,16 @@ export const metadata: Metadata = {
 };
 
 interface searchParams {
-    searchParams: {
+    searchParams: Promise<{
         page?: number,
         limit?: number,
         tab?: string
-    }
+    }>
 }
 
 export default async function Page({ searchParams }: searchParams) {
     const params = await searchParams
-    const { page, limit, tab } = params
+    const { page = 1, limit, tab } = params
 
     const validTabs = ['processing', 'finished'] as const
     const selectedTab = (validTabs.includes(tab as any) ? tab : 'processing') as 'processing' | 'finished'
